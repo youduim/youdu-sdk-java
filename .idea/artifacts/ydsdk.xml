@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ydsdk">
+    <output-path>$PROJECT_DIR$/out/artifacts/ydsdk</output-path>
+    <root id="archive" name="ydsdk.jar">
+      <element id="module-output" name="ydsdk" />
+      <element id="module-test-output" name="ydsdk" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ydsdklib/gson-2.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ydsdklib/junit-4.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ydsdklib/httpcore-4.4.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ydsdklib/httpmime-4.5.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ydsdklib/httpclient-4.5.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../ydsdklib/commons-logging-1.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
