@@ -43,61 +43,74 @@ public class AppServerTest extends TestCase {
 
         private void dealMsg(ReceiveMessage ydMsg){
             try {
-                switch (ydMsg.getMsgType()) {
-                    case Const.Message_App_Type_Text:
+                String msgType = ydMsg.getMsgType();
+                for(;;) {
+                    if(msgType==Const.Message_App_Type_Text) {
                         String text = ydMsg.getAsTextMsg();
-                        System.out.println(String.format("receive app text msg: %s",text));
+                        System.out.println(String.format("receive app text msg: %s", text));
                         break;
-                    case Const.Message_App_Type_File:
+                    }
+                    if(msgType==Const.Message_App_Type_File) {
                         FileBody appFile = ydMsg.getAsFileMsg();
-                        System.out.println(String.format("receive app file msg: %s",appFile.getMediaId()));
+                        System.out.println(String.format("receive app file msg: %s", appFile.getMediaId()));
                         break;
-                    case Const.Message_App_Type_Image:
+                    }
+                    if(msgType==Const.Message_App_Type_Image) {
                         ImageBody appImg = ydMsg.getAsImageMsg();
                         System.out.println(String.format("receive app img msg: %s",appImg.getMediaId()));
                         break;
-                    case Const.Message_App_Type_Sms:
+                    }
+                    if(msgType==Const.Message_App_Type_Sms) {
                         SmsBody smsMsg = ydMsg.getAsSmsMsg();
                         System.out.println(String.format("receive app sms msg: %s",smsMsg.getContent()));
                         break;
-                    case Const.Message_Session_Create:
+                    }
+                    if(msgType==Const.Message_Session_Create) {
                         SessionCreateBody sessionCreate = ydMsg.getAsSessionCreate();
                         System.out.println(String.format("receive app sms msg: %s",ydMsg.getSessionId(),sessionCreate.getTitle()));
                         break;
-                    case Const.Message_Session_Update:
+                    }
+                    if(msgType==Const.Message_Session_Update) {
                         SessionUpdateBody sessionUpdate = ydMsg.getAsSessionUpdate();
                         System.out.println(String.format("receive app sms msg: %s",ydMsg.getSessionId(),sessionUpdate.getTitle(),sessionUpdate.getOwner()));
                         break;
-                    case Const.Message_Session_Type_Text:
+                    }
+                    if(msgType==Const.Message_Session_Type_Text) {
                         String txt = ydMsg.getAsTextMsg();
                         System.out.println(String.format("receive session text msg: %s",txt));
                         break;
-                    case Const.Message_Session_Type_File:
+                    }
+                    if(msgType==Const.Message_Session_Type_File) {
                         FileBody sessionFile = ydMsg.getAsFileMsg();
                         System.out.println(String.format("receive session file msg: %s",sessionFile.getMediaId()));
                         break;
-                    case Const.Message_Session_Type_Image:
+                    }
+                    if(msgType==Const.Message_Session_Type_Image) {
                         ImageBody sessionImg = ydMsg.getAsImageMsg();
                         System.out.println(String.format("receive session img msg: %s",sessionImg.getMediaId()));
                         break;
-                    case Const.Message_Session_Type_Audio:
+                    }
+                    if(msgType==Const.Message_Session_Type_Audio) {
                         AudioBody audio = ydMsg.getAsAudioMsg();
                         System.out.println(String.format("receive audio msg: %s",audio.getMediaId()));
                         break;
-                    case Const.Message_Session_Type_Complex:
+                    }
+                    if(msgType==Const.Message_Session_Type_Complex) {
                         ComplexBody complexBody = ydMsg.getAsComplexMsg();
                         System.out.println(String.format("receive complex msg: %v",complexBody.getBody()));
                         break;
-                    case Const.Message_Session_Type_System:
+                    }
+                    if(msgType==Const.Message_Session_Type_System) {
                         RecvSystemMsgBody systemMsgBody = ydMsg.getAsSystemMsg();
                         System.out.println(String.format("receive system msg: %v",systemMsgBody.getMsg()));
                         break;
-                    case Const.Message_Session_Type_Broadcast:
+                    }
+                    if(msgType==Const.Message_Session_Type_Broadcast) {
                         RecvBroadcastBody broadcastBody = ydMsg.getAsBroadcastMsg();
-                        System.out.println(String.format("receive broadcast msg: %v",broadcastBody.getMsg()));
+                        System.out.println(String.format("receive broadcast msg: %v", broadcastBody.getMsg()));
                         break;
-                    default:
-                        break;
+                    }
+                    break;
                 }
             }catch (Exception e){
                 e.printStackTrace();

@@ -15,7 +15,7 @@ public class SessionMsgClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "jFf3li+v5krxk5xz4B4TzlGmMup+X7cofjO06e5brk0="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "d3jzTbs6eWnj2f/3eliX/+JZTSWSTuTQfOeMIMVlDBY="; // 请填写企业应用的EncodingaesKey
 
     private SessionMsgClient msgClient;
 

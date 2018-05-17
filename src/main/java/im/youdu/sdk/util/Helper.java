@@ -300,7 +300,7 @@ public final class Helper {
     }
 
     public static List<Map<String,MessageBody>> parseComplexMsgBody(JsonArray jArray) {
-        List<Map<String, MessageBody>> list = new ArrayList<>();
+        List<Map<String, MessageBody>> list = new ArrayList<Map<String, MessageBody>>();
         if (null == jArray || jArray.size()==0) {
             return list;
         }

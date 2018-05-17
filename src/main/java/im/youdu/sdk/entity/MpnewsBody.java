@@ -15,7 +15,7 @@ public class MpnewsBody extends MessageBody {
     private List<MpnewsBodyCell> msgList;
 
     public MpnewsBody() {
-        this.msgList = new ArrayList<>();
+        this.msgList = new ArrayList<MpnewsBodyCell>();
     }
 
     /**

@@ -15,7 +15,7 @@ public class OrgUserClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "8ZQRuCA4N7BJPLSWbzWD6744qP/axLwfs2kruYCJcMk="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "d3jzTbs6eWnj2f/3eliX/+JZTSWSTuTQfOeMIMVlDBY="; // 请填写企业应用的EncodingaesKey
 
     private String userId = "hunter.lin"; // 用户账号
     private String avatarDir = "D:\\pics\\avatar";// 保存头像的路径

@@ -1,7 +1,6 @@
 package im.youdu.sdk.client;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import im.youdu.sdk.encrypt.AESCrypto;
 import im.youdu.sdk.entity.*;
@@ -10,7 +9,6 @@ import im.youdu.sdk.exception.FileIOException;
 import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.util.Helper;
-import javafx.util.Pair;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -23,7 +21,6 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 
 public class OrgUserClient {
     private int buin;

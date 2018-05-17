@@ -16,7 +16,7 @@ public class SessionCreateBody extends MessageBody {
     private List<String> member;
 
     public SessionCreateBody() {
-        this.member = new ArrayList<>();
+        this.member = new ArrayList<String>();
     }
 
     @Override

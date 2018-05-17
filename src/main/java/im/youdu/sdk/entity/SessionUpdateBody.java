@@ -16,8 +16,8 @@ public class SessionUpdateBody extends MessageBody {
     private List<String> delMember;
 
     public SessionUpdateBody() {
-        addMember = new ArrayList<>();
-        delMember = new ArrayList<>();
+        addMember = new ArrayList<String>();
+        delMember = new ArrayList<String>();
     }
 
     @Override

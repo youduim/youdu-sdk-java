@@ -13,10 +13,10 @@ public class AppClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_NAME = "A应用"; //应用名称
-    private static final String APP_ID = "ydE6476737EBE64E04B950326489F7377E"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "aBJa4S48fuyWQl19W2+xTOHYWfNL6hd8/9pgi7JEok0="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_ID = "yd5C0995DBC736451D80763F9270A9A9E8"; // 请填写企业应用AppId
+    private static final String APP_AESKEY = "aempBarITDeMaqUg4ee+Wq2txhEG4q1NhWVoBfz1vzo="; // 请填写企业应用的EncodingaesKey
 
-    private String toUser = "cs1|max"; // 测试收收消息的账号
+    private String toUser = "cs1|max.chen"; // 测试收收消息的账号
     private String toDept = "1|2|3"; // 测试收收消息的部门ID
     private  String testImg = "D:\\pics\\2018\\2018-01-01.jpg";
     private  String testImg2 = "D:\\pics\\2018\\2018-02-01.jpg";

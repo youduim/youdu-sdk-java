@@ -13,7 +13,7 @@ public class OrgDeptClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "8ZQRuCA4N7BJPLSWbzWD6744qP/axLwfs2kruYCJcMk="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "n76ut0qxPWozXbMxGMt8s9pgxUZKUxu/GJ5R5dz+u4g="; // 请填写企业应用的EncodingaesKey
 
     private OrgDeptClient orgDeptClient;
     private int deptId = 0;
@@ -47,6 +47,18 @@ public class OrgDeptClientTest extends TestCase {
     public void testGetDept() throws ParamParserException, HttpRequestException, AESCryptoException {
         Dept dept = orgDeptClient.getDept(deptId);
         System.out.println("get dept with id "+deptId+" ok: "+dept);
+    }
+
+    //测试获取当前部门及直属子部门列表
+    public void testListDeptSelfAndChildren() throws ParamParserException, HttpRequestException, AESCryptoException {
+        List<Dept> depts = orgDeptClient.listDeptSelfAndChildren(deptId);
+        if(depts.size()==0){
+            System.out.println("list dept children ok, found no children: "+deptId);
+            return;
+        }
+        for(Dept dept : depts){
+            System.out.println("get dept children: "+dept);
+        }
     }
 
     //测试获取直属子部门列表

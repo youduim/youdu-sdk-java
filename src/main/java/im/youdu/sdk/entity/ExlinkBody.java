@@ -15,7 +15,7 @@ public class ExlinkBody extends MessageBody {
     private List<ExlinkBodyCell> msgList;
 
     public ExlinkBody() {
-        this.msgList = new ArrayList<>();
+        this.msgList = new ArrayList<ExlinkBodyCell>();
     }
 
     public ExlinkBody(List<ExlinkBodyCell> msgList) {

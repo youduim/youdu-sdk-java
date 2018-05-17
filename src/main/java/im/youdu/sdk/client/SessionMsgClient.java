@@ -57,7 +57,7 @@ public class SessionMsgClient {
        Long activeTime = Helper.getLong("activeTime", jsonRsp);
 
         JsonArray array = Helper.getArray("member",jsonRsp);
-        List<String> mems = new ArrayList<>();
+        List<String> mems = new ArrayList<String>();
         if(null != array && array.size()>0){
             for(JsonElement e:array) {
                 mems.add(e.getAsString());

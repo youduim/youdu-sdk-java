@@ -254,28 +254,33 @@ public class ReceiveMessage {
         boolean hasSession = (null != sessionId && !"".equals(sessionId));
         boolean hasRecv = (null != receiver && !"".equals(receiver));
         boolean isSession = (hasSession || hasRecv);
-        switch (msgType){
-            case MessageTypeText:
+        for(;;){
+            if(msgType == MessageTypeText){
                 if(isSession){
                     msgType = Const.Message_Session_Type_Text;
                 }else{
                     msgType = Const.Message_App_Type_Text;
                 }
                 break;
-            case MessageTypeFile:
-                if(isSession){
+            }
+
+            if(msgType == MessageTypeFile) {
+                if (isSession) {
                     msgType = Const.Message_Session_Type_File;
-                }else{
+                } else {
                     msgType = Const.Message_App_Type_File;
                 }
                 break;
-            case MessageTypeImage:
-                if(isSession){
+            }
+            if(msgType == MessageTypeImage) {
+                if (isSession) {
                     msgType = Const.Message_Session_Type_Image;
-                }else{
+                } else {
                     msgType = Const.Message_App_Type_Image;
                 }
                 break;
+            }
+            break;
         }
         return msgType;
     }
