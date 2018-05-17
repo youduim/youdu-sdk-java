@@ -51,4 +51,14 @@ public class YdApi {
     public static final String  API_SESSION_SEND_MSG = "/cgi/session/send";
 
     public static final String  API_SESSION_CREATE =  "/cgi/session/create";
+
+    /*****API FOR GROUP*****/
+    public static final String  API_GROUP_CREATE =  "/cgi/group/create";
+    public static final String  API_GROUP_DELETE =  "/cgi/group/delete";
+    public static final String  API_GROUP_UPDATE =  "/cgi/group/update";
+    public static final String  API_GROUP_INFO =  "/cgi/group/info";
+    public static final String  API_GROUP_LIST =  "/cgi/group/list";
+    public static final String  API_GROUP_ADDMEMBER =  "/cgi/group/addmember";
+    public static final String  API_GROUP_DELMEMBER =  "/cgi/group/delmember";
+    public static final String  API_GROUP_ISMEMBER =  "/cgi/group/ismember";
 }
