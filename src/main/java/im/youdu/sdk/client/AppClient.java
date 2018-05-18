@@ -697,4 +697,12 @@ public class AppClient {
     public void setCrypto(AESCrypto crypto) {
         this.crypto = crypto;
     }
+
+    public AppTokenClient getTokenClient() {
+        return tokenClient;
+    }
+
+    public void setTokenClient(AppTokenClient tokenClient) {
+        this.tokenClient = tokenClient;
+    }
 }

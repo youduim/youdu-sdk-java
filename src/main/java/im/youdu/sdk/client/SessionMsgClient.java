@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import im.youdu.sdk.encrypt.AESCrypto;
 import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
+import im.youdu.sdk.exception.FileIOException;
 import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.util.Helper;
@@ -20,9 +21,11 @@ public class SessionMsgClient {
     private String host;
     private String appId;
     private String appAeskey;
+    private YDApp app;
 
     private AESCrypto crypto;
     private AppTokenClient tokenClient;
+    private AppClient appClient;
 
     private final static String MessageTypeText = "text";
     private final static String MessageTypeFile = "file";
@@ -34,6 +37,7 @@ public class SessionMsgClient {
     private final static String MessageTypeSystem = "sysMsg";
 
     public SessionMsgClient(YDApp app) {
+        this.app = app;
         this.buin = app.getBuin();
         this.host = app.getHost();
         this.appId = app.getAppId();
@@ -145,14 +149,126 @@ public class SessionMsgClient {
 //----------------------------------------------------------------------------------------------------------------------
     //发送单人会话文字消息
     public void sendSingleTextMsg(String fromUser, String toUser, String content) throws AESCryptoException, ParamParserException, HttpRequestException {
+        TextBody text = new TextBody(content);
+        sendSingleMsg(fromUser,toUser,MessageTypeText,text);
+    }
+
+    //发送单人会话图片消息
+    public void sendSingleImgMsgV1(String fromUser, String toUser, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String imgId = appClient.uploadImage("",imgPath);
+        ImageBody img = new ImageBody(imgId);
+        sendSingleMsg(fromUser,toUser,MessageTypeImage,img);
+    }
+
+    //发送单人会话图片消息
+    public void sendSingleImgMsgV2(String fromUser, String toUser, String imgName, byte[] imgData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String imgId = appClient.uploadImageWithBytes(imgName,imgData);
+        ImageBody img = new ImageBody(imgId);
+        sendSingleMsg(fromUser,toUser,MessageTypeImage,img);
+    }
+
+    //发送单人会话文件消息
+    public void sendSingleFileMsgV1(String fromUser, String toUser, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String mediaId = appClient.uploadFile("",filePath);
+        FileBody f = new FileBody(mediaId);
+        sendSingleMsg(fromUser,toUser,MessageTypeFile,f);
+    }
+
+    //发送单人会话文件消息
+    public void sendSingleFileMsgV2(String fromUser, String toUser, String fileName, byte[] fileData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String mediaId = appClient.uploadFileWithBytes(fileName,fileData);
+        FileBody f = new FileBody(mediaId);
+        sendSingleMsg(fromUser,toUser,MessageTypeFile,f);
+    }
+
+    private void sendSingleMsg(String fromUser, String toUser, String msgType, MessageBody body) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject obj = new JsonObject();
         obj.addProperty("sender", fromUser);
         obj.addProperty("receiver", toUser);
-        obj.addProperty("msgType", MessageTypeText);
-        TextBody text = new TextBody(content);
-        obj.add("text", text.toJsonElement());
+        obj.addProperty("msgType", msgType);
+        obj.add(msgType, body.toJsonElement());
         String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherStr);
+        Helper.postJson(this.uriSendMsg(), param.toString());
+    }
 
+    //--------------------
+    //发送多人会话图片消息
+    public void sendSessionTextMsg(String fromUser, String sessionId, String content) throws ParamParserException, HttpRequestException, AESCryptoException {
+        TextBody text = new TextBody(content);
+        sendSessionMsg(fromUser,sessionId,MessageTypeText,text);
+    }
+
+    //发送多人会话图片消息
+    public void sendSessionImgMsgV1(String fromUser, String sessionId, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String imgId = appClient.uploadImage("",imgPath);
+        ImageBody img = new ImageBody(imgId);
+        sendSessionMsg(fromUser,sessionId,MessageTypeImage,img);
+    }
+
+    //发送多人会话图片消息
+    public void sendSessionImgMsgV2(String fromUser, String sessionId, String imgName, byte[] imgData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String imgId = appClient.uploadImageWithBytes(imgName,imgData);
+        ImageBody img = new ImageBody(imgId);
+        sendSessionMsg(fromUser,sessionId,MessageTypeImage,img);
+    }
+
+    //发送多人会话文件消息
+    public void sendSessionFileMsgV1(String fromUser, String sessionId, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String mediaId = appClient.uploadFile("",filePath);
+        FileBody f = new FileBody(mediaId);
+        sendSessionMsg(fromUser,sessionId,MessageTypeFile,f);
+    }
+
+    //发送多人会话文件消息
+    public void sendSessionFileMsgV2(String fromUser, String sessionId, String fileName, byte[] fileData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String mediaId = appClient.uploadFileWithBytes(fileName,fileData);
+        FileBody f = new FileBody(mediaId);
+        sendSessionMsg(fromUser,sessionId,MessageTypeFile,f);
+    }
+
+    private void sendSessionMsg(String fromUser, String sessionId, String msgType, MessageBody body) throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("sender", fromUser);
+        obj.addProperty("sessionId", sessionId);
+        obj.addProperty("msgType", msgType);
+        obj.add(msgType, body.toJsonElement());
+        String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
         JsonObject param = new JsonObject();
         param.addProperty("buin", this.buin);
         param.addProperty("appId", this.appId);

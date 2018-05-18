@@ -5,6 +5,7 @@ import im.youdu.sdk.entity.SessionInfo;
 import im.youdu.sdk.entity.SessionUpdateBody;
 import im.youdu.sdk.entity.YDApp;
 import im.youdu.sdk.exception.AESCryptoException;
+import im.youdu.sdk.exception.FileIOException;
 import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
 import junit.framework.TestCase;
@@ -55,6 +56,7 @@ public class SessionMsgClientTest extends TestCase {
         body.setOpUser("cs10");
         body.setTitle("更新后的会话名称");
         List<String> addUser = new ArrayList<String>();
+        addUser.add("cs1");
         addUser.add("cs5");
         addUser.add("cs6");
         addUser.add("cs7");
@@ -86,8 +88,44 @@ public class SessionMsgClientTest extends TestCase {
         System.out.println("---------------------------------");
     }
 //----------------------------------------------------------------------
+    String msgFrom = "cs1";
+    String msgTo = "max.chen";
+    String text = "有度即时通";
+    String imgPath = "D:\\pics\\2018\\2018-01-05.jpg";
+
+    //测试发送单人会话文字消息
+    public void testSendSingleTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
+        sessionClient.sendSingleTextMsg(msgFrom,msgTo,text);
+    }
+
+    //测试发送单人会话图片消息
+    public void testSendSingleImgMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        sessionClient.sendSingleImgMsgV1(msgFrom,msgTo,imgPath);
+    }
+
+    //测试发送单人会话文件消息
+    public void testSendSingleFileMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        sessionClient.sendSingleFileMsgV1(msgFrom,msgTo,imgPath);
+    }
+
+    //测试发送多人会话文字消息
+    public void testSendSessionTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
+        sessionClient.sendSessionTextMsg(msgFrom,testSessonId,text);
+    }
+
+    //测试发送多人会话图片消息
+    public void testSendSessionImgMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        sessionClient.sendSessionImgMsgV1(msgFrom,testSessonId,imgPath);
+    }
+
+    //测试发送多人会话文件消息
+    public void testSendSessionFileMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        sessionClient.sendSessionFileMsgV1(msgFrom,testSessonId,imgPath);
+    }
+
+//----------------------------------------------------------------------
     String str = "aqwe请问rty儿uui童ioioo椅pUlkIj哦h破h了g客g家f话f给fQdWdEdRsTaYzUxIc噢v普b朗n克m激AS活D过F范G德H萨J自K行L车PVOBI你U们Y门T板R是E从W小Q杂Z水X电C费V规B划N局M科伦坡";
-    public void testSendSingleTextMsg() throws ParamParserException, HttpRequestException, AESCryptoException, InterruptedException {
+    public void testBatchSendSingleTextMsg() throws ParamParserException, HttpRequestException, AESCryptoException, InterruptedException {
         String from = "cs1";
         String to = "max.chen";
         String content = "";
