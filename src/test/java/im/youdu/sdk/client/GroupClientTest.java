@@ -57,7 +57,7 @@ public class GroupClientTest extends TestCase {
     //测试获取群信息
     public void testGetGroup() throws HttpRequestException, UnsupportedEncodingException, AESCryptoException, ParamParserException {
         Group group = groupClient.groupInfo(testGroupId);
-        System.out.println(group.getId()+":"+group.getName());
+        System.out.println(group.getId()+":"+group.getName()+":"+group.getAdmin());
         for(GroupMember mem:group.getMembers()){
             System.out.println(mem.getAccount()+":"+mem.getName()+":"+mem.getMobile());
         }

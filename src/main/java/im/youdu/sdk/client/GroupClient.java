@@ -125,6 +125,7 @@ public class GroupClient {
         Group group = new Group();
         group.setId(Helper.getString("id",jsonObj));
         group.setName(Helper.getString("name",jsonObj));
+        group.setAdmin(Helper.getString("admin",jsonObj));
         JsonArray jMemberArray =  Helper.getArray("members", jsonObj);
         if(null == jMemberArray || jMemberArray.size()==0){
             return  group;
