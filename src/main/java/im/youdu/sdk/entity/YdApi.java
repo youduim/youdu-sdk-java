@@ -5,6 +5,8 @@ public class YdApi {
 
     public static final String MEDIA_TYPE_FILE = "file";
     public static final String MEDIA_TYPE_IMG = "image";
+    public static final String MEDIA_TYPE_VOICE = "voice";
+    public static final String MEDIA_TYPE_VIDEO = "video";
 
     /*****API FOR TOKEN*****/
     public static final String API_GET_TOKEN = "/cgi/gettoken";

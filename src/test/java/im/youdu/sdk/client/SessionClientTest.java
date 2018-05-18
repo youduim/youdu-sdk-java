@@ -8,26 +8,27 @@ import im.youdu.sdk.exception.AESCryptoException;
 import im.youdu.sdk.exception.FileIOException;
 import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
+import im.youdu.sdk.util.Helper;
 import junit.framework.TestCase;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionMsgClientTest extends TestCase {
+public class SessionClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
     private static final String APP_AESKEY = "n76ut0qxPWozXbMxGMt8s9pgxUZKUxu/GJ5R5dz+u4g="; // 请填写企业应用的EncodingaesKey
 
-    private SessionMsgClient sessionClient;
+    private SessionClient sessionClient;
 
-    public SessionMsgClientTest(){
+    public SessionClientTest(){
         YDApp app = new YDApp(BUIN, YDSERVER_HOST, "", APP_ID, "", APP_AESKEY);
-        sessionClient = new SessionMsgClient(app);
+        sessionClient = new SessionClient(app);
     }
 
-    String testSessonId = "{7248ADE6-C9A9-4119-A9F5-F58CFE62F836}";
+    String testSessonId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
     //测试创建会话
     public void testCreateSession() throws ParamParserException, HttpRequestException, AESCryptoException {
         SessionCreateBody body = new SessionCreateBody();
@@ -92,6 +93,8 @@ public class SessionMsgClientTest extends TestCase {
     String msgTo = "max.chen";
     String text = "有度即时通";
     String imgPath = "D:\\pics\\2018\\2018-01-05.jpg";
+    String voicePath = "D:\\videos\\1526636096.amr";
+    String videoPath = "D:\\videos\\1526636096.mp4";
 
     //测试发送单人会话文字消息
     public void testSendSingleTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
@@ -108,6 +111,20 @@ public class SessionMsgClientTest extends TestCase {
         sessionClient.sendSingleFileMsgV1(msgFrom,msgTo,imgPath);
     }
 
+    //测试发送单人会话语音消息
+    public void testSendSingleVoiceMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+        byte[] data = Helper.readFile(voicePath);
+        sessionClient.sendSingleVoiceMsg(msgFrom,msgTo,data);
+    }
+
+    //测试发送单人会话视频消息
+    public void testSendSingleVideoMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+        byte[] data = Helper.readFile(videoPath);
+        sessionClient.sendSingleVideoMsg(msgFrom,msgTo,data);
+    }
+
+    //--------------------
+
     //测试发送多人会话文字消息
     public void testSendSessionTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
         sessionClient.sendSessionTextMsg(msgFrom,testSessonId,text);
@@ -122,6 +139,19 @@ public class SessionMsgClientTest extends TestCase {
     public void testSendSessionFileMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
         sessionClient.sendSessionFileMsgV1(msgFrom,testSessonId,imgPath);
     }
+
+    //测试发送多人会话语音消息
+    public void testSendSessionVoiceMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+        byte[] data = Helper.readFile(voicePath);
+        sessionClient.sendSessionVoiceMsg(msgFrom,testSessonId,data);
+    }
+
+    //测试发送多人会话视频消息
+    public void testSendSessionVideoMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+        byte[] data = Helper.readFile(videoPath);
+        sessionClient.sendSessionVideoMsg(msgFrom,testSessonId,data);
+    }
+
 
 //----------------------------------------------------------------------
     String str = "aqwe请问rty儿uui童ioioo椅pUlkIj哦h破h了g客g家f话f给fQdWdEdRsTaYzUxIc噢v普b朗n克m激AS活D过F范G德H萨J自K行L车PVOBI你U们Y门T板R是E从W小Q杂Z水X电C费V规B划N局M科伦坡";

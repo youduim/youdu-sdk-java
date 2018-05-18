@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionMsgClient {
+public class SessionClient {
     private int buin;
     private String host;
     private String appId;
@@ -30,13 +30,10 @@ public class SessionMsgClient {
     private final static String MessageTypeText = "text";
     private final static String MessageTypeFile = "file";
     private final static String MessageTypeImage = "image";
-    private final static String MessageTypeSms = "sms";
-    private final static String MessageTypeLink = "link";
-    private final static String MessageTypeExlink = "exlink";
-    private final static String MessageTypeMpnews = "mpnews";
-    private final static String MessageTypeSystem = "sysMsg";
+    private final static String MessageTypeVoice = "voice";
+    private final static String MessageTypeVideo = "video";
 
-    public SessionMsgClient(YDApp app) {
+    public SessionClient(YDApp app) {
         this.app = app;
         this.buin = app.getBuin();
         this.host = app.getHost();
@@ -197,6 +194,28 @@ public class SessionMsgClient {
         sendSingleMsg(fromUser,toUser,MessageTypeFile,f);
     }
 
+    //发送单人会话语音消息
+    public void sendSingleVoiceMsg(String fromUser, String toUser, byte[] voiceData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String id = appClient.uploadVoice ("voice.dat",voiceData);
+        AudioBody audio = new AudioBody(id);
+        sendSingleMsg(fromUser,toUser,MessageTypeVoice,audio);
+    }
+
+    //发送单人会话视频消息
+    public void sendSingleVideoMsg(String fromUser, String toUser, byte[] videoData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String id = appClient.uploadVideo ("video.dat",videoData);
+        VideoBody video = new VideoBody(id);
+        sendSingleMsg(fromUser,toUser,MessageTypeVideo,video);
+    }
+
     private void sendSingleMsg(String fromUser, String toUser, String msgType, MessageBody body) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject obj = new JsonObject();
         obj.addProperty("sender", fromUser);
@@ -260,6 +279,28 @@ public class SessionMsgClient {
         String mediaId = appClient.uploadFileWithBytes(fileName,fileData);
         FileBody f = new FileBody(mediaId);
         sendSessionMsg(fromUser,sessionId,MessageTypeFile,f);
+    }
+
+    //发送多人会话语音消息
+    public void sendSessionVoiceMsg(String fromUser, String sessionId, byte[] voiceData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String id = appClient.uploadFileWithBytes ("voice.dat",voiceData);
+        AudioBody audio = new AudioBody(id);
+        sendSessionMsg(fromUser,sessionId,MessageTypeVoice,audio);
+    }
+
+    //发送多人会话视频消息
+    public void sendSessionVideoMsg(String fromUser, String sessionId, byte[] videoData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        if(null == appClient){
+            appClient = new AppClient(app);
+            appClient.setTokenClient(tokenClient);
+        }
+        String id = appClient.uploadFileWithBytes ("video.dat",videoData);
+        VideoBody video = new VideoBody(id);
+        sendSessionMsg(fromUser,sessionId,MessageTypeVideo,video);
     }
 
     private void sendSessionMsg(String fromUser, String sessionId, String msgType, MessageBody body) throws ParamParserException, HttpRequestException, AESCryptoException {

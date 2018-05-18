@@ -122,6 +122,22 @@ public class AppClient {
         return this.uploadMedia(YdApi.MEDIA_TYPE_FILE, name,data);
     }
 
+    //上传语音
+    public String uploadVoice(String name, byte[] data) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(null == name || "".equals(name.trim())){
+            name="voice.dat";
+        }
+        return this.uploadMedia(YdApi.MEDIA_TYPE_VOICE, name,data);
+    }
+
+    //上传视频
+    public String uploadVideo(String name, byte[] data) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(null == name || "".equals(name.trim())){
+            name="video.dat";
+        }
+        return this.uploadMedia(YdApi.MEDIA_TYPE_VIDEO, name,data);
+    }
+
     /**
      * 下载文件
      *
