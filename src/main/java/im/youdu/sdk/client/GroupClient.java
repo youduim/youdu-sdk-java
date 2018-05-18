@@ -117,7 +117,6 @@ public class GroupClient {
         }
 
         String url = uriGroupInfo(groupId);
-        System.out.println(url);
         JsonObject jsonRsp =  Helper.getUrlV2(url);
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);

@@ -47,10 +47,13 @@ public class YdApi {
     public static final String API_USER_GET_DEPT_DETAIL= "/cgi/user/list";
     public static final String API_USER_SET_AUTH= "/cgi/user/setauth";
 
+    /*****API FOR SESSION*****/
+    public static final String  API_SESSION_GET =  "/cgi/session/get";
+    public static final String  API_SESSION_CREATE =  "/cgi/session/create";
+    public static final String  API_SESSION_UPDATE =  "/cgi/session/update";
+
     /*****API FOR SESSION MSG*****/
     public static final String  API_SESSION_SEND_MSG = "/cgi/session/send";
-
-    public static final String  API_SESSION_CREATE =  "/cgi/session/create";
 
     /*****API FOR GROUP*****/
     public static final String  API_GROUP_CREATE =  "/cgi/group/create";

@@ -1,5 +1,6 @@
 package im.youdu.sdk.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessionInfo {
@@ -8,9 +9,7 @@ public class SessionInfo {
     private String owner;
     private Long version;
     private String type;
-    private List<String> member;
-    private Long lastMsgId;
-    private Long activeTime;
+    private List<String> member = new ArrayList<String>();
 
     public String getSessionId() {
         return sessionId;
@@ -58,21 +57,5 @@ public class SessionInfo {
 
     public void setMember(List<String> member) {
         this.member = member;
-    }
-
-    public Long getLastMsgId() {
-        return lastMsgId;
-    }
-
-    public void setLastMsgId(Long lastMsgId) {
-        this.lastMsgId = lastMsgId;
-    }
-
-    public Long getActiveTime() {
-        return activeTime;
-    }
-
-    public void setActiveTime(Long activeTime) {
-        this.activeTime = activeTime;
     }
 }

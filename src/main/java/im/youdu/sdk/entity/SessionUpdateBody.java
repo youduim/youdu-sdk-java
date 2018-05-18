@@ -12,12 +12,24 @@ import java.util.List;
 public class SessionUpdateBody extends MessageBody {
     private String owner;
     private String title;
+    private String opUser;
+    private String sessionId;
     private List<String> addMember;
     private List<String> delMember;
 
     public SessionUpdateBody() {
         addMember = new ArrayList<String>();
         delMember = new ArrayList<String>();
+    }
+
+    public String checkForUpdate(){
+        if(null == sessionId || "".equals(sessionId)){
+            return "sessionId is null";
+        }
+        if(null == opUser || "".equals(opUser)){
+            return "opUser is null";
+        }
+        return "";
     }
 
     @Override
@@ -77,6 +89,38 @@ public class SessionUpdateBody extends MessageBody {
 
     public List<String> getDelMember() {
         return delMember;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getOpUser() {
+        return opUser;
+    }
+
+    public void setOpUser(String opUser) {
+        this.opUser = opUser;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setAddMember(List<String> addMember) {
+        this.addMember = addMember;
+    }
+
+    public void setDelMember(List<String> delMember) {
+        this.delMember = delMember;
     }
 }
 
