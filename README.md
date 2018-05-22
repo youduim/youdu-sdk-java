@@ -16,6 +16,7 @@ YDApp 有度应用对象
 ### 构建YDApp
     import im.youdu.sdk.entity
     YDApp ydApp = new YDApp(int buin, String srvHost, String appName, String appId, String token, String appAesKey)
+    
     buin: 企业总机号
     srvHost: 有度服务器地址，比如 10.0.0.168:7080
     appName: 有度应用名称，可以设置空串
