@@ -13,9 +13,9 @@ java版有度服务SDK说明
 
 1、AppClient
 --------------------
-#####uploadImage
+uploadImage
+    上传图片
+——
+uploadImageWithBytes
     上传图片
----
-#####uploadImageWithBytes
-    上传图片
----    
+——   
