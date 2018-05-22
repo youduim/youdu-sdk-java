@@ -22,7 +22,7 @@ YDApp 有度应用对象
     appName: 应用名称，可以设置空串
     appId: 应用ID
     token: 应用回调设置的token
-    appAesKey: 应用回调设置的EncodingAESKey
+    appAesKey: 应用回调设置的EncodingAESKey
 ***
 AppClient
 --------------------
