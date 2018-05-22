@@ -11,9 +11,11 @@ java版有度服务SDK说明
 | SessionClient  | 会话管理及会话消息发送 
 
 
-AppClient
+1、AppClient
 --------------------
-
-
 uploadImage
-上传图片
+    上传图片
+***
+uploadImageWithBytes
+    上传图片
+***    
