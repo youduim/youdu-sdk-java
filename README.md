@@ -9,3 +9,11 @@ java版有度服务SDK说明
 | GroupClient    | 群管理            
 | IdentifyClient | 单点登录身份认证      
 | SessionClient  | 会话管理及会话消息发送 
+
+
+AppClient
+--------------------
+
+
+uploadImage
+上传图片
