@@ -13,7 +13,7 @@ java版有度服务SDK说明
 
 YDApp 有度应用对象
 --------------------
-### 构建YDApp
+#### 构建YDApp
     import im.youdu.sdk.entity
     YDApp ydApp = new YDApp(int buin, String srvHost, String appName, String appId, String token, String appAesKey)
     
@@ -22,8 +22,8 @@ YDApp 有度应用对象
     appName: 应用名称，可以设置空串
     appId: 应用ID
     token: 应用回调设置的token
-    appAesKey: 应用回调设置的EncodingAESKey
-
+    appAesKey: 应用回调设置的EncodingAESKey
+***
 AppClient
 --------------------
 #### 构建AppClient
