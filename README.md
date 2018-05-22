@@ -76,3 +76,38 @@ AppClient
     mediaId:  图片ID
     dir:  需要保存的文件夹路径
 
+#### sendTextMsg  给应用发送文本消息
+    appClient.sendTextMsg(String toUser, String toDept, String content)
+    toUser: 消息接收者，多个接收者用|分隔
+    toDept: 消息接收部门，多个部门用|分隔
+    content: 文字内容
+
+#### sendFileMsg  给应用发送文件消息
+    appClient.sendFileMsg(String toUser, String toDept, String fileName, String filePath)
+    fileName: 文件名称
+    filePath: 文件绝对路径
+
+#### sendFileMsgWithMediaId  给应用发送文件消息
+    appClient.sendFileMsgWithMediaId(String toUser, String toDept, String mediaId)
+    mediaId: 文件ID
+
+#### sendImageMsg  给应用发送图片消息
+    appClient.sendImageMsg(String toUser, String toDept, String imageName, String imagePath)
+    fileName: 图片名称
+    filePath: 图片绝对路径
+
+#### sendImageMsgWithMediaId  给应用发送图片消息
+    appClient.sendImageMsgWithMediaId(String toUser, String toDept, String mediaId)
+    mediaId: 文件ID
+
+#### sendLinkMsg  给应用发送隐式链接消息
+appClient.sendLinkMsg()
+
+#### sendExlinkMsg  给应用发送外链消息
+appClient.sendExlinkMsg()
+
+#### sendMpnewsMsg  给应用发送图文消息
+appClient.sendMpnewsMsg()
+
+#### sendSysMsg  发送系统消息
+appClient.sendSysMsg()
