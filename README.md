@@ -30,7 +30,7 @@ AppClient
     import im.youdu.sdk.client
     AppClient appClient = new AppClient(ydApp)
 #### uploadImage  上传图片
-    appClient.uploadImage(String name, String path)
+    appClient.uploadImage(String name, String path)
     name: 图片名称
     path: 图片绝对路径。如果name为空就从path读取
 #### uploadImageWithBytes  上传图片
