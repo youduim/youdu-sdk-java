@@ -101,17 +101,17 @@ AppClient
     mediaId: 文件ID
 
 #### sendLinkMsg  给应用发送隐式链接消息
-appClient.sendLinkMsg(String toUser, String toDept, LinkBody link)
-link: 隐式链接对象
+    appClient.sendLinkMsg(String toUser, String toDept, LinkBody link)
+    link: 隐式链接对象
 
 #### sendExlinkMsg  给应用发送外链消息
-appClient.sendExlinkMsg(String toUser, String toDept, ExlinkBody exLink)
-exLink: 外链对象
+    appClient.sendExlinkMsg(String toUser, String toDept, ExlinkBody exLink)
+    exLink: 外链对象
 
 #### sendMpnewsMsg  给应用发送图文消息
-appClient.sendMpnewsMsg(String toUser, String toDept, MpnewsBody mpnews)
-mpnews: 图文对象
+    appClient.sendMpnewsMsg(String toUser, String toDept, MpnewsBody mpnews)
+    mpnews: 图文对象
 
 #### sendSysMsg  发送系统消息
-appClient.sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg)
-sysMsg: 系统消息对象
+    appClient.sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg)
+    sysMsg: 系统消息对象
