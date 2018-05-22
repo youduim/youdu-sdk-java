@@ -21,8 +21,8 @@ YDApp 有度应用对象
     srvHost: 有度服务器地址，比如 10.0.0.168:7080
     appName: 应用名称
     appId: 应用ID
-    token: 应用回调设置的token
-    appAesKey: 应用回调设置的EncodingAESKey
+    token: 应用回调设置的token，没有就传空串
+    appAesKey: 应用回调设置的EncodingAESKey
 ***
 AppClient
 --------------------
