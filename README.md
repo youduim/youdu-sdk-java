@@ -105,10 +105,10 @@ AppClient
     link: 隐式链接对象
     构建LinkBody对象：
     import im.youdu.sdk.entity
-    LinkBody body = new LinkBody(String url, String title, int action);
-    url: 需要点击打开的网页链接
-    title: 隐式链接显示的标题
-    action：1：有度客户端会在url追加上有度身份认证token
+    LinkBody body = new LinkBody(String url, String title, int action);
+    url: 需要点击打开的网页链接
+    title: 隐式链接显示的标题
+    action：1：有度客户端会在url追加上有度身份认证token
 
 #### sendExlinkMsg  给应用发送外链消息
     appClient.sendExlinkMsg(String toUser, String toDept, ExlinkBody exLink)
