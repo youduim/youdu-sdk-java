@@ -164,3 +164,25 @@ SDK类介绍
     sysMsg.setTitle("有度即时通"); //设置系统消息标题
     sysMsg.addTextBody("欢迎使用有度即时通："); //添加文字内容
     sysMsg.addLinkBody("https://youdu.im","有度官网",0);//添加隐式链接
+***
+
+### IdentifyClient
+    有度身份认证
+--------------------
+#### 构建IdentifyClient对象
+    import im.youdu.sdk.client;
+    
+    String host = "127.0.0.1:7080";
+    IdentifyClient identifyClient = new IdentifyClient(host);
+	
+#### idetify 身份认证获取用户信息
+    UserInfo userInfo = identifyClient.idetify(String ydToken)
+	ydToken: 有度客户端提供的认证token
+	userInfo：根据ydToken获取到的有度用户信息
+	
+	account: 账号
+    chsName: 姓名
+    gender: 性别, 0:男; 1:女
+    mobile: 手机号码
+    phone: 座机号码
+    email: 邮箱账号
