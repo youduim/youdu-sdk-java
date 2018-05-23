@@ -18,7 +18,7 @@ YDApp 有度应用对象
     YDApp ydApp = new YDApp(int buin, String srvHost, String appName, String appId, String token, String appAesKey)
     
     buin: 企业总机号
-    srvHost: 有度服务器地址，比如 10.0.0.168:7080
+    srvHost: 有度服务器地址，例如 10.0.0.168:7080
     appName: 应用名称
     appId: 应用ID
     token: 应用回调设置的token，没有就传空串
@@ -103,6 +103,13 @@ AppClient
 #### sendLinkMsg  给应用发送隐式链接消息
     appClient.sendLinkMsg(String toUser, String toDept, LinkBody link)
     link: 隐式链接对象
+    
+    构建LinkBody对象：
+    import im.youdu.sdk.entity
+    LinkBody body = new LinkBody(String url, String title, int action);
+    url: 需要点击打开的网页链接
+    title: 隐式链接显示的标题
+    action：1：有度客户端会在url追加上有度身份认证token
 
 #### sendExlinkMsg  给应用发送外链消息
     appClient.sendExlinkMsg(String toUser, String toDept, ExlinkBody exLink)
