@@ -154,7 +154,7 @@ SDK类介绍
     SysMsgClient sysmsgClient = new SysMsgClient(app);
 
 #### sendSysMsg  发送系统消息
-    appClient.sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg)
+    sysmsgClient.sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg)
     sysMsg: 系统消息对象
     
     构建SysMsgBody对象：系统消息支持文本和隐式链接
