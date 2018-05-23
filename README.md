@@ -11,6 +11,12 @@ java版有度SDK说明
 | IdentifyClient | 单点登录身份认证      
 | SessionClient  | 会话管理及会话消息发送 
 
+***
+## 目录
+* [YDApp](#YDApp)
+* [AppClient](#AppClient)
+
+
 YDApp 有度应用对象
 --------------------
 #### 构建YDApp
