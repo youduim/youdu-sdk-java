@@ -17,23 +17,23 @@ java版有度SDK说明
 * [AppClient](#AppClient)
 
 
-YDApp 有度应用对象
+### YDApp 有度应用对象
 --------------------
 #### 构建YDApp
     import im.youdu.sdk.entity
     YDApp ydApp = new YDApp(int buin, String srvHost, String appName, String appId, String token, String appAesKey)
     
     buin: 企业总机号
-    srvHost: 有度服务器地址，例如 10.0.0.168:7080
+    srvHost: 有度服务器地址，例如 10.0.0.168:7080
     appName: 应用名称
     appId: 应用ID
-    token: 应用回调设置的token，没有就传空串
-    appAesKey: 应用回调设置的EncodingAESKey
+    token: 应用回调设置的token，没有就传空串
+    appAesKey: 应用回调设置的EncodingAESKey
 ***
 
 
 
-AppClient
+### AppClient
 --------------------
 #### 构建AppClient
     import im.youdu.sdk.client
