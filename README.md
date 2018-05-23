@@ -4,12 +4,13 @@ SDK类介绍
 --------------------
 |类名|使用说明|
 | -------------  |-------------
-| YDApp          | 有度应用对象      
+| YDApp          | 有度应用对象   
 | AppClient      | 应用消息发送      
 | OrgClient      | 组织架构管理       
-| GroupClient    | 群管理            
-| IdentifyClient | 单点登录身份认证      
-| SessionClient  | 会话管理及会话消息发送 
+| GroupClient    | 群管理
+| SysMsgClient   | 系统消息发送
+| IdentifyClient | 单点登录身份认证
+| SessionClient  | 会话管理及会话消息发送
 
 ***
 ## 目录
@@ -17,6 +18,7 @@ SDK类介绍
 * [AppClient](#AppClient)
 * [OrgClient](#OrgClient)
 * [GroupClient](#GroupClient)
+* [SysMsgClient](#SysMsgClient)
 * [IdentifyClient](#IdentifyClient)
 * [SessionClient](#SessionClient)
 ***
@@ -72,19 +74,11 @@ SDK类介绍
     appClient.uploadVideo(String name, byte[] data)
     name:  视频文件名称
     data:  视频文件二进制数据
-    
-#### downloadFile  下载文件
-    appClient.downloadFile(String mediaId)
-    mediaId:  文件ID
 
 #### downloadFileAndSave  下载并保存文件
     appClient.downloadFileAndSave(String mediaId, String dir)
     mediaId:  文件ID
     dir:  需要保存的文件夹路径
-
-#### downloadImage  下载图片
-    appClient.downloadImage(String mediaId)
-    mediaId:  图片ID
 
 #### downloadImageAndSave  下载并保存图片
     appClient.downloadImageAndSave(String mediaId, String dir)
@@ -145,7 +139,28 @@ SDK类介绍
 #### sendMpnewsMsg  给应用发送图文消息
     appClient.sendMpnewsMsg(String toUser, String toDept, MpnewsBody mpnews)
     mpnews: 图文对象
+***
+
+### SysMsgClient
+--------------------
+#### 构建SysMsgClient
+    import im.youdu.sdk.client;
+    
+    int buin = 707168;
+    String host = "127.0.0.1:7080";
+    String appId = "sysMsgAssistant";
+    String appAESKey = "nHff0+CrZRd0jg/o+b2BpLVVI0XzgOkasRaz50k80KE=";
+    YDApp app = new YDApp(buin, host, "", appId, "", appAESKey);
+    SysMsgClient sysmsgClient = new SysMsgClient(app);
 
 #### sendSysMsg  发送系统消息
-    appClient.sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg)
+    sysmsgClient.sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg)
     sysMsg: 系统消息对象
+    
+    构建SysMsgBody对象：系统消息支持文本和隐式链接
+    import im.youdu.sdk.client;
+    
+    SysMsgBody sysMsg = new SysMsgBody();
+    sysMsg.setTitle("有度即时通"); //设置系统消息标题
+    sysMsg.addTextBody("欢迎使用有度即时通："); //添加文字内容
+    sysMsg.addLinkBody("https://youdu.im","有度官网",0);//添加隐式链接
