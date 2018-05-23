@@ -1,6 +1,6 @@
 java版有度SDK说明
 ====================
-1、SDK类介绍
+SDK类介绍
 --------------------
 |类名|使用说明|
 | -------------  |-------------
@@ -15,9 +15,12 @@ java版有度SDK说明
 ## 目录
 * [YDApp](#YDApp)
 * [AppClient](#AppClient)
-
-
+* [OrgClient](#OrgClient)
+* [GroupClient](#GroupClient)
+* [IdentifyClient](#IdentifyClient)
+* [SessionClient](#SessionClient)
 ***
+
 ### YDApp 有度应用对象
 --------------------
 #### 构建YDApp
