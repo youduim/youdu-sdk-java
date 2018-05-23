@@ -20,9 +20,6 @@ public class AppTokenClient {
 
     private AESCrypto crypto;
 
-    public AppTokenClient() {
-    }
-
     public AppTokenClient(int buin, String host, String appId, String appAeskey) {
         this.buin = buin;
         this.host = host;

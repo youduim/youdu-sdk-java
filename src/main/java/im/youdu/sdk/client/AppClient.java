@@ -38,9 +38,6 @@ public class AppClient {
     private final static String MessageTypeMpnews = "mpnews";
     private final static String MessageTypeSystem = "sysMsg";
 
-    public AppClient() {
-    }
-
     public AppClient(YDApp app) {
         this.buin = app.getBuin();
         this.host = app.getHost();
@@ -139,20 +136,6 @@ public class AppClient {
     }
 
     /**
-     * 下载文件
-     *
-     * @param mediaId 文件的资源ID
-     * @return FileInfo  文件信息，包括名称和原始数据
-     * @throws AESCryptoException 加解密失败
-     * @throws FileIOException 文件读写失败
-     * @throws ParamParserException 参数解析失败
-     * @throws HttpRequestException http请求失败
-     */
-    public FileInfo downloadFile(String mediaId) throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        return  this.downloadMedia(mediaId);
-    }
-
-    /**
      * 下载文件并保存到指定目录
      *
      * @param mediaId 文件的资源ID
@@ -167,20 +150,6 @@ public class AppClient {
         FileInfo info = this.downloadMedia(mediaId);
         info.setPath(Helper.saveFile(info,dir));
         return info;
-    }
-
-    /**
-     * 下载图片
-     *
-     * @param mediaId 图片的资源ID
-     * @return FileInfo  图片信息，包括名称和原始数据
-     * @throws AESCryptoException 加解密失败
-     * @throws FileIOException 文件读写失败
-     * @throws ParamParserException 参数解析失败
-     * @throws HttpRequestException http请求失败
-     */
-    public FileInfo downloadImage(String mediaId) throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        return  this.downloadMedia(mediaId);
     }
 
     /**
@@ -295,20 +264,6 @@ public class AppClient {
             Helper.close(httpClient);
         }
     }
-
-//    private String saveMedia(FileInfo info, String dir) throws FileIOException {
-//        FileOutputStream outfile = null;
-//        String finalPath = dir + File.separator + info.getName();
-//        try {
-//            outfile = new FileOutputStream(finalPath);
-//            outfile.write(info.getData(), 0, info.size());
-//            return finalPath;
-//        } catch (IOException e) {
-//            throw new FileIOException(e.getMessage(), e);
-//        } finally {
-//            Helper.close(outfile);
-//        }
-//    }
 
     private byte[] decryptFileData(HttpEntity rspEntity) throws FileIOException, ParamParserException, AESCryptoException {
             InputStream in = null;
@@ -455,21 +410,6 @@ public class AppClient {
      */
     public void sendMpnewsMsg(String toUser, String toDept, MpnewsBody mpnews) throws ParamParserException, HttpRequestException, AESCryptoException {
         Message msg = new Message(toUser, toDept, MessageTypeMpnews, mpnews);
-        this.sendMsg(msg);
-    }
-
-    /**
-     * 发送系统消息
-     *
-     * @param toUser 接收消息的用户
-     * @param toDept 接收消息的部门
-     * @param sysMsg 系统消息对象
-     * @throws AESCryptoException 加解密失败
-     * @throws ParamParserException 参数解析失败
-     * @throws HttpRequestException http请求失败
-     */
-    public void sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg) throws ParamParserException, HttpRequestException, AESCryptoException {
-        Message msg = new Message(toUser, toDept, MessageTypeSystem, sysMsg);
         this.sendMsg(msg);
     }
 
