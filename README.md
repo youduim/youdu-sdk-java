@@ -30,6 +30,9 @@ YDApp 有度应用对象
     token: 应用回调设置的token，没有就传空串
     appAesKey: 应用回调设置的EncodingAESKey
 ***
+
+
+
 AppClient
 --------------------
 #### 构建AppClient
