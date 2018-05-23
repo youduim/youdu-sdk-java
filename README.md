@@ -17,6 +17,7 @@ java版有度SDK说明
 * [AppClient](#AppClient)
 
 
+***
 ### YDApp 有度应用对象
 --------------------
 #### 构建YDApp
