@@ -27,7 +27,7 @@ public class OrgClientTest extends TestCase {
     //测试创建部门
     public void testCreateDept() throws ParamParserException, HttpRequestException, AESCryptoException {
         Dept dept = new Dept();
-        dept.setName("test测试");
+        dept.setName("测试部门创建");
         dept.setParentId(0);
         dept.setAlias("abc");
         int deptId = orgClient.createDept(dept);

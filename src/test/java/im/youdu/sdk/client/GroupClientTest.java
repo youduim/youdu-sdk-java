@@ -76,9 +76,8 @@ public class GroupClientTest extends TestCase {
 
     //测试获取所有群列表
     public void testListGroup() throws ParamParserException, HttpRequestException, AESCryptoException {
-        String userId = "test5";
-        List<GroupSimple> groups = groupClient.groupList(userId);
-        for(GroupSimple group : groups){
+        List<GroupBase> groups = groupClient.listAllGroups();
+        for(GroupBase group : groups){
             System.out.println(group.getId()+":"+group.getName());
         }
     }
@@ -86,8 +85,8 @@ public class GroupClientTest extends TestCase {
     //测试获取用户的群列表
     public void testListUserGroup() throws ParamParserException, HttpRequestException, AESCryptoException {
         String userId = "test1";
-        List<GroupSimple> groups = groupClient.groupList(userId);
-        for(GroupSimple group : groups){
+        List<GroupBase> groups = groupClient.listUserGroups(userId);
+        for(GroupBase group : groups){
             System.out.println(group.getId()+":"+group.getName());
         }
     }

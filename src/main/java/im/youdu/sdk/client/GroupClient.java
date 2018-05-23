@@ -58,21 +58,37 @@ public class GroupClient {
         return groupId;
     }
 
-    //群列表
-    public List<GroupSimple> groupList(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
-        JsonObject jsonRsp = Helper.getUrlV2(this.uriListGroup(userId));
+    //列出所有群
+    public List<GroupBase> listAllGroups() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String url = this.uriListGroup("");
+        List<GroupBase> groups = doGroupList(url);
+        return  groups;
+    }
+
+    //列出用户所在的群
+    public List<GroupBase> listUserGroups(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(null == userId || "".equals(userId.trim())){
+            throw new ParamParserException("userId is null",null);
+        }
+        String url = this.uriListGroup(userId);
+        List<GroupBase> groups = doGroupList(url);
+        return  groups;
+    }
+
+    private List<GroupBase> doGroupList(String url) throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject jsonRsp = Helper.getUrlV2(url);
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
 
         JsonArray jGroupArray =  Helper.getArray("groupList", jsonObj);
-        List<GroupSimple> groups = new ArrayList<GroupSimple>();
+        List<GroupBase> groups = new ArrayList<GroupBase>();
         for(JsonElement e : jGroupArray){
             if(!e.isJsonObject()){
                 continue;
             }
             JsonObject jGroup = e.getAsJsonObject();
-            GroupSimple group = new GroupSimple();
+            GroupBase group = new GroupBase();
             group.setId(Helper.getString("id",jGroup));
             group.setName(Helper.getString("name",jGroup));
             groups.add(group);

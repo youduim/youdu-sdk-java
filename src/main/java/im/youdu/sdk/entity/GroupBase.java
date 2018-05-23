@@ -3,7 +3,7 @@ package im.youdu.sdk.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupSimple {
+public class GroupBase {
     private String id;
     private String name;
 
