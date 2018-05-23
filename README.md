@@ -74,19 +74,11 @@ SDK类介绍
     appClient.uploadVideo(String name, byte[] data)
     name:  视频文件名称
     data:  视频文件二进制数据
-    
-#### downloadFile  下载文件
-    appClient.downloadFile(String mediaId)
-    mediaId:  文件ID
 
 #### downloadFileAndSave  下载并保存文件
     appClient.downloadFileAndSave(String mediaId, String dir)
     mediaId:  文件ID
     dir:  需要保存的文件夹路径
-
-#### downloadImage  下载图片
-    appClient.downloadImage(String mediaId)
-    mediaId:  图片ID
 
 #### downloadImageAndSave  下载并保存图片
     appClient.downloadImageAndSave(String mediaId, String dir)
