@@ -22,7 +22,9 @@ SDK类介绍
 ***
 
 ### YDApp 有度应用对象
---------------------
+    有度应用对象是所有接口都需要用到的基础对象
+
+***
 #### 构建YDApp
     import im.youdu.sdk.entity
     YDApp ydApp = new YDApp(int buin, String srvHost, String appName, String appId, String token, String appAesKey)
