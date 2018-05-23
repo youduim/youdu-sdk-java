@@ -126,13 +126,15 @@ SDK类介绍
 #### sendExlinkMsg  给应用发送外链消息
     appClient.sendExlinkMsg(String toUser, String toDept, ExlinkBody exLink)
     exLink: 外链对象
+    
+    构建外链对象
     ExlinkBodyCell cell = new ExlinkBodyCell(String title, String url, String digest, String mediaId)
-	title: 外链标题
-	url: 需要点击打开的网页链接
-	digest：外链摘要
-	mediaId: 外链需要显示的图片，可为空
-	例如：
-	ExlinkBodyCell cell1 = new ExlinkBodyCell("有度","https://youdu.im","有度官网", "");
+    title: 外链标题
+    url: 需要点击打开的网页链接
+    digest：外链摘要
+    mediaId: 外链需要显示的图片，可为空
+    例如：
+    ExlinkBodyCell cell1 = new ExlinkBodyCell("有度","https://youdu.im","有度官网", "");
     ExlinkBodyCell cell2 = new ExlinkBodyCell("有度下载","https://youdu.im/download.html","有度下载", "");
     ExlinkBody body = new ExlinkBody();
     body.addCell(cell1);
