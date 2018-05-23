@@ -103,8 +103,7 @@ AppClient
 #### sendLinkMsg  给应用发送隐式链接消息
     appClient.sendLinkMsg(String toUser, String toDept, LinkBody link)
     link: 隐式链接对象
-    
-    构建LinkBody对象：
+    构建LinkBody对象：
     import im.youdu.sdk.entity
     LinkBody body = new LinkBody(String url, String title, int action);
     url: 需要点击打开的网页链接
