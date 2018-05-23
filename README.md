@@ -186,3 +186,55 @@ SDK类介绍
     mobile: 手机号码
     phone: 座机号码
     email: 邮箱账号
+***
+
+### GroupClient 群管理
+--------------------
+#### 构建GroupClient对象
+    import im.youdu.sdk.client;
+    
+    String host = "127.0.0.1:7080";
+    GroupClient groupClient = new GroupClient(host);
+	
+#### createGroup 创建群
+    groupClient.createGroup(String groupName)
+    groupName: 群名称
+
+#### listAllGroups 获取所有群列表
+    List<GroupBase> groups = groupClient.listAllGroups()
+    GroupBase: 群基本信息
+	
+    id: 群ID
+    name: 群名称
+
+#### listUserGroups 获取用户的所有群列表
+    List<GroupBase> groups = groupClient.listUserGroups(String userId)
+    userId: 用户账号
+
+#### deleteGroup 删除群
+    groupClient.deleteGroup(String groupId)
+    groupId: 群ID
+
+#### updateGroupName 更新群名称
+    groupClient.updateGroupName(String groupId, String groupName)
+    groupId: 群ID
+    groupName: 群名称
+
+#### groupInfo 获取群信息
+    groupClient.groupInfo(String groupId)
+    groupId: 群ID
+
+#### addGroupMember 增加群成员
+    groupClient.addGroupMember(String groupId, String[] addUserList)
+    groupId: 群ID
+    addUserList: 要增加的群成员账号列表
+
+#### delGroupMember 删除群成员
+    groupClient.delGroupMember(String groupId, String[] delUserList)
+    groupId: 群ID
+    delUserList: 要删除的群成员账号列表
+
+#### isGroupMember 判断用户是否群成员
+    groupClient.isGroupMember(String groupId, String userId)
+    groupId: 群ID
+    userId: 用户账号
