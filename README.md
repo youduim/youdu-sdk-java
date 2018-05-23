@@ -144,7 +144,7 @@ SDK类介绍
 ### SysMsgClient
 --------------------
 #### 构建SysMsgClient
-    import im.youdu.sdk.client;
+    import im.youdu.sdk.client;
     
     int buin = 707168;
     String host = "127.0.0.1:7080";
