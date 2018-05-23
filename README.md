@@ -193,8 +193,12 @@ SDK类介绍
 #### 构建GroupClient对象
     import im.youdu.sdk.client;
     
+    int buin = 707168;
     String host = "127.0.0.1:7080";
-    GroupClient groupClient = new GroupClient(host);
+    String appId = "sysOrgAssistant";
+    String appAESKey = "n76ut0qxPWozXbMxGMt8s9pgxUZKUxu/GJ5R5dz+u4g=";
+    YDApp app = new YDApp(buin, host, "", appId, "", appAESKey);
+    GroupClient groupClient = new GroupClient(app);
 	
 #### createGroup 创建群
     groupClient.createGroup(String groupName)
