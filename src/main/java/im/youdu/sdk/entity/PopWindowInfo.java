@@ -5,6 +5,7 @@ public class PopWindowInfo {
     private Integer height;
     private Integer position;
     private Integer duration;
+    private Integer popMode;
 
     private String url;
     private String tip;
@@ -91,5 +92,13 @@ public class PopWindowInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getPopMode() {
+        return popMode;
+    }
+
+    public void setPopMode(Integer popMode) {
+        this.popMode = popMode;
     }
 }

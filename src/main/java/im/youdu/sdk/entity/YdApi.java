@@ -12,7 +12,7 @@ public class YdApi {
     public static final String API_GET_TOKEN = "/cgi/gettoken";
 
     public static final String API_SET_NOTICE = "/cgi/set.ent.notice";
-    public static final String API_POPWINDOW = "/cgi/popwin";
+    public static final String API_POPWINDOW = "/cgi/popwindow";
 
     /*****API FOR MEDIA*****/
     public static final String API_UPLOAD_MEDIA = "/cgi/media/upload";

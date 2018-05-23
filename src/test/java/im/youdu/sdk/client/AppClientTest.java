@@ -13,8 +13,8 @@ public class AppClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_NAME = "A应用"; //应用名称
-    private static final String APP_ID = "yd5C0995DBC736451D80763F9270A9A9E8"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "aempBarITDeMaqUg4ee+Wq2txhEG4q1NhWVoBfz1vzo="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_ID = "yd4370895E0D65467BBB5CA8C9151BF6F0"; // 请填写企业应用AppId
+    private static final String APP_AESKEY = "C5PUiuZFLpoON1TMRoz69+e3DmBtU68u6ZJZSas82Dw="; // 请填写企业应用的EncodingaesKey
 
     private AppClient msgClient;
 
@@ -147,9 +147,11 @@ public class AppClientTest extends TestCase {
 
     //测试弹窗
     public void testPopWindow() throws ParamParserException, HttpRequestException, AESCryptoException {
-        String toUser = "test1";
+        String receiveUsers = "test1|test2";
+        String receiveDepts = "1|2|3";
         PopWindowInfo win = new PopWindowInfo();
-        win.setToUser(toUser);
+        win.setToUser(receiveUsers);
+        win.setToDept(receiveDepts);
         win.setUrl("https://youdu.im"); //访问URL
 //        win.setTip("欢迎登录有度即时通"); //弹提示框
         win.setTitle("有度即时通");//弹窗标题
@@ -159,6 +161,8 @@ public class AppClientTest extends TestCase {
 //        win.setDuration(Const.Duration_Forever); //弹窗永不消失
         win.setPosition(Const.Position_BottomRight); //右下角弹出
         win.setNoticeId(APP_ID); //同样的noticeId，永远只有一个窗口，后面的覆盖掉前面的
+//        win.setPopMode(1); //使用浏览器打开
+        win.setPopMode(2); //使用窗口打开
         msgClient.popWindow(win);
     }
 }
