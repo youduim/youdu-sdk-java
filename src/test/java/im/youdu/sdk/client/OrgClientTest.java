@@ -133,7 +133,7 @@ public class OrgClientTest extends TestCase {
         System.out.println("update user ok: test1 李四");
     }
 
-    //修改用户部门职务
+    //修改用户在某个部门下的职务信息
     public void testUpdateUserPosition() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserDeptPosition position = new UserDeptPosition();
         position.setUserId("test1");
@@ -172,6 +172,15 @@ public class OrgClientTest extends TestCase {
         orgClient.setUserPwd("test1","1a7434b0243d345b4fdb5b3d434c9aba52a5"); //1次md5
         System.out.println("set user auth ok");
     }
+
+    //设置用户登录认证方式
+    public void testSetUserLoginAuthType() throws ParamParserException, HttpRequestException, AESCryptoException, NoSuchAlgorithmException {
+        orgClient.setUserLoginAuthType("test1",Const.AuthType_Youdu); //设置为有度认证
+//        orgClient.setUserLoginAuthType("test1",Const.AuthType_Rtx); //设置为rtx认证
+//        orgClient.setUserLoginAuthType("test1",Const.AuthType_Other); //设置为其他第三方认证方式
+        System.out.println("set user auth ok");
+    }
+
 
     //删除用户
     public void testDeleteUser() throws ParamParserException, HttpRequestException, AESCryptoException {

@@ -8,13 +8,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2e726c28-4df5-4338-a9a5-ef936c4439fd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgDeptClient.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgUserClient.java" afterPath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgClient.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/PopWindowInfo.java" afterPath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/PopWindowInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/YdApi.java" afterPath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/YdApi.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java" afterPath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgDeptClientTest.java" afterPath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgUserClientTest.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java" afterPath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgClient.java" afterPath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgClient.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java" afterPath="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/GroupClientTest.java" afterPath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/GroupClientTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java" afterPath="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,47 +30,85 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="OrgClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgClient.java">
+      <file leaf-file-name="AppClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="814">
-              <caret line="618" column="33" lean-forward="true" selection-start-line="618" selection-start-column="33" selection-end-line="618" selection-end-column="33" />
+            <state relative-caret-position="-152">
+              <caret line="163" column="40" lean-forward="false" selection-start-line="163" selection-start-column="20" selection-end-line="163" selection-end-column="40" />
               <folding>
-                <element signature="method#listDeptChildren#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#listDeptSelfAndChildren#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#createDept#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#updateDept#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#getDept#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#deleteDept#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#listDeptIdByAlias#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriGetDeptIdByAlias#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#createUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#updateUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#updateUserPosition#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#deleteUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#batchDeleteUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#getUserInfo#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#listDeptUserSimple#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#listDeptUserDetail#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#setUserPwd#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#setUserAvatar#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#setUserAvatarWithData#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#setAvatar#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#DownloadUserAvatarAndSave#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#decryptFileData#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#getAvatarName#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriSetUserAvatar#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriDownloadAvatar#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriCreateUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriUpdateteUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriUpdateUserPosition#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriDeleteUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriBatchDeleteUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriGetUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriGetDeptUser#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriGetDeptUserDetail#0;class#OrgClient#0" expanded="false" />
-                <element signature="method#uriSetUserAuth#0;class#OrgClient#0" expanded="false" />
+                <element signature="method#AppClient#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#uploadImage#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadImage#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#uploadFile#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadFile#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadVoice#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadVideo#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
+                <element signature="method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
+                <element signature="method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
+                <element signature="method#readMedia#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uploadMedia#0;class#AppClient#0" expanded="false" />
+                <element signature="method#downloadMedia#0;class#AppClient#0" expanded="false" />
+                <element signature="method#decryptFileData#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendTextMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendTextMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendFileMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendFileMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendImageMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendImageMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="method#sendMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#setAppNotice#0;class#AppClient#0" expanded="false" />
+                <element signature="method#setAppNotice#0;class#AppClient#0" expanded="false" />
+                <element signature="docComment;method#setAppNotice#1;class#AppClient#0" expanded="false" />
+                <element signature="method#setAppNotice#1;class#AppClient#0" expanded="false" />
+                <element signature="method#popWindow#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uriUploadMedia#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uriDownloadMedia#0;class#AppClient#0" expanded="false" />
+                <element signature="method#uriSendMsg#0;class#AppClient#0" expanded="false" />
+                <element signature="e#21357#21358#0" expanded="true" />
+                <element signature="e#21449#21450#0" expanded="true" />
+                <element signature="method#checkToken#0;class#AppClient#0" expanded="false" />
+                <element signature="method#freshToken#0;class#AppClient#0" expanded="false" />
+                <element signature="method#receive#0;class#AppClient#0" expanded="false" />
+                <element signature="method#decrypt#0;class#AppClient#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppClientTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="683">
+              <caret line="154" column="47" lean-forward="true" selection-start-line="154" selection-start-column="47" selection-end-line="154" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupClientTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/GroupClientTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1729">
+              <caret line="98" column="68" lean-forward="true" selection-start-line="98" selection-start-column="68" selection-end-line="98" selection-end-column="68" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,22 +116,25 @@
       <file leaf-file-name="OrgClientTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2888">
-              <caret line="155" column="36" lean-forward="false" selection-start-line="155" selection-start-column="36" selection-end-line="155" selection-end-column="36" />
+            <state relative-caret-position="295">
+              <caret line="169" column="12" lean-forward="true" selection-start-line="169" selection-start-column="12" selection-end-line="169" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#OrgClientTest#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testCreateDept#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testUpdateDept#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testGetDept#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testListDeptSelfAndChildren#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testListDeptChildren#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testGetDeptIdsByAlias#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testGetAllDeptIdsHasAlias#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testDeleteDept#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testCreateUser#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testUpdateUser#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testGetUserInfo#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testListDeptUserSimple#0;class#OrgClientTest#0" expanded="false" />
+                <element signature="method#testListDeptUserDetail#0;class#OrgClientTest#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Const.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="50" column="43" lean-forward="false" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="43" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -143,10 +182,8 @@
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgUserClientTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionTextMsg.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/WindowInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionCreateBody.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgUserClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionMsgClient.java" />
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SessionMsgClientTest.java" />
@@ -155,8 +192,11 @@
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/PopWindowInfo.java" />
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgDeptClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgClient.java" />
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java" />
+        <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/GroupClientTest.java" />
       </list>
     </option>
   </component>
@@ -167,8 +207,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="463" />
-    <option name="y" value="56" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1314" />
     <option name="height" value="974" />
   </component>
@@ -300,7 +340,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OrgClientTest.testGetUserInfo">
+  <component name="RunManager" selected="JUnit.OrgClientTest.testSetUserLoginAuthType">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -381,7 +421,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="AppClientTest.testSetAppNotice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GroupClientTest.testUpdateGroupName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -392,8 +432,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
-      <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.AppClientTest" />
-      <option name="METHOD_NAME" value="testSetAppNotice" />
+      <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.GroupClientTest" />
+      <option name="METHOD_NAME" value="testUpdateGroupName" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -431,7 +471,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="SysMsgClientTest.testSendSysMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrgClientTest.testSetUserLoginAuthType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -442,8 +482,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
-      <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.SysMsgClientTest" />
-      <option name="METHOD_NAME" value="testSendSysMsg" />
+      <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.OrgClientTest" />
+      <option name="METHOD_NAME" value="testSetUserLoginAuthType" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -665,19 +705,19 @@
       <envs />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.SysMsgClientTest.testSendSysMsg" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.AppClientTest.testClearAppNotice" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.AppClientTest.testSetAppNotice" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.AppClientTest.testPopWindow" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.OrgClientTest.testGetUserInfo" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.AppClientTest.testClearAppNotice" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.AppClientTest.testPopWindow" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.OrgClientTest.testGetUserInfo" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.OrgClientTest.testSetUserLoginAuthType" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.GroupClientTest.testUpdateGroupName" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.OrgClientTest.testGetUserInfo" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.AppClientTest.testPopWindow" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.AppClientTest.testClearAppNotice" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.AppClientTest.testSetAppNotice" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.SysMsgClientTest.testSendSysMsg" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.OrgClientTest.testSetUserLoginAuthType" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.GroupClientTest.testUpdateGroupName" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.OrgClientTest.testGetUserInfo" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.AppClientTest.testPopWindow" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.AppClientTest.testClearAppNotice" />
       </list>
     </recent_temporary>
   </component>
@@ -711,7 +751,7 @@
       <workItem from="1523345840991" duration="3040000" />
       <workItem from="1523784332270" duration="1480000" />
       <workItem from="1524045786308" duration="34000" />
-      <workItem from="1527057309244" duration="2339000" />
+      <workItem from="1527057309244" duration="7803000" />
     </task>
     <servers />
   </component>
@@ -740,19 +780,18 @@
     <history-entry file="AppClientTest_testSetAppNotice - 2018.05.23 at 14h 45m 16s.xml">
       <configuration name="AppClientTest.testSetAppNotice" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionMsgClientTest_testSendSingleTextMsg - 2018.04.10 at 15h 53m 59s.xml">
-      <configuration name="SessionMsgClientTest.testSendSingleTextMsg" configurationId="JUnit" />
+    <history-entry file="OrgClientTest_testSetUserLoginAuthType - 2018.05.23 at 16h 39m 20s.xml">
+      <configuration name="OrgClientTest.testSetUserLoginAuthType" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SysMsgClientTest_testSendSysMsg - 2018.05.23 at 14h 39m 06s.xml">
-      <configuration name="SysMsgClientTest.testSendSysMsg" configurationId="JUnit" />
+    <history-entry file="OrgClientTest_testSetUserLoginAuthType - 2018.05.23 at 16h 51m 02s.xml">
+      <configuration name="OrgClientTest.testSetUserLoginAuthType" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71500000" />
+    <option name="totallyTimeSpent" value="76964000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -762,12 +801,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06441394" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24287222" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25989583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -809,34 +848,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgUserClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="290" column="26" lean-forward="false" selection-start-line="290" selection-start-column="16" selection-end-line="290" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/IdentifyClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="50" lean-forward="false" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1900">
-          <caret line="107" column="5" lean-forward="false" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/util/Helper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3933">
@@ -1068,14 +1079,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionMsgClient.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/IdentifyClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SessionMsgClientTest.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/IdentifyClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1083,60 +1086,6 @@
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SysMsgClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="548" column="77" lean-forward="true" selection-start-line="548" selection-start-column="77" selection-end-line="548" selection-end-column="77" />
-          <folding>
-            <element signature="method#AppClient#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#uploadImage#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadImage#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadFile#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadVoice#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadVideo#0;class#AppClient#0" expanded="false" />
-            <element signature="method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="method#readMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#downloadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#decryptFileData#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendTextMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendFileMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendImageMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#setAppNotice#0;class#AppClient#0" expanded="false" />
-            <element signature="method#setAppNotice#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#setAppNotice#1;class#AppClient#0" expanded="false" />
-            <element signature="method#setAppNotice#1;class#AppClient#0" expanded="false" />
-            <element signature="method#uriUploadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uriDownloadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uriSendMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="e#21419#21420#0" expanded="true" />
-            <element signature="e#21511#21512#0" expanded="true" />
-            <element signature="method#checkToken#0;class#AppClient#0" expanded="false" />
-            <element signature="method#freshToken#0;class#AppClient#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1162,22 +1111,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppTokenClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="42" column="48" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="154" column="47" lean-forward="true" selection-start-line="154" selection-start-column="47" selection-end-line="154" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgUserClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="681">
@@ -1186,10 +1119,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgUserClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-630">
+          <caret line="30" column="10" lean-forward="true" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppTokenClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="42" column="48" lean-forward="false" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/GroupClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/IdentifyClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="53" column="31" lean-forward="false" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SysMsgClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SysMsgClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="27" column="60" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="27" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="60" column="57" lean-forward="true" selection-start-line="60" selection-start-column="57" selection-end-line="60" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/OrgClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="618" column="33" lean-forward="true" selection-start-line="618" selection-start-column="33" selection-end-line="618" selection-end-column="33" />
+        <state relative-caret-position="460">
+          <caret line="513" column="36" lean-forward="false" selection-start-line="513" selection-start-column="16" selection-end-line="513" selection-end-column="36" />
           <folding>
             <element signature="method#listDeptChildren#0;class#OrgClient#0" expanded="false" />
             <element signature="method#listDeptSelfAndChildren#0;class#OrgClient#0" expanded="false" />
@@ -1207,7 +1204,6 @@
             <element signature="method#getUserInfo#0;class#OrgClient#0" expanded="false" />
             <element signature="method#listDeptUserSimple#0;class#OrgClient#0" expanded="false" />
             <element signature="method#listDeptUserDetail#0;class#OrgClient#0" expanded="false" />
-            <element signature="method#setUserPwd#0;class#OrgClient#0" expanded="false" />
             <element signature="method#setUserAvatar#0;class#OrgClient#0" expanded="false" />
             <element signature="method#setUserAvatarWithData#0;class#OrgClient#0" expanded="false" />
             <element signature="method#setAvatar#0;class#OrgClient#0" expanded="false" />
@@ -1229,29 +1225,103 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgUserClientTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-630">
-          <caret line="30" column="10" lean-forward="true" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+        <state relative-caret-position="-152">
+          <caret line="163" column="40" lean-forward="false" selection-start-line="163" selection-start-column="20" selection-end-line="163" selection-end-column="40" />
+          <folding>
+            <element signature="method#AppClient#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadImage#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadImage#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadFile#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadFile#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadVoice#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadVideo#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="method#readMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#downloadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#decryptFileData#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendTextMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendTextMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendFileMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendFileMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendImageMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendImageMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#setAppNotice#0;class#AppClient#0" expanded="false" />
+            <element signature="method#setAppNotice#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#setAppNotice#1;class#AppClient#0" expanded="false" />
+            <element signature="method#setAppNotice#1;class#AppClient#0" expanded="false" />
+            <element signature="method#popWindow#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uriUploadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uriDownloadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uriSendMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="e#21357#21358#0" expanded="true" />
+            <element signature="e#21449#21450#0" expanded="true" />
+            <element signature="method#checkToken#0;class#AppClient#0" expanded="false" />
+            <element signature="method#freshToken#0;class#AppClient#0" expanded="false" />
+            <element signature="method#receive#0;class#AppClient#0" expanded="false" />
+            <element signature="method#decrypt#0;class#AppClient#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="683">
+          <caret line="154" column="47" lean-forward="true" selection-start-line="154" selection-start-column="47" selection-end-line="154" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/Const.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/GroupClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="50" column="43" lean-forward="false" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="43" />
+        <state relative-caret-position="1729">
+          <caret line="98" column="68" lean-forward="true" selection-start-line="98" selection-start-column="68" selection-end-line="98" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2888">
-          <caret line="155" column="36" lean-forward="false" selection-start-line="155" selection-start-column="36" selection-end-line="155" selection-end-column="36" />
+        <state relative-caret-position="295">
+          <caret line="169" column="12" lean-forward="true" selection-start-line="169" selection-start-column="12" selection-end-line="169" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#OrgClientTest#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testCreateDept#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testUpdateDept#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testGetDept#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testListDeptSelfAndChildren#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testListDeptChildren#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testGetDeptIdsByAlias#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testGetAllDeptIdsHasAlias#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testDeleteDept#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testCreateUser#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testUpdateUser#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testGetUserInfo#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testListDeptUserSimple#0;class#OrgClientTest#0" expanded="false" />
+            <element signature="method#testListDeptUserDetail#0;class#OrgClientTest#0" expanded="false" />
           </folding>
         </state>
       </provider>

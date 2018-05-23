@@ -36,7 +36,6 @@ public class AppClient {
     private final static String MessageTypeLink = "link";
     private final static String MessageTypeExlink = "exlink";
     private final static String MessageTypeMpnews = "mpnews";
-    private final static String MessageTypeSystem = "sysMsg";
 
     public AppClient(YDApp app) {
         this.buin = app.getBuin();

@@ -56,5 +56,9 @@ public class Const {
     public static final Integer Position_TopRight = 2;//右上
     public static final Integer Position_BottomRight = 3; //右下
     public static final Integer Position_BottomLeft = 4; //左下
+
+    public static final Integer AuthType_Youdu = 0; //有度认证
+    public static final Integer AuthType_Rtx = 1; //rtx认证
+    public static final Integer AuthType_Other = 2; //其他第三方认证
 }
 

@@ -494,14 +494,30 @@ public class OrgClient {
     //设置用户密码
     public void setUserPwd(String userId, String pwd) throws ParamParserException, AESCryptoException, HttpRequestException {
         if(Helper.isEmpty(userId)){
-            throw new ParamParserException("userId is empty",null);
+            throw new ParamParserException("userId is null",null);
         }
         if(Helper.isEmpty(pwd)){
-            throw new ParamParserException("password is empty",null);
+            throw new ParamParserException("password is null",null);
         }
         JsonObject obj = new JsonObject();
         obj.addProperty("userId", userId);
         obj.addProperty("passwd", pwd);
+        String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherReq);
+        Helper.postJson(this.uriSetUserAuth(), param.toString());
+    }
+
+    //设置用户登录认证方式
+    public void setUserLoginAuthType(String userId, int authType) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is null",null);
+        }
+        JsonObject obj = new JsonObject();
+        obj.addProperty("userId", userId);
+        obj.addProperty("authType", authType);
         String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
         JsonObject param = new JsonObject();
         param.addProperty("buin", this.buin);
