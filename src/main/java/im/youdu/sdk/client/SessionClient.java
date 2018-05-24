@@ -70,6 +70,24 @@ public class SessionClient {
         return readSessionFromJson(rspBody);
     }
 
+    //修改会话标题
+    public SessionInfo updateSessionTitle(String sessionId, String opUser, String title) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(null == sessionId || "".equals(sessionId.trim())){
+            throw new ParamParserException("title is null",null);
+        }
+        if(null == opUser || "".equals(opUser.trim())){
+            throw new ParamParserException("opUser is null",null);
+        }
+        if(null == title || "".equals(title.trim())){
+            throw new ParamParserException("title is null",null);
+        }
+        SessionUpdateBody body = new SessionUpdateBody();
+        body.setSessionId(sessionId);
+        body.setOpUser(opUser);
+        body.setTitle(title);
+        return updateSession(body);
+    }
+
     //修改会话
     public SessionInfo updateSession(SessionUpdateBody body) throws ParamParserException, AESCryptoException, HttpRequestException {
         String msg = body.checkForUpdate();

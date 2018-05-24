@@ -28,42 +28,86 @@ public class SessionClientTest extends TestCase {
         sessionClient = new SessionClient(app);
     }
 
-    String testSessonId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
-    //测试创建会话
+    //创建会话
     public void testCreateSession() throws ParamParserException, HttpRequestException, AESCryptoException {
         SessionCreateBody body = new SessionCreateBody();
-        body.setTitle("接口测试创建会话");
-        body.setCreator("max.chen");
-        List<String> mems = new ArrayList<String>();
-        mems.add("ad1");
-        mems.add("ad2");
-        mems.add("ad3");
+        body.setTitle("测试创建会话");
+        body.setCreator("test1");
+        List<String> mems = new ArrayList<>();
+        mems.add("test2");
+        mems.add("test3");
         body.setMember(mems);
         SessionInfo sess = sessionClient.createSession(body);
-        testSessonId = sess.getSessionId();
         printSession("create session ok:",sess);
     }
 
-    //测试获取会话
+    //获取会话
     public void testGetSession() throws ParamParserException, HttpRequestException, AESCryptoException, UnsupportedEncodingException {
-        SessionInfo sess = sessionClient.getSession(testSessonId);
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        SessionInfo sess = sessionClient.getSession(sessionId);
         printSession("get session ok:",sess);
     }
 
-    //测试更新会话
-    public void testUpdateSession() throws ParamParserException, HttpRequestException, AESCryptoException {
+    //修改会话名称
+    public void testUpdateSessionTitle() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        String title = "修改后的标题";
+        String opUser = "test1";
+        SessionInfo sess = sessionClient.updateSessionTitle(sessionId,opUser,title);
+        printSession("update session title ok:",sess);
+    }
+
+    //增加会话成员
+    public void testAddSessionMember() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        String opUser = "test1";
+        List<String> addMems = new ArrayList<>();
+        addMems.add("test4");
+        addMems.add("test5");
+
         SessionUpdateBody body = new SessionUpdateBody();
-        body.setSessionId(testSessonId);
-        body.setOpUser("cs10");
-        body.setTitle("更新后的会话名称");
-        List<String> addUser = new ArrayList<String>();
-        addUser.add("cs1");
-        addUser.add("cs5");
-        addUser.add("cs6");
-        addUser.add("cs7");
+        body.setSessionId(sessionId);
+        body.setOpUser(opUser);
+        body.setAddMember(addMems);
+        SessionInfo sess = sessionClient.updateSession(body);
+        printSession("add session member ok:",sess);
+    }
+
+    //删除会话成员
+    public void testDelSessionMember() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        String opUser = "test1";
+        List<String> delMems = new ArrayList<>();
+        delMems.add("test4");
+        delMems.add("test5");
+
+        SessionUpdateBody body = new SessionUpdateBody();
+        body.setSessionId(sessionId);
+        body.setOpUser(opUser);
+        body.setDelMember(delMems);
+        SessionInfo sess = sessionClient.updateSession(body);
+        printSession("del session member ok:",sess);
+    }
+
+    //整个更新会话
+    public void testUpdateSession() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        String opUser = "test1";
+        String title = "第二次修改会话标题";
+        List<String> addUser = new ArrayList<>();
+        addUser.add("test6");
+        addUser.add("test7");
+        addUser.add("max.chen");
+        List<String> delUser = new ArrayList<>();
+        delUser.add("test4");
+        delUser.add("test5");
+
+
+        SessionUpdateBody body = new SessionUpdateBody();
+        body.setSessionId(sessionId);
+        body.setOpUser(opUser);
+        body.setTitle(title);
         body.setAddMember(addUser);
-        List<String> delUser = new ArrayList<String>();
-        delUser.add("cs4");
         body.setDelMember(delUser);
         SessionInfo sess = sessionClient.updateSession(body);
         printSession("update session ok:",sess);
@@ -77,7 +121,7 @@ public class SessionClientTest extends TestCase {
         System.out.println("会话类型:"+sess.getType());
         System.out.println("会话创建者:"+sess.getOwner());
         System.out.println("会话版本:"+sess.getVersion());
-        System.out.println("会话成员:");
+        System.out.println("会话成员有:");
         List<String> mems = sess.getMember();
         if(null == mems || mems.size()==0){
             System.out.println("没有成员");
@@ -124,32 +168,36 @@ public class SessionClientTest extends TestCase {
     }
 
     //--------------------
-
     //测试发送多人会话文字消息
     public void testSendSessionTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
-        sessionClient.sendSessionTextMsg(msgFrom,testSessonId,text);
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        sessionClient.sendSessionTextMsg(msgFrom,sessionId,text);
     }
 
     //测试发送多人会话图片消息
     public void testSendSessionImgMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        sessionClient.sendSessionImgMsgV1(msgFrom,testSessonId,imgPath);
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        sessionClient.sendSessionImgMsgV1(msgFrom,sessionId,imgPath);
     }
 
     //测试发送多人会话文件消息
     public void testSendSessionFileMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        sessionClient.sendSessionFileMsgV1(msgFrom,testSessonId,imgPath);
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
+        sessionClient.sendSessionFileMsgV1(msgFrom,sessionId,imgPath);
     }
 
     //测试发送多人会话语音消息
-    public void testSendSessionVoiceMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+    public void testSendSessionVoiceMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
         byte[] data = Helper.readFile(voicePath);
-        sessionClient.sendSessionVoiceMsg(msgFrom,testSessonId,data);
+        sessionClient.sendSessionVoiceMsg(msgFrom,sessionId,data);
     }
 
     //测试发送多人会话视频消息
-    public void testSendSessionVideoMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+    public void testSendSessionVideoMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
         byte[] data = Helper.readFile(videoPath);
-        sessionClient.sendSessionVideoMsg(msgFrom,testSessonId,data);
+        sessionClient.sendSessionVideoMsg(msgFrom,sessionId,data);
     }
 
 
