@@ -245,7 +245,7 @@ SDK类介绍
 ***
 	
 	
-### SessionClient 群管理
+### SessionClient 会话管理
 --------------------
 #### 构建SessionClient对象
     import im.youdu.sdk.client;
