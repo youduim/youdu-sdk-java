@@ -169,46 +169,34 @@ public class SessionClient {
     }
 
     //发送单人会话图片消息
-    public void sendSingleImgMsgV1(String fromUser, String toUser, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+    public void sendSingleImgMsg(String fromUser, String toUser, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         if(null == appClient){
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
         String imgId = appClient.uploadImage("",imgPath);
-        ImageBody img = new ImageBody(imgId);
-        sendSingleMsg(fromUser,toUser,MessageTypeImage,img);
+        sendSingleImgMsgWithMediaId(fromUser,toUser,imgId);
     }
 
     //发送单人会话图片消息
-    public void sendSingleImgMsgV2(String fromUser, String toUser, String imgName, byte[] imgData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
-            appClient = new AppClient(app);
-            appClient.setTokenClient(tokenClient);
-        }
-        String imgId = appClient.uploadImageWithBytes(imgName,imgData);
+    public void sendSingleImgMsgWithMediaId(String fromUser, String toUser, String imgId) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         ImageBody img = new ImageBody(imgId);
         sendSingleMsg(fromUser,toUser,MessageTypeImage,img);
     }
 
     //发送单人会话文件消息
-    public void sendSingleFileMsgV1(String fromUser, String toUser, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+    public void sendSingleFileMsg(String fromUser, String toUser, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         if(null == appClient){
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String mediaId = appClient.uploadFile("",filePath);
-        FileBody f = new FileBody(mediaId);
-        sendSingleMsg(fromUser,toUser,MessageTypeFile,f);
+        String fileId = appClient.uploadFile("",filePath);
+        sendSingleFileMsgWithFileId(fromUser,toUser,fileId);
     }
 
     //发送单人会话文件消息
-    public void sendSingleFileMsgV2(String fromUser, String toUser, String fileName, byte[] fileData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
-            appClient = new AppClient(app);
-            appClient.setTokenClient(tokenClient);
-        }
-        String mediaId = appClient.uploadFileWithBytes(fileName,fileData);
-        FileBody f = new FileBody(mediaId);
+    public void sendSingleFileMsgWithFileId(String fromUser, String toUser, String fileId) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+        FileBody f = new FileBody(fileId);
         sendSingleMsg(fromUser,toUser,MessageTypeFile,f);
     }
 
@@ -256,46 +244,38 @@ public class SessionClient {
     }
 
     //发送多人会话图片消息
-    public void sendSessionImgMsgV1(String fromUser, String sessionId, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+    public void sendSessionImgMsg(String fromUser, String sessionId, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         if(null == appClient){
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
         String imgId = appClient.uploadImage("",imgPath);
-        ImageBody img = new ImageBody(imgId);
-        sendSessionMsg(fromUser,sessionId,MessageTypeImage,img);
+        sendSessionImgMsgWithImgId(fromUser,sessionId,imgId);
     }
 
     //发送多人会话图片消息
-    public void sendSessionImgMsgV2(String fromUser, String sessionId, String imgName, byte[] imgData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
-            appClient = new AppClient(app);
-            appClient.setTokenClient(tokenClient);
-        }
-        String imgId = appClient.uploadImageWithBytes(imgName,imgData);
+    public void sendSessionImgMsgWithImgId(String fromUser, String sessionId, String imgId) throws AESCryptoException, ParamParserException, HttpRequestException {
         ImageBody img = new ImageBody(imgId);
         sendSessionMsg(fromUser,sessionId,MessageTypeImage,img);
     }
 
     //发送多人会话文件消息
-    public void sendSessionFileMsgV1(String fromUser, String sessionId, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+    public void sendSessionFileMsg(String fromUser, String sessionId, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         if(null == appClient){
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String mediaId = appClient.uploadFile("",filePath);
-        FileBody f = new FileBody(mediaId);
-        sendSessionMsg(fromUser,sessionId,MessageTypeFile,f);
+        String fileId = appClient.uploadFile("",filePath);
+        sendSessionFileMsgWithFileId(fromUser,sessionId,fileId);
     }
 
     //发送多人会话文件消息
-    public void sendSessionFileMsgV2(String fromUser, String sessionId, String fileName, byte[] fileData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+    public void sendSessionFileMsgWithFileId(String fromUser, String sessionId, String fileId) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         if(null == appClient){
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String mediaId = appClient.uploadFileWithBytes(fileName,fileData);
-        FileBody f = new FileBody(mediaId);
+        FileBody f = new FileBody(fileId);
         sendSessionMsg(fromUser,sessionId,MessageTypeFile,f);
     }
 

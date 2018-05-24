@@ -133,102 +133,89 @@ public class SessionClientTest extends TestCase {
         System.out.println("---------------------------------");
     }
 //----------------------------------------------------------------------
-    String msgFrom = "cs1";
-    String msgTo = "max.chen";
-    String text = "有度即时通";
-    String imgPath = "D:\\pics\\2018\\2018-01-05.jpg";
-    String voicePath = "D:\\videos\\1526636096.amr";
-    String videoPath = "D:\\videos\\1526636096.mp4";
-
     //测试发送单人会话文字消息
     public void testSendSingleTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
-        sessionClient.sendSingleTextMsg(msgFrom,msgTo,text);
+        String sender = "test1";
+        String receiver = "test2";
+        String text = "有度即时通";
+        sessionClient.sendSingleTextMsg(sender,receiver,text);
     }
 
     //测试发送单人会话图片消息
     public void testSendSingleImgMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        sessionClient.sendSingleImgMsgV1(msgFrom,msgTo,imgPath);
+        String sender = "test1";
+        String receiver = "test2";
+        String imgPath = "D:\\pics\\2018\\2018-01-05.jpg";
+        sessionClient.sendSingleImgMsg(sender,receiver,imgPath);
     }
 
     //测试发送单人会话文件消息
     public void testSendSingleFileMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        sessionClient.sendSingleFileMsgV1(msgFrom,msgTo,imgPath);
+        String sender = "test1";
+        String receiver = "test2";
+        String filePath = "D:\\files\\有度即时通.docx";
+        sessionClient.sendSingleFileMsg(sender,receiver,filePath);
     }
 
     //测试发送单人会话语音消息
     public void testSendSingleVoiceMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+        String sender = "test1";
+        String receiver = "test2";
+        String voicePath = "D:\\videos\\1526636096.amr";
         byte[] data = Helper.readFile(voicePath);
-        sessionClient.sendSingleVoiceMsg(msgFrom,msgTo,data);
+        sessionClient.sendSingleVoiceMsg(sender,receiver,data);
     }
 
     //测试发送单人会话视频消息
     public void testSendSingleVideoMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException, UnsupportedEncodingException {
+        String sender = "test1";
+        String receiver = "test2";
+        String videoPath = "D:\\videos\\1526636096.mp4";
         byte[] data = Helper.readFile(videoPath);
-        sessionClient.sendSingleVideoMsg(msgFrom,msgTo,data);
+        sessionClient.sendSingleVideoMsg(sender,receiver,data);
     }
 
     //--------------------
     //测试发送多人会话文字消息
     public void testSendSessionTxtMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String sender = "test1";
+        String text = "有度即时通";
         String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
-        sessionClient.sendSessionTextMsg(msgFrom,sessionId,text);
+        sessionClient.sendSessionTextMsg(sender,sessionId,text);
     }
 
     //测试发送多人会话图片消息
     public void testSendSessionImgMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        String sender = "test1";
+        String imgPath = "D:\\pics\\2018\\2018-01-05.jpg";
         String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
-        sessionClient.sendSessionImgMsgV1(msgFrom,sessionId,imgPath);
+        sessionClient.sendSessionImgMsg(sender,sessionId,imgPath);
     }
 
     //测试发送多人会话文件消息
     public void testSendSessionFileMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        String sender = "test1";
+        String filePath = "D:\\files\\有度即时通.docx";
         String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
-        sessionClient.sendSessionFileMsgV1(msgFrom,sessionId,imgPath);
+        sessionClient.sendSessionFileMsg(sender,sessionId,filePath);
     }
 
     //测试发送多人会话语音消息
     public void testSendSessionVoiceMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        String sender = "test1";
+        String voicePath = "D:\\videos\\1526636096.amr";
         String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
         byte[] data = Helper.readFile(voicePath);
-        sessionClient.sendSessionVoiceMsg(msgFrom,sessionId,data);
+        sessionClient.sendSessionVoiceMsg(sender,sessionId,data);
     }
 
     //测试发送多人会话视频消息
     public void testSendSessionVideoMsg() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        String sender = "test1";
+        String videoPath = "D:\\videos\\1526636096.mp4";
         String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
         byte[] data = Helper.readFile(videoPath);
-        sessionClient.sendSessionVideoMsg(msgFrom,sessionId,data);
-    }
-
-
-//----------------------------------------------------------------------
-    String str = "aqwe请问rty儿uui童ioioo椅pUlkIj哦h破h了g客g家f话f给fQdWdEdRsTaYzUxIc噢v普b朗n克m激AS活D过F范G德H萨J自K行L车PVOBI你U们Y门T板R是E从W小Q杂Z水X电C费V规B划N局M科伦坡";
-    public void testBatchSendSingleTextMsg() throws ParamParserException, HttpRequestException, AESCryptoException, InterruptedException {
-        String from = "cs1";
-        String to = "max.chen";
-        String content = "";
-        for (int k = 1; k <= 10000; k++){
-            content = randomMsg();
-            content = k+":松:"+content;
-            System.out.println(content);
-            sessionClient.sendSingleTextMsg(from, to, content);
-            Thread.sleep(10);
-        }
-        System.out.println("send single text msg ok.");
-    }
-
-    private String randomMsg(){
-        int msgLen = (int)(Math.random()*20);
-        if(msgLen==0){
-            msgLen = 10;
-        }
-        StringBuffer buff = new StringBuffer("");
-        int len = str.length();
-        for(int k=0;k<msgLen;k++){
-            int i = (int)(Math.random()*len);
-            buff.append(str.charAt(i));
-        }
-        return buff.toString();
+        sessionClient.sendSessionVideoMsg(sender,sessionId,data);
     }
 }
 

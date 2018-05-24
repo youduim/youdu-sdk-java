@@ -30,10 +30,12 @@
       <file leaf-file-name="SessionClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="46" column="23" lean-forward="false" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+            <state relative-caret-position="294">
+              <caret line="165" column="33" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="33" />
               <folding>
                 <element signature="method#SessionClient#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#createSession#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#getSession#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#updateSessionTitle#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#updateSession#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#readSessionFromJson#0;class#SessionClient#0" expanded="false" />
@@ -41,19 +43,18 @@
                 <element signature="method#uriCreateSession#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#uriGetSession#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#uriUpdateSession#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSingleTextMsg#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSingleImgMsgV1#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSingleImgMsgV2#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSingleFileMsgV1#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSingleFileMsgV2#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSingleImgMsg#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSingleImgMsgWithMediaId#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSingleFileMsg#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSingleFileMsgWithFileId#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSingleVoiceMsg#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSingleVideoMsg#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSingleMsg#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSessionTextMsg#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSessionImgMsgV1#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSessionImgMsgV2#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSessionFileMsgV1#0;class#SessionClient#0" expanded="false" />
-                <element signature="method#sendSessionFileMsgV2#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSessionImgMsg#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSessionImgMsgWithImgId#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSessionFileMsg#0;class#SessionClient#0" expanded="false" />
+                <element signature="method#sendSessionFileMsgWithFileId#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSessionVoiceMsg#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSessionVideoMsg#0;class#SessionClient#0" expanded="false" />
                 <element signature="method#sendSessionMsg#0;class#SessionClient#0" expanded="false" />
@@ -63,53 +64,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SessionCreateBody.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionCreateBody.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#fromJsonString#0;class#SessionCreateBody#0" expanded="false" />
-                <element signature="method#fromJsonElement#0;class#SessionCreateBody#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SessionClientTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SessionClientTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SessionClientTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+            <state relative-caret-position="461">
+              <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
               <folding>
+                <element signature="method#SessionClientTest#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testCreateSession#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testGetSession#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testUpdateSessionTitle#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testAddSessionMember#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testDelSessionMember#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testUpdateSession#0;class#SessionClientTest#0" expanded="false" />
                 <element signature="method#printSession#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSingleTxtMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSingleImgMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSingleFileMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSingleVoiceMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSingleVideoMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSessionTxtMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSessionImgMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSessionFileMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSessionVoiceMsg#0;class#SessionClientTest#0" expanded="false" />
+                <element signature="method#testSendSessionVideoMsg#0;class#SessionClientTest#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SessionUpdateBody.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionUpdateBody.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="26" column="39" lean-forward="true" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="298">
-                <caret line="288" column="23" lean-forward="true" selection-start-line="288" selection-start-column="23" selection-end-line="288" selection-end-column="23" />
-                <folding />
-              </first_editor>
-              <second_editor />
             </state>
           </provider>
         </entry>
@@ -173,9 +152,9 @@
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/GroupClient.java" />
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/GroupClientTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/OrgClientTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionUpdateBody.java" />
         <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionClient.java" />
         <option value="$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SessionClientTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/im/youdu/sdk/entity/SessionUpdateBody.java" />
       </list>
     </option>
   </component>
@@ -186,8 +165,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-137" />
-    <option name="y" value="86" />
+    <option name="x" value="-369" />
+    <option name="y" value="56" />
     <option name="width" value="1309" />
     <option name="height" value="986" />
   </component>
@@ -319,7 +298,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.SessionClientTest.testUpdateSession">
+  <component name="RunManager" selected="JUnit.SessionClientTest.testSendSessionVideoMsg">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -350,7 +329,7 @@
       <setting name="depsClasspath" value="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     </configuration>
-    <configuration name="SessionClientTest.testAddSessionMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SessionClientTest.testSendSessionFileMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -362,7 +341,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
       <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.SessionClientTest" />
-      <option name="METHOD_NAME" value="testAddSessionMember" />
+      <option name="METHOD_NAME" value="testSendSessionFileMsg" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -375,7 +354,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="SessionClientTest.testDelSessionMember" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SessionClientTest.testSendSessionImgMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -387,7 +366,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
       <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.SessionClientTest" />
-      <option name="METHOD_NAME" value="testDelSessionMember" />
+      <option name="METHOD_NAME" value="testSendSessionImgMsg" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -400,7 +379,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="SessionClientTest.testGetSession" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SessionClientTest.testSendSessionTxtMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -412,7 +391,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
       <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.SessionClientTest" />
-      <option name="METHOD_NAME" value="testGetSession" />
+      <option name="METHOD_NAME" value="testSendSessionTxtMsg" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -425,7 +404,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="SessionClientTest.testUpdateSession" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SessionClientTest.testSendSessionVideoMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -437,7 +416,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
       <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.SessionClientTest" />
-      <option name="METHOD_NAME" value="testUpdateSession" />
+      <option name="METHOD_NAME" value="testSendSessionVideoMsg" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -450,7 +429,7 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="SessionClientTest.testUpdateSessionTitle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SessionClientTest.testSendSessionVoiceMsg" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="im.youdu.sdk.client.*" />
@@ -462,7 +441,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="im.youdu.sdk.client" />
       <option name="MAIN_CLASS_NAME" value="im.youdu.sdk.client.SessionClientTest" />
-      <option name="METHOD_NAME" value="testUpdateSessionTitle" />
+      <option name="METHOD_NAME" value="testSendSessionVoiceMsg" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -684,19 +663,19 @@
       <envs />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testGetSession" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testUpdateSessionTitle" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testAddSessionMember" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testDelSessionMember" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testUpdateSession" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionTxtMsg" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionImgMsg" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionFileMsg" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionVoiceMsg" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionVideoMsg" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testUpdateSession" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testDelSessionMember" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testAddSessionMember" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testUpdateSessionTitle" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testGetSession" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionVideoMsg" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionVoiceMsg" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionFileMsg" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionImgMsg" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.SessionClientTest.testSendSessionTxtMsg" />
       </list>
     </recent_temporary>
   </component>
@@ -731,44 +710,44 @@
       <workItem from="1523784332270" duration="1480000" />
       <workItem from="1524045786308" duration="34000" />
       <workItem from="1527057309244" duration="13974000" />
-      <workItem from="1527125572233" duration="5709000" />
+      <workItem from="1527125572233" duration="12716000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="SessionClientTest_testAddSessionMember - 2018.05.24 at 10h 21m 23s.xml">
+    <history-entry file="SessionClientTest_testAddSessionMember - 2018.05.24 at 16h 26m 19s.xml">
       <configuration name="SessionClientTest.testAddSessionMember" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testCreateSession - 2018.05.24 at 09h 50m 59s.xml">
-      <configuration name="SessionClientTest.testCreateSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testAddSessionMember - 2018.05.24 at 16h 27m 11s.xml">
+      <configuration name="SessionClientTest.testAddSessionMember" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testCreateSession - 2018.05.24 at 09h 59m 17s.xml">
-      <configuration name="SessionClientTest.testCreateSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionFileMsg - 2018.05.24 at 16h 28m 03s.xml">
+      <configuration name="SessionClientTest.testSendSessionFileMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testDelSessionMember - 2018.05.24 at 10h 21m 36s.xml">
-      <configuration name="SessionClientTest.testDelSessionMember" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionImgMsg - 2018.05.24 at 16h 27m 50s.xml">
+      <configuration name="SessionClientTest.testSendSessionImgMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testGetSession - 2018.05.24 at 10h 00m 27s.xml">
-      <configuration name="SessionClientTest.testGetSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionTxtMsg - 2018.05.24 at 16h 25m 31s.xml">
+      <configuration name="SessionClientTest.testSendSessionTxtMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testUpdateSession - 2018.05.24 at 10h 30m 00s.xml">
-      <configuration name="SessionClientTest.testUpdateSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionTxtMsg - 2018.05.24 at 16h 26m 51s.xml">
+      <configuration name="SessionClientTest.testSendSessionTxtMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testUpdateSession - 2018.05.24 at 10h 33m 18s.xml">
-      <configuration name="SessionClientTest.testUpdateSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionTxtMsg - 2018.05.24 at 16h 27m 30s.xml">
+      <configuration name="SessionClientTest.testSendSessionTxtMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testUpdateSession - 2018.05.24 at 10h 40m 46s.xml">
-      <configuration name="SessionClientTest.testUpdateSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionVideoMsg - 2018.05.24 at 16h 28m 23s.xml">
+      <configuration name="SessionClientTest.testSendSessionVideoMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testUpdateSession - 2018.05.24 at 10h 41m 30s.xml">
-      <configuration name="SessionClientTest.testUpdateSession" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSessionVoiceMsg - 2018.05.24 at 16h 28m 16s.xml">
+      <configuration name="SessionClientTest.testSendSessionVoiceMsg" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="SessionClientTest_testUpdateSessionTitle - 2018.05.24 at 10h 17m 37s.xml">
-      <configuration name="SessionClientTest.testUpdateSessionTitle" configurationId="JUnit" />
+    <history-entry file="SessionClientTest_testSendSingleVoiceMsg - 2018.05.24 at 16h 25m 18s.xml">
+      <configuration name="SessionClientTest.testSendSingleVoiceMsg" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88844000" />
+    <option name="totallyTimeSpent" value="95851000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -783,7 +762,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34530094" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23864837" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -820,7 +799,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1036,67 +1015,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-152">
-          <caret line="163" column="40" lean-forward="false" selection-start-line="163" selection-start-column="20" selection-end-line="163" selection-end-column="40" />
-          <folding>
-            <element signature="method#AppClient#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#uploadImage#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadImage#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#uploadFile#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadFile#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadVoice#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadVideo#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
-            <element signature="method#readMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uploadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#downloadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#decryptFileData#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendTextMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendTextMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendFileMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendFileMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendImageMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendImageMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="method#sendMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#setAppNotice#0;class#AppClient#0" expanded="false" />
-            <element signature="method#setAppNotice#0;class#AppClient#0" expanded="false" />
-            <element signature="docComment;method#setAppNotice#1;class#AppClient#0" expanded="false" />
-            <element signature="method#setAppNotice#1;class#AppClient#0" expanded="false" />
-            <element signature="method#popWindow#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uriUploadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uriDownloadMedia#0;class#AppClient#0" expanded="false" />
-            <element signature="method#uriSendMsg#0;class#AppClient#0" expanded="false" />
-            <element signature="e#21357#21358#0" expanded="true" />
-            <element signature="e#21449#21450#0" expanded="true" />
-            <element signature="method#checkToken#0;class#AppClient#0" expanded="false" />
-            <element signature="method#freshToken#0;class#AppClient#0" expanded="false" />
-            <element signature="method#receive#0;class#AppClient#0" expanded="false" />
-            <element signature="method#decrypt#0;class#AppClient#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/AppClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="683">
@@ -1278,47 +1196,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="46" column="23" lean-forward="false" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
-          <folding>
-            <element signature="method#SessionClient#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#updateSessionTitle#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#updateSession#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#readSessionFromJson#0;class#SessionClient#0" expanded="false" />
-            <element signature="e#6001#6009#0" expanded="true" />
-            <element signature="method#uriCreateSession#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#uriGetSession#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#uriUpdateSession#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleTextMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleImgMsgV1#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleImgMsgV2#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleFileMsgV1#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleFileMsgV2#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleVoiceMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleVideoMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSingleMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionTextMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionImgMsgV1#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionImgMsgV2#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionFileMsgV1#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionFileMsgV2#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionVoiceMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionVideoMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#sendSessionMsg#0;class#SessionClient#0" expanded="false" />
-            <element signature="method#uriSendMsg#0;class#SessionClient#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SessionClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="67" column="19" lean-forward="false" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-          <folding>
-            <element signature="method#printSession#0;class#SessionClientTest#0" expanded="false" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="450">
+            <caret line="296" column="0" lean-forward="true" selection-start-line="296" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1332,14 +1217,125 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="298">
-            <caret line="288" column="23" lean-forward="true" selection-start-line="288" selection-start-column="23" selection-end-line="288" selection-end-column="23" />
-            <folding />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/AppClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="59" column="18" lean-forward="false" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
+          <folding>
+            <element signature="method#AppClient#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadImage#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadImageWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadFile#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadFile#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadFileWithBytes#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadVoice#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadVideo#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="method#downloadFileAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="method#downloadImageAndSave#0;class#AppClient#0" expanded="false" />
+            <element signature="method#readMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uploadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#downloadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#decryptFileData#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendTextMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendTextMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendFileMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendFileMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendFileMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendImageMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendImageMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendImageMsgWithMediaId#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendLinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendExlinkMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendMpnewsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendSmsMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="method#sendMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#setAppNotice#0;class#AppClient#0" expanded="false" />
+            <element signature="method#setAppNotice#0;class#AppClient#0" expanded="false" />
+            <element signature="docComment;method#setAppNotice#1;class#AppClient#0" expanded="false" />
+            <element signature="method#setAppNotice#1;class#AppClient#0" expanded="false" />
+            <element signature="method#popWindow#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uriUploadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uriDownloadMedia#0;class#AppClient#0" expanded="false" />
+            <element signature="method#uriSendMsg#0;class#AppClient#0" expanded="false" />
+            <element signature="e#21357#21358#0" expanded="true" />
+            <element signature="e#21449#21450#0" expanded="true" />
+            <element signature="method#checkToken#0;class#AppClient#0" expanded="false" />
+            <element signature="method#freshToken#0;class#AppClient#0" expanded="false" />
+            <element signature="method#receive#0;class#AppClient#0" expanded="false" />
+            <element signature="method#decrypt#0;class#AppClient#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/im/youdu/sdk/client/SessionClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="165" column="33" lean-forward="false" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="33" />
+          <folding>
+            <element signature="method#SessionClient#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#createSession#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#getSession#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#updateSessionTitle#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#updateSession#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#readSessionFromJson#0;class#SessionClient#0" expanded="false" />
+            <element signature="e#6001#6009#0" expanded="true" />
+            <element signature="method#uriCreateSession#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#uriGetSession#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#uriUpdateSession#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleImgMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleImgMsgWithMediaId#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleFileMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleFileMsgWithFileId#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleVoiceMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleVideoMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSingleMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionTextMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionImgMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionImgMsgWithImgId#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionFileMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionFileMsgWithFileId#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionVoiceMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionVideoMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#sendSessionMsg#0;class#SessionClient#0" expanded="false" />
+            <element signature="method#uriSendMsg#0;class#SessionClient#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/im/youdu/sdk/client/SessionClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+          <folding>
+            <element signature="method#SessionClientTest#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testCreateSession#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testGetSession#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testUpdateSessionTitle#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testAddSessionMember#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testDelSessionMember#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testUpdateSession#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#printSession#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSingleTxtMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSingleImgMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSingleFileMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSingleVoiceMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSingleVideoMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSessionTxtMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSessionImgMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSessionFileMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSessionVoiceMsg#0;class#SessionClientTest#0" expanded="false" />
+            <element signature="method#testSendSessionVideoMsg#0;class#SessionClientTest#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
