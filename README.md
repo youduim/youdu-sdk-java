@@ -294,3 +294,88 @@ SDK类介绍
     title: 会话标题
     addMember: 增加的成员列表
     delMember: 删除的成员列表
+
+#### sendSingleTextMsg 发送单人会话文字消息
+    sessionClient.sendSingleTextMsg(String fromUser, String toUser, String content)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    content: 文本消息
+
+#### sendSingleImgMsg 发送单人会话图片消息
+    sessionClient.sendSingleImgMsg(String fromUser, String toUser, String imgPath)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    imgPath: 图片绝对路径
+
+#### sendSingleImgMsgWithMediaId 发送单人会话图片消息
+    sessionClient.sendSingleImgMsgWithMediaId(String fromUser, String toUser, String imgId)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    imgId: 图片ID
+
+#### sendSingleFileMsg 发送单人会话文件消息
+    sessionClient.sendSingleFileMsg(String fromUser, String toUser, String filePath)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    filePath: 文件绝对路径
+
+#### sendSingleFileMsgWithFileId  发送单人会话文件消息
+    sessionClient.sendSingleFileMsgWithFileId(String fromUser, String toUser, String fileId)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    fileId: 文件ID
+
+#### sendSingleVoiceMsg  发送单人会话语音消息
+    sessionClient.sendSingleVoiceMsg(String fromUser, String toUser, byte[] voiceData)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    voiceData: 语音文件二进制数据
+
+#### sendSingleVideoMsg  发送单人会话视频消息
+    sessionClient.sendSingleVideoMsg(String fromUser, String toUser, byte[] videoData)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    videoData: 视频文件二进制数据
+
+#### sendSessionTextMsg  发送多人会话文字消息
+    sessionClient.sendSessionTextMsg(String fromUser, String sessionId, String content)
+    fromUser: 消息发送人账号
+    sessionId: 会话ID
+    content: 文本消息
+
+#### sendSessionImgMsg 发送多人会话图片消息
+    sessionClient.sendSessionImgMsg(String fromUser, String sessionId, String imgPath)
+    fromUser: 消息发送人账号
+    sessionId: 会话ID
+    imgPath: 图片绝对路径
+
+#### sendSessionImgMsgWithImgId 发送多人会话图片消息
+    sessionClient.sendSessionImgMsgWithImgId(String fromUser, String sessionId, String imgId)
+    fromUser: 消息发送人账号
+    sessionId: 会话ID
+    imgId: 图片ID
+
+#### sendSessionFileMsg 发送多人会话文件消息
+    sessionClient.sendSessionFileMsg(String fromUser, String sessionId, String filePath)
+    fromUser: 消息发送人账号
+    sessionId: 会话ID
+    filePath: 文件绝对路径
+	
+
+#### sendSessionFileMsgWithFileId 发送多人会话文件消息
+    sessionClient.sendSessionFileMsgWithFileId(String fromUser, String sessionId, String fileId)
+    fromUser: 消息发送人账号
+    sessionId: 会话ID
+    fileId: 文件ID
+
+#### sendSessionVoiceMsg 发送多人会话语音消息
+    sessionClient.sendSessionVoiceMsg(String fromUser, String sessionId, byte[] voiceData)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    voiceData: 语音文件二进制数据
+
+#### sendSessionVideoMsg 发送多人会话视频消息
+    sessionClient.sendSessionVideoMsg(String fromUser, String sessionId, byte[] videoData)
+    fromUser: 消息发送人账号
+    toUser: 消息接收者账号
+    videoData: 视频文件二进制数据
