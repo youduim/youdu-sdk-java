@@ -177,10 +177,10 @@ SDK类介绍
 	
 #### idetify 身份认证获取用户信息
     UserInfo userInfo = identifyClient.idetify(String ydToken)
-	ydToken: 有度客户端提供的认证token
-	userInfo：根据ydToken获取到的有度用户信息
-	
-	account: 账号
+    ydToken: 有度客户端提供的认证token
+    userInfo：根据ydToken获取到的有度用户信息
+    
+    account: 账号
     chsName: 姓名
     gender: 性别, 0:男; 1:女
     mobile: 手机号码
@@ -242,3 +242,55 @@ SDK类介绍
     groupClient.isGroupMember(String groupId, String userId)
     groupId: 群ID
     userId: 用户账号
+***
+	
+	
+### SessionClient 群管理
+--------------------
+#### 构建SessionClient对象
+    import im.youdu.sdk.client;
+    
+    int buin = 707168;
+    String host = "127.0.0.1:7080";
+    String appId = "sysOrgAssistant";
+    String appAESKey = "n76ut0qxPWozXbMxGMt8s9pgxUZKUxu/GJ5R5dz+u4g=";
+    YDApp app = new YDApp(buin, host, "", appId, "", appAESKey);
+    SessionClient sessionClient = new SessionClient(app);
+ 
+#### SessionInfo 会话对象
+    sessionId: 会话ID
+    title: 会话标题
+    owner: 会话创建者
+    version: 会话版本号
+    type: 会话类型
+    member: 会话成员账号列表
+	
+    只需创建多人会话，单人会话不需要创建。
+    群会话ID就是创建群的时候返回的群ID，所以如果需要给群发送消息，可以通过GroupClient拉取群列表获取到相应群的ID即可。
+ 
+#### createSession 创建会话
+    SessionInfo session = sessionClient.createSession(SessionCreateBody body)
+    SessionCreateBody:
+    title: 会话标题
+    creator: 创建者账号
+    member: 成员账号列表
+    type: 会话类型，不需要填写，默认就是multi(多人会话)
+
+#### getSession 获取会话
+    sessionClient.getSession(String sessionId)
+    sessionId: 会话ID
+
+#### updateSessionTitle 更新会话标题
+    sessionClient.updateSessionTitle(String sessionId,String opUser,String title)
+    sessionId: 会话ID
+    opUser: 修改会话标题的用户账号
+    title: 会话标题
+
+#### updateSession 更新会话
+    sessionClient.updateSession(SessionUpdateBody body)
+    SessionUpdateBody:
+    sessionId: 会话ID
+    opUser: 修改会话标题的用户账号
+    title: 会话标题
+    addMember: 增加的成员列表
+    delMember: 删除的成员列表
