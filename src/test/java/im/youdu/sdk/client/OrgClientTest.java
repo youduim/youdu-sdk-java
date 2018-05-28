@@ -78,28 +78,22 @@ public class OrgClientTest extends TestCase {
         }
     }
 
-    //测试通过别名获取部门ID列表
+    //测试通过别名获取部门ID
     public void testGetDeptIdsByAlias() throws ParamParserException, HttpRequestException, AESCryptoException {
-        String alias = "abcd";
-        List<Dept> depts = orgClient.listDeptIdByAlias(alias);
-        if(depts.size()==0){
-            System.out.println("no dept was found with alias: "+alias);
-            return;
-        }
-        for(Dept dept : depts){
-            System.out.println("list dept ids by alias "+alias+", i: "+dept.getId());
-        }
+        String alias = "alias_test";
+       int deptId = orgClient.getDeptIdByAlias(alias);
+       System.out.println(String.format("get deptId by alias ok: %s,%d",alias,deptId) );
     }
 
     //测试获取所有有别名的部门ID列表
     public void testGetAllDeptIdsHasAlias() throws ParamParserException, HttpRequestException, AESCryptoException {
-        List<Dept> depts = orgClient.listDeptIdByAlias("");
+        List<AliasDept> depts = orgClient.listAliasDept();
         if(depts.size()==0){
             System.out.println("no dept was found has alias");
             return;
         }
-        for(Dept dept : depts){
-            System.out.println("list all dept ids has alias, i: "+dept.getId()+", "+dept.getAlias());
+        for(AliasDept dept : depts){
+            System.out.println(String.format("get alias dept: %s:%d",dept.getAlias(),dept.getDeptId()));
         }
     }
 
@@ -180,7 +174,6 @@ public class OrgClientTest extends TestCase {
 //        orgClient.setUserLoginAuthType("test1",Const.AuthType_Other); //设置为其他第三方认证方式
         System.out.println("set user auth ok");
     }
-
 
     //删除用户
     public void testDeleteUser() throws ParamParserException, HttpRequestException, AESCryptoException {

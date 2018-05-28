@@ -180,37 +180,39 @@ public class OrgClient {
         Helper.getUrlV1(this.uriDeleteDept(deptId));
     }
 
-    // 获取部门列表根据部门别名
-    public List<Dept> listDeptIdByAlias(String alias) throws ParamParserException, HttpRequestException, AESCryptoException {
-        JsonObject jsonRsp = Helper.getUrlV2(this.uriGetDeptIdByAlias(alias));
+    // 根据别名获取部门ID
+    public int getDeptIdByAlias(String alias) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(Helper.isEmpty(alias)){
+            throw new ParamParserException("alias is null",null);
+        }
+        String url = this.uriGetDeptIdByAlias(alias);
+        JsonObject jsonRsp = Helper.getUrlV2(url);
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
-        List<Dept> deptList = new ArrayList<Dept>();
-        if(!Helper.isEmpty(alias)){
-            int deptId = Helper.getInt("id", jsonObj);
-            Dept dept = new Dept();
-            dept.setId(deptId);
-            dept.setAlias(alias);
-            deptList.add(dept);
-            return deptList;
-        }
-        JsonArray jDeptArray =  Helper.getArray("aliasList", jsonObj);
-        for(JsonElement e : jDeptArray){
+        int deptId = Helper.getInt("id", jsonObj);
+        return deptId;
+    }
+
+    // 获取部门别名列表
+    public List<AliasDept> listAliasDept() throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriGetDeptIdByAlias(null));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        List<AliasDept> list = new ArrayList<>();
+        JsonArray jAliasArray =  Helper.getArray("aliasList", jsonObj);
+        for(JsonElement e : jAliasArray){
             if(!e.isJsonObject()){
                 continue;
             }
-            JsonObject jDept = e.getAsJsonObject();
-            Dept dept = new Dept();
-            dept.setId(Helper.getInt("id",jDept));
-            if (null != alias && !alias.trim().equals("")){
-                dept.setAlias(alias);
-            }else{
-                dept.setAlias(Helper.getString("alias", jDept));
-            }
-            deptList.add(dept);
+            JsonObject jObj = e.getAsJsonObject();
+            AliasDept dept = new AliasDept();
+            dept.setDeptId(Helper.getInt("id",jObj));
+            dept.setAlias(Helper.getString("alias", jObj));
+            list.add(dept);
         }
-        return  deptList;
+        return  list;
     }
 
     //------------------------------------------------
