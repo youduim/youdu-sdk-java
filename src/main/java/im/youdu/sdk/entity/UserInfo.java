@@ -2,7 +2,7 @@ package im.youdu.sdk.entity;
 
 public class UserInfo {
     private String userId;
-    private String chsName;
+    private String name;
     private String mobile;
     private String phone;
     private String email;
@@ -21,12 +21,12 @@ public class UserInfo {
         this.userId = userId;
     }
 
-    public String getChsName() {
-        return chsName;
+    public String getName() {
+        return name;
     }
 
-    public void setChsName(String chsName) {
-        this.chsName = chsName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMobile() {
@@ -79,6 +79,6 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return String.format("userId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\n", this.userId, this.gender, this.chsName, this.mobile, this.phone, this.email);
+        return String.format("userId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\n", this.userId, this.gender, this.name, this.mobile, this.phone, this.email);
     }
 }

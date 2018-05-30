@@ -254,7 +254,7 @@ public class OrgClient {
         if(Helper.isEmpty(user.getUserId())){
             throw new ParamParserException("userId of user is null",null);
         }
-        if(Helper.isEmpty(user.getChsName())){
+        if(Helper.isEmpty(user.getName())){
             throw new ParamParserException("name of user is null",null);
         }
         if(null == user.getGender()){
@@ -265,7 +265,7 @@ public class OrgClient {
         }
         JsonObject obj = new JsonObject();
         obj.addProperty("userId", user.getUserId());
-        obj.addProperty("name", user.getChsName());
+        obj.addProperty("name", user.getName());
         obj.addProperty("gender", user.getGender());
         JsonArray array = new JsonArray();
         int depts[] = user.getDept();
@@ -298,8 +298,8 @@ public class OrgClient {
         }
         JsonObject obj = new JsonObject();
         obj.addProperty("userId", user.getUserId());
-        if(null != user.getChsName()){
-            obj.addProperty("name", user.getChsName());
+        if(null != user.getName()){
+            obj.addProperty("name", user.getName());
         }
         if(null != user.getGender()){
             obj.addProperty("gender", user.getGender());
@@ -391,7 +391,7 @@ public class OrgClient {
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
         UserInfo user = new UserInfo();
         user.setUserId(Helper.getString("userId",jsonObj));
-        user.setChsName(Helper.getString("name",jsonObj));
+        user.setName(Helper.getString("name",jsonObj));
         user.setGender(Helper.getInt("gender",jsonObj));
         user.setMobile(Helper.getString("mobile",jsonObj));
         user.setPhone(Helper.getString("phone",jsonObj));
@@ -433,7 +433,7 @@ public class OrgClient {
             JsonObject userObj = userArray.get(i).getAsJsonObject();
             UserInfo user = new UserInfo();
             user.setUserId(Helper.getString("userId",userObj));
-            user.setChsName(Helper.getString("name",userObj));
+            user.setName(Helper.getString("name",userObj));
             user.setGender(Helper.getInt("gender",userObj));
 
             JsonArray deptArray = userObj.get("dept").getAsJsonArray();
@@ -462,7 +462,7 @@ public class OrgClient {
             UserInfo user = new UserInfo();
             JsonObject userObj = userListArray.get(i).getAsJsonObject();
             user.setUserId(userObj.get("userId").getAsString());
-            user.setChsName(userObj.get("name").getAsString());
+            user.setName(userObj.get("name").getAsString());
             user.setGender(userObj.get("gender").getAsInt());
             user.setMobile(userObj.get("mobile").getAsString());
             user.setPhone(userObj.get("phone").getAsString());
@@ -634,8 +634,73 @@ public class OrgClient {
     }
 
     //----------------------------------------------------------------------------------------------------------------------
-    public void ReplaceAllOrg(){}
+    //全同步
+    public String orgReplaceAll(List<Dept> depts, List<UserSyncInfo> users) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(null == users || users.size()==0){
+            throw new ParamParserException("users is null",null);
+        }
+        JsonObject obj = new JsonObject();
+        if (null != depts && depts.size() > 0) {
+            System.out.println(depts.size());
+            JsonArray array = new JsonArray();
+            for(Dept dept : depts){
+                System.out.println(dept);
+                String msg = dept.check();
+                if(!Helper.isEmpty(msg)){
+                    throw new ParamParserException(msg,null);
+                }
+                array.add(dept.toJsonElement());
+            }
+            obj.add("deptList", array);
+        }
 
+        JsonArray userArray = new JsonArray();
+        for(UserSyncInfo user : users){
+            String msg = user.check();
+            if(!Helper.isEmpty(msg)){
+                throw new ParamParserException(msg,null);
+            }
+            userArray.add(user.toJsonElement());
+        }
+        obj.add("userList",userArray);
+        String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherReq);
+        JsonObject jsonRsp = Helper.postJson(this.uriReplaceAll(), param.toString());
+        String encrypt = Helper.getString("encrypt", jsonRsp);
+        if (encrypt.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(encrypt);
+        JsonObject jsonResult = Helper.parseJson(Helper.utf8String(rspBuffer));
+        String jobId = Helper.getString("jobId", jsonResult);
+        return jobId;
+    }
+
+    //获取全同步结果
+    public JobResult getJobResult(String jobId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(Helper.isEmpty(jobId)){
+            throw new ParamParserException("jobId is null",null);
+        }
+        JsonObject jsonRsp = Helper.getUrlV2(uriJobResult(jobId));
+        String encrypt = Helper.getString("encrypt", jsonRsp);
+        if (encrypt.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(encrypt);
+        JsonObject jsonResult = Helper.parseJson(Helper.utf8String(rspBuffer));
+        String type = Helper.getString("type", jsonResult);
+        Integer result = Helper.getInt("result", jsonResult);
+        String desc = Helper.getString("desc", jsonResult);
+        JobResult jr = new JobResult();
+        jr.setId(jobId);
+        jr.setType(type);
+        jr.setDesc(desc);
+        jr.setResult(result);
+        return jr;
+    }
     //----------------------------------------------------------------------------------------------------------------------
     private String uriSetUserAvatar(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_USER_AVATAR_SET,this.tokenClient.getToken(),userId);
@@ -680,4 +745,13 @@ public class OrgClient {
     private String uriSetUserAuth() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_AUTH,this.tokenClient.getToken());
     }
+
+    private String uriReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_ORT_REPLACEALL,this.tokenClient.getToken());
+    }
+
+    private String uriJobResult(String jobId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&jobId=%s", YdApi.SCHEME,this.host,YdApi.API_JOB_RESULT,this.tokenClient.getToken(),jobId);
+    }
+
 }

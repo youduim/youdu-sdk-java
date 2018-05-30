@@ -9,6 +9,7 @@ import im.youdu.sdk.util.Helper;
 import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrgClientTest extends TestCase {
@@ -110,7 +111,7 @@ public class OrgClientTest extends TestCase {
         UserInfo user = new UserInfo();
         user.setUserId("test1");
         user.setGender(Const.Gender_Male);
-        user.setChsName("张三");
+        user.setName("张三");
         user.setDept(new int[]{0});
         orgClient.createUser(user);
         System.out.println("create user ok: test1 张三");
@@ -121,7 +122,7 @@ public class OrgClientTest extends TestCase {
         UserInfo user = new UserInfo();
         user.setUserId("test1");
         user.setGender(Const.Gender_Male);
-        user.setChsName("李四");
+        user.setName("李四");
         user.setPhone("13112345678");
         orgClient.updateUser(user);
         System.out.println("update user ok: test1 李四");
@@ -218,5 +219,61 @@ public class OrgClientTest extends TestCase {
         String avatarDir = "D:\\pics\\avatars\\";
         String path = orgClient.DownloadUserAvatarAndSave(userId, Const.Avatar_Large, avatarDir);
         System.out.println("download avatar large ok: "+path);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //测试全同步
+    public void testReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {
+        Dept dept1 = new Dept();
+        dept1.setId(1);
+        dept1.setName("部门1");
+        dept1.setParentId(0);
+
+        Dept dept2 = new Dept();
+        dept2.setId(2);
+        dept2.setName("部门2");
+        dept2.setParentId(0);
+
+        List<Dept> depts = new ArrayList<>();
+        depts.add(dept1);
+        depts.add(dept2);
+
+        int[] depts1 = {1};
+        int[] depts2 = {2};
+
+        UserSyncInfo user1 = new UserSyncInfo();
+        user1.setUserId("test1");
+        user1.setName("测试1");
+        user1.setGender(Const.Gender_Male);
+        user1.setDept(depts1);
+
+        UserSyncInfo user2 = new UserSyncInfo();
+        user2.setUserId("test2");
+        user2.setName("测试2");
+        user2.setGender(Const.Gender_Female);
+        user2.setDept(depts2);
+
+        List<UserSyncInfo> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        String jobId = orgClient.orgReplaceAll(depts,users);
+        System.out.println("send org replace all ok, get jobId:"+jobId);
+    }
+
+    //测试获取全同步任务结果
+    public void testGetReplaceAllResult() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String jobId = "97eb60788ad0b4dfcf79fd3a12d4600f";
+        JobResult result  = orgClient.getJobResult(jobId);
+        System.out.print("get org replace all result:");
+        int resultCode = result.getResult();
+        if(resultCode == Const.Job_Running){
+            System.out.println("任务正在进行......");
+        }else if(resultCode == Const.Job_Done){
+            System.out.println("任务已成功完成");
+        }else if(resultCode == Const.Job_Exist){
+            System.out.println("有相同的任务正在执行");
+        }else if(resultCode == Const.Job_Failed){
+            System.out.println("任务执行失败："+result.getDesc());
+        }
     }
 }

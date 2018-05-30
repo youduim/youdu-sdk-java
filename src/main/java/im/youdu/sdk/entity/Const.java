@@ -60,5 +60,11 @@ public class Const {
     public static final Integer AuthType_Youdu = 0; //有度认证
     public static final Integer AuthType_Rtx = 1; //rtx认证
     public static final Integer AuthType_Other = 2; //其他第三方认证
+
+//    1: 任务进行中，2: 同步任务已经存在，3: 任务成功完成，4: 任务失败
+    public static final Integer Job_Running = 1;
+    public static final Integer Job_Exist = 2;
+    public static final Integer Job_Done = 3;
+    public static final Integer Job_Failed = 4;
 }
 

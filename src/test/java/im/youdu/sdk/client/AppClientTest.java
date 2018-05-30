@@ -145,6 +145,10 @@ public class AppClientTest extends TestCase {
         msgClient.setAppNotice(body);
     }
 
+    public void testSmsMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
+        msgClient.sendSmsMsg("max.chen","","13111111111","123");
+    }
+
     //测试弹窗
     public void testPopWindow() throws ParamParserException, HttpRequestException, AESCryptoException {
         String receiveUsers = "test1|test2";

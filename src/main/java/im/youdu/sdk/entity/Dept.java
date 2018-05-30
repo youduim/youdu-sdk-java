@@ -1,5 +1,9 @@
 package im.youdu.sdk.entity;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import im.youdu.sdk.util.Helper;
+
 public class Dept {
     private Integer id;
     private String name;
@@ -72,5 +76,42 @@ public class Dept {
                 ", sortId=" + sortId +
                 ", alias=" + alias +
                 '}';
+    }
+
+    public String check(){
+        String str = "";
+        for(;;){
+            if(null == id){
+                str = "dept-id is null";
+                break;
+            }
+            if(Helper.isEmpty(name)){
+                str = "dept-name is null";
+                break;
+            }
+            if(null == parentId){
+                str = "dept-parentId is null";
+            }
+            break;
+        }
+        return  str;
+    }
+
+    public String toJsonString() {
+        return this.toJsonElement().toString();
+    }
+
+    public JsonElement toJsonElement() {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("id",this.id);
+        obj.addProperty("name",this.name);
+        obj.addProperty("parentId",this.parentId);
+        if(null != this.sortId){
+            obj.addProperty("sortId",this.sortId);
+        }
+        if(null != this.alias){
+            obj.addProperty("alias",this.alias);
+        }
+        return  obj;
     }
 }

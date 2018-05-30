@@ -49,6 +49,9 @@ public class YdApi {
     public static final String API_USER_GET_DEPT_DETAIL= "/cgi/user/list";
     public static final String API_USER_SET_AUTH= "/cgi/user/setauth";
 
+    public static final String API_ORT_REPLACEALL= "/cgi/org/replaceall";
+    public static final String API_JOB_RESULT= "/cgi/getjobresult";
+
     /*****API FOR SESSION*****/
     public static final String  API_SESSION_GET =  "/cgi/session/get";
     public static final String  API_SESSION_CREATE =  "/cgi/session/create";
