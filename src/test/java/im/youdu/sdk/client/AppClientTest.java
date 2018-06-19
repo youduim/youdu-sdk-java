@@ -13,8 +13,8 @@ public class AppClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_NAME = "A应用"; //应用名称
-    private static final String APP_ID = "yd4370895E0D65467BBB5CA8C9151BF6F0"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "C5PUiuZFLpoON1TMRoz69+e3DmBtU68u6ZJZSas82Dw="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_ID = "yd2349FE666AF4447F8E5A3B773C160203"; // 请填写企业应用AppId
+    private static final String APP_AESKEY = "\tjF1MnRF3RmKHiXIDDj8GB7+U2QFlqxeJXAfF2yHZaJs="; // 请填写企业应用的EncodingaesKey
 
     private AppClient appClient;
 
@@ -141,8 +141,7 @@ public class AppClientTest extends TestCase {
         String account = "test1";
         String tip = "test";
         int count = 0;
-        AppNoticeBody body = new AppNoticeBody(account,count,tip);
-        appClient.setAppNotice(body);
+        appClient.setAppNotice(account,count,tip);
     }
 
     public void testSmsMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
