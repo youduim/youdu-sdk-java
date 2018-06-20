@@ -140,7 +140,7 @@ SDK类介绍
     appClient.sendMpnewsMsg(String toUser, String toDept, MpnewsBody mpnews)
     mpnews: 图文对象
     
-#### setAppNotice  设置应用角标
+#### setAppNotice  设置应用角标(待办数通知)
     appClient.setAppNotice(String account, int count, String tips)
     account: 目标用户账号
     count: 角标值
