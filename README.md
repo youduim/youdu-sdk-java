@@ -141,10 +141,10 @@ SDK类介绍
     mpnews: 图文对象
     
 #### setAppNotice  设置应用角标
-    appClient.setAppNotice(String account, int count, String tip)
+    appClient.setAppNotice(String account, int count, String tips)
     account: 目标用户账号
     count: 角标值
-    tip: 弹窗提醒，不需要就传空串
+    tips: 弹窗提醒，不需要就传空串
 ***
 
 ### SysMsgClient
