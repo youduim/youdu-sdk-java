@@ -144,7 +144,7 @@ SDK类介绍
     appClient.setAppNotice(String account, int count, String tip)
     account: 目标用户账号
     count: 角标值
-    tip: 弹窗提醒，不需要可以置空
+    tip: 弹窗提醒，不需要就传空串
 ***
 
 ### SysMsgClient
