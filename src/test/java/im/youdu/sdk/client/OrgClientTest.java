@@ -260,6 +260,35 @@ public class OrgClientTest extends TestCase {
         System.out.println("send org replace all ok, get jobId:"+jobId);
     }
 
+    public void testXmlSync() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String jobId = orgClient.orgXmlSync("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                "<root>\n" +
+                "    <strategy>\n" +
+                "        <dept_spliter >/</dept_spliter>\n" +
+                "    </strategy>\n" +
+                "    <deptList>\n" +
+                "        <dept path=\"总经办\"/>\n" +
+                "        <dept path=\"采购部\"/>\n" +
+                "        <dept path=\"采购部/国内采购部\" id=\"1\"/>\n" +
+                "        <dept path=\"采购部/国际采购部\" id=\"2\"/>\n" +
+                "        <dept path=\"研发部\"/>\n" +
+                "        <dept path=\"研发部/IT部门\"/>\n" +
+                "        <dept path=\"研发部/IT部门2\"/>\n" +
+                "    </deptList>\n" +
+                "    <userList>\n" +
+                "        <user id=\"cs1\" name=\"测试1\" gender=\"0\" mobile=\"\" email=\"abc@163.com\" phone=\"0756-12345678\" authtype=\"0\" password=\"1a7434b0243d345b4fdb5b3d434c9aba\">\n" +
+                "            <posInfo deptPath=\"研发部/IT部门\" position=\"测试部主管\" sortId=\"2\"/>\n" +
+                "            <posInfo deptPath=\"总经办\"/>\n" +
+                "        </user>\n" +
+                "        <user id=\"cs2\" name=\"测试2\" gender=\"0\" authType=\"2\">\n" +
+                "            <posInfo deptPath=\"研发部/IT部门\" position=\"测试部工程师\"/>\n" +
+                "            <posInfo deptPath=\"1\" position=\"测试部工程师2\"/>\n" +
+                "        </user>\n" +
+                "    </userList>\n" +
+                "</root>");
+        System.out.println("send org replace all ok, get jobId:"+jobId);
+    }
+
     //测试获取全同步任务结果
     public void testGetReplaceAllResult() throws ParamParserException, HttpRequestException, AESCryptoException {
         String jobId = "97eb60788ad0b4dfcf79fd3a12d4600f";

@@ -679,6 +679,18 @@ public class OrgClient {
         return jobId;
     }
 
+    public String orgXmlSync(String xml) throws ParamParserException, AESCryptoException, HttpRequestException {
+        JsonObject jsonRsp = Helper.postJson(this.uriXmlSync(), xml);
+        String encrypt = Helper.getString("encrypt", jsonRsp);
+        if (encrypt.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(encrypt);
+        JsonObject jsonResult = Helper.parseJson(Helper.utf8String(rspBuffer));
+        String jobId = Helper.getString("jobId", jsonResult);
+        return jobId;
+    }
+
     //获取全同步结果
     public JobResult getJobResult(String jobId) throws ParamParserException, HttpRequestException, AESCryptoException {
         if(Helper.isEmpty(jobId)){
@@ -748,6 +760,10 @@ public class OrgClient {
 
     private String uriReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_ORT_REPLACEALL,this.tokenClient.getToken());
+    }
+
+    private String uriXmlSync() throws  ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_ORT_XMLSYNC,this.tokenClient.getToken());
     }
 
     private String uriJobResult(String jobId) throws ParamParserException, HttpRequestException, AESCryptoException {
