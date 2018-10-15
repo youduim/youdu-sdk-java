@@ -512,6 +512,9 @@ public class AppClient {
         if(!Helper.isEmpty(info.getNoticeId())){
             popObj.addProperty("notice_id",info.getNoticeId());
         }
+        if(null != info.getPopMode()){
+            popObj.addProperty("pop_mode", info.getPopMode());
+        }
         obj.add("popWindow",popObj);
         String cipherText = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
         JsonObject param = new JsonObject();
