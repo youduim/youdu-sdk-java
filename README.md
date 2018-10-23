@@ -147,6 +147,61 @@ SDK类介绍
     tips: 弹窗提醒，不需要就传空串
 ***
 
+### OrgClient
+--------------------
+#### Dept
+	import im.youdu.sdk.entity.Dept;
+	Dept ydDept = new Dept(int id, String name, int parentId, int sortId, String alias)
+	
+	id：部门编号
+	name: 部门名称
+	parentId: 父部门编号, 根部门ID为0
+	sortId: 部门排序
+	alias: 部门别名
+
+#### 构建OrgClient
+    import im.youdu.sdk.client
+    OrgClient orgClient = new OrgClient(ydApp)
+
+#### createDept  创建部门
+    int deptId = orgClient.createDept(Dept dept)
+    dept: 部门信息
+	deptId: 部门编号
+
+#### updateDept  修改部门
+    orgClient.updateDept(Dept dept)
+    dept: 部门信息
+
+#### getDept  获取部门
+    Dept dept = orgClient.getDept(int deptId)
+    deptId:  部门编号
+
+#### deleteDept  删除部门
+    orgClient.deleteDept(int deptId)
+    deptId:  部门编号
+
+#### listDeptChildren  获取部门直属子部门列表
+    List<Dept> depts = orgClient.listDeptChildren(int deptId)
+    deptId: 部门编号。根部门ID为0
+ 
+#### listDeptSelfAndChildren  获取部门及直属子部门列表
+    List<Dept> depts = orgClient.listDeptSelfAndChildren(int deptId)
+    deptId: 部门编号。根部门ID为0
+
+#### getDeptIdByAlias  根据别名获取部门ID
+    int deptId = orgClient.downloadFileAndSave(String alias)
+    alias:  部门别名
+    deptId: 部门编号
+
+#### listAliasDept  获取部门别名列表
+    List<AliasDept> depts = orgClient.listAliasDept()
+    depts:  图片ID
+
+	import im.youdu.sdk.entity.AliasDept
+	int deptId; //部门编号
+	String alias; //别名
+***
+
 ### SysMsgClient
 --------------------
 #### 构建SysMsgClient
