@@ -11,6 +11,7 @@ import java.util.*;
 // 文件消息体
 public class SysMsgBody extends MessageBody {
     private String title;
+    private Integer popDuration;
     private List<Map<String,MessageBody>> msg;
 
     private final static String MESSAGE_TEXT = "text";
@@ -68,6 +69,9 @@ public class SysMsgBody extends MessageBody {
     public JsonElement toJsonElement() {
         JsonObject json = new JsonObject();
         json.addProperty("title", this.title);
+        if(null != this.popDuration){
+            json.addProperty("popDuration", this.popDuration);
+        }
         JsonArray array = new JsonArray();
         for (Map map : this.msg) {
             Iterator<Map.Entry<String, MessageBody>> entries = map.entrySet().iterator();
@@ -110,5 +114,16 @@ public class SysMsgBody extends MessageBody {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getPopDuration() {
+        return popDuration;
+    }
+
+    public void setPopDuration(Integer popDuration) {
+        if(null == popDuration){
+            popDuration = 6;
+        }
+        this.popDuration = popDuration;
     }
 }
