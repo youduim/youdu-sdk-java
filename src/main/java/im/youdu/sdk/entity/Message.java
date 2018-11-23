@@ -7,6 +7,7 @@ public class Message {
 
     private String toUser;
     private String toDept;
+    private String toEmail;
     private String msgType;
     private MessageBody msgBody;
 
@@ -28,6 +29,13 @@ public class Message {
         this.msgBody = msgBody;
     }
 
+    public Message(String toUser, String toDept, String toEmail, String msgType, MessageBody msgBody) {
+        this.toUser = toUser != null ? toUser : "";
+        this.toEmail = toEmail != null ? toEmail:"";
+        this.msgType = msgType != null ? msgType : "";
+        this.msgBody = msgBody;
+    }
+
     public String toJson() {
         JsonObject json = new JsonObject();
         if(null != this.toUser){
@@ -35,6 +43,9 @@ public class Message {
         }
         if(null != this.toDept){
             json.addProperty("toDept",this.toDept);
+        }
+        if(null != this.toEmail){
+            json.addProperty("toEmail",this.toEmail);
         }
         json.addProperty("msgType", this.msgType);
         json.add(this.msgType, this.msgBody.toJsonElement());

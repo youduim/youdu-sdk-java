@@ -19,15 +19,6 @@ public class Const {
     public static final String Message_Session_Type_Complex = "complex";//复合消息
     public static final String Message_Session_Type_Broadcast = "broadcast";//广播消息
 
-//        后续可能会支持
-//        public static final String Message_App_Type_Exlink = "exlink";//外链消息
-//        public static final String Message_App_Type_Mpnews = "mpnews";//图文消息
-//        public static final String Message_App_Type_Link = "link";    //会话隐式链接消息
-//        public static final String MessageTypeEmail = "mail";//邮件消息
-//        public static final String MessageTypeVideo = "video";//视频消息
-//        public static final String ActionTypeUnread = "unRead";
-//        public static final String ActionTypeNewMail = "newMail";
-
     public static final String Error_Not_Json = "It is not a json object";
 
     public static final String Log_Receive_Msg = "[%s] receive msg";
@@ -66,5 +57,8 @@ public class Const {
     public static final Integer Job_Exist = 2;
     public static final Integer Job_Done = 3;
     public static final Integer Job_Failed = 4;
+
+    public static final String Mail_Msg_New = "new";
+    public static final String Mail_Msg_Unread = "unread";
 }
 

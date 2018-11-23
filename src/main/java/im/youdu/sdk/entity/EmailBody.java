@@ -6,22 +6,29 @@ import im.youdu.sdk.exception.ParamParserException;
 
 public class EmailBody extends MessageBody {
     private String action;
-    private String title;
-    private String sender;
+    private String subject;
+    private String fromUser;
+    private String fromEmail;
+    private String link;
     private long timex;
-    private String digest;
-    private int unread;
+    private int unreadCount;
 
     public EmailBody() {
     }
 
-    public EmailBody(String action, String title, String sender, long timex, String digest, int unread) {
+    public EmailBody(String action, String subject, String fromUser, String fromEmail,String link, long timex) {
         this.action = action;
-        this.title = title;
-        this.sender = sender;
+        this.subject = subject;
+        this.fromUser = fromUser;
+        this.fromEmail = fromEmail;
+        this.link = link;
         this.timex = timex;
-        this.digest = digest;
-        this.unread = unread;
+    }
+
+    public EmailBody(String action, int unreadCount, long timex){
+        this.action = action;
+        this.unreadCount = unreadCount;
+        this.timex = timex;
     }
 
     public String getAction() {
@@ -32,20 +39,28 @@ public class EmailBody extends MessageBody {
         this.action = action;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getSender() {
-        return sender;
+    public String getFromUser() {
+        return fromUser;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public String getFromEmail() {
+        return fromEmail;
+    }
+
+    public void setFromEmail(String fromEmail) {
+        this.fromEmail = fromEmail;
     }
 
     public long getTimex() {
@@ -56,20 +71,20 @@ public class EmailBody extends MessageBody {
         this.timex = timex;
     }
 
-    public String getDigest() {
-        return digest;
+    public String getLink() {
+        return link;
     }
 
-    public void setDigest(String digest) {
-        this.digest = digest;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public int getUnread() {
-        return unread;
+    public int getUnreadCount() {
+        return unreadCount;
     }
 
-    public void setUnread(int unread) {
-        this.unread = unread;
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
     }
 
     @Override
@@ -91,11 +106,21 @@ public class EmailBody extends MessageBody {
     public JsonElement toJsonElement() {
         JsonObject json = new JsonObject();
         json.addProperty("action", this.action);
-        json.addProperty("title", this.title);
-        json.addProperty("sender", this.sender);
-        json.addProperty("timex", this.timex);
-        json.addProperty("digest", this.digest);
-        json.addProperty("unread", this.unread);
+        json.addProperty("time", this.timex);
+
+        if(null != this.subject && this.subject.length()>0){
+            json.addProperty("subject", this.subject);
+        }
+        if(null != this.fromUser && this.fromUser.length()>0){
+            json.addProperty("fromUser", this.fromUser);
+        }
+        if(null != this.fromEmail && this.fromEmail.length()>0){
+            json.addProperty("fromEmail", this.fromEmail);
+        }
+        if(null != this.link && this.link.length()>0){
+            json.addProperty("link", this.link);
+        }
+        json.addProperty("unreadCount", this.unreadCount);
         return json;
     }
 }
