@@ -40,6 +40,20 @@ public class MailMsgClient {
         Helper.postJson(uriSendMsg(), param.toString());
     }
 
+    public void sendUnreadCountMailMsg(String toUser, String toEmail, int unreadCount, long timex) throws ParamParserException, HttpRequestException, AESCryptoException {
+        EmailBody emailMsg = new EmailBody();
+        emailMsg.setAction(Const.Mail_Msg_Unread);
+        emailMsg.setUnreadCount(unreadCount);
+        emailMsg.setTimex(timex);
+        Message msg = new Message(toUser, "",toEmail, MessageTypeMail, emailMsg);
+        String cipherText = this.crypto.encrypt(Helper.utf8Bytes(msg.toJson()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherText);
+        Helper.postJson(uriSendMsg(), param.toString());
+    }
+
     private String uriSendMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_APP_SEND_MSG, this.tokenClient.getToken()) ;
     }
