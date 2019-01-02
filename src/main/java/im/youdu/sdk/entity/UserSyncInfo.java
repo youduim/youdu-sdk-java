@@ -97,6 +97,7 @@ public class UserSyncInfo extends UserInfo {
                 if(null != p.getSortId()){
                     obj.addProperty("sortId",p.getSortId());
                 }
+                array.add(obj);
             }
             json.add("deptDetail", array);
         }
