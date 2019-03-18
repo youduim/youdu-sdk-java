@@ -615,6 +615,13 @@ public class AppClient {
         return msg;
     }
 
+    public ReceiveAuth decryptAuth(String encrypt) throws GeneralEntAppException, IOException {
+        byte[] data = this.crypto.decrypt(encrypt);
+        ReceiveAuth auth = new ReceiveAuth();
+        auth.fromJson(Helper.utf8String(data));
+        return auth;
+    }
+
 //----------------------------------------------------------------------------------------------------------------------
     public int getBuin() {
         return buin;
