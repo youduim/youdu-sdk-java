@@ -342,13 +342,13 @@ public class OrgClient {
         obj.addProperty("userId", position.getUserId());
         obj.addProperty("deptId",position.getDeptId());
         if(null != position.getPosition()){
-            obj.addProperty("mobile", position.getPosition());
+            obj.addProperty("position", position.getPosition());
         }
         if(null != position.getWeight()) {
-            obj.addProperty("phone", position.getWeight());
+            obj.addProperty("weight", position.getWeight());
         }
         if(null != position.getSortId()){
-            obj.addProperty("email", position.getSortId());
+            obj.addProperty("sortId", position.getSortId());
         }
         String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
         JsonObject param = new JsonObject();
