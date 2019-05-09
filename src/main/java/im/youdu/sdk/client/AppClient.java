@@ -398,6 +398,25 @@ public class AppClient {
     }
 
     /***
+     * 发送外链消息
+     *
+     * @param toGid 接收消息的用户gid
+     * @param toDept 接收消息的部门
+     * @param exLink 外链接对象
+     * @throws AESCryptoException 加解密失败
+     * @throws ParamParserException 参数解析失败
+     * @throws HttpRequestException http请求失败
+     */
+    public void sendExlinkMsgToYdGid(String toGid, String toDept, ExlinkBody exLink) throws ParamParserException, HttpRequestException, AESCryptoException {
+        Message msg = new Message();
+        msg.setToGid(toGid);
+        msg.setToDept(toDept);
+        msg.setMsgType(MessageTypeExlink);
+        msg.setMsgBody(exLink);
+        this.sendMsg(msg);
+    }
+
+    /***
      * 发送图文消息
      *
      * @param toUser 接收消息的用户
