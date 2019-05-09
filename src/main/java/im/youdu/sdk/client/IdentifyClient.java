@@ -51,6 +51,7 @@ public class IdentifyClient {
             }
             JsonObject jUserObj = jUserElememt.getAsJsonObject();
             UserInfo userInfo = new UserInfo();
+            userInfo.setGid(jUserObj.get(Const.UserInfo_Gid).getAsLong());
             userInfo.setUserId(jUserObj.get(Const.UserInfo_Account).getAsString());
             userInfo.setName(jUserObj.get(Const.UserInfo_ChsName).getAsString());
             userInfo.setMobile(jUserObj.get(Const.UserInfo_Mobile).getAsString());

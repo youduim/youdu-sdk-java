@@ -29,6 +29,7 @@ public class Const {
     public static final Integer Avatar_Large = 0;
     public static final Integer Avatar_Small = 1;
 
+    public static final String UserInfo_Gid = "gid";
     public static final String UserInfo_Account = "account";
     public static final String UserInfo_ChsName = "chsName";
     public static final String UserInfo_Gender = "gender";

@@ -1,6 +1,7 @@
 package im.youdu.sdk.entity;
 
 public class UserInfo {
+	private Long gid;
     private String userId;
     private String name;
     private String mobile;
@@ -11,6 +12,14 @@ public class UserInfo {
     private UserDeptPosition[] deptDetail;
 
     public UserInfo() {
+    }
+    
+    public Long getGid() {
+    	return gid;
+    }
+    
+    public void setGid(Long gid) {
+    	this.gid = gid;
     }
 
     public String getUserId() {
@@ -79,6 +88,6 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return String.format("userId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\n", this.userId, this.gender, this.name, this.mobile, this.phone, this.email);
+        return String.format("gid: %s;\nuserId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\n", this.gid, this.userId, this.gender, this.name, this.mobile, this.phone, this.email);
     }
 }
