@@ -45,13 +45,7 @@ public class OrgClient {
         this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
     }
 //----------------------------------------------------------------------------------------------------------------------
-    // 获取部门直属子部门列表
-    public List<Dept> listDeptChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
-        JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptChildren(deptId));
-        String cipherRsp = jsonRsp.get("encrypt").getAsString();
-        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
-        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
-
+    private List<Dept> parseDeptList(JsonObject jsonObj) {
         JsonArray jDeptArray =  Helper.getArray("deptList", jsonObj);
         List<Dept> deptList = new ArrayList<Dept>();
         for(JsonElement e : jDeptArray){
@@ -70,29 +64,22 @@ public class OrgClient {
         return  deptList;
     }
 
+    // 获取部门直属子部门列表
+    public List<Dept> listDeptChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptChildren(deptId));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        return parseDeptList(jsonObj);
+    }
+
     //获取部门及直属子部门列表
     public List<Dept> listDeptSelfAndChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptSelfAndChildren(deptId));
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
-
-        JsonArray jDeptArray =  Helper.getArray("deptList", jsonObj);
-        List<Dept> deptList = new ArrayList<Dept>();
-        for(JsonElement e : jDeptArray){
-            if(!e.isJsonObject()){
-                continue;
-            }
-            JsonObject jDept = e.getAsJsonObject();
-            Dept dept = new Dept();
-            dept.setId(Helper.getInt("id",jDept));
-            dept.setName(Helper.getString("name",jDept));
-            dept.setParentId(Helper.getInt("parentId",jDept));
-            dept.setSortId(Helper.getInt("sortId",jDept));
-            dept.setAlias(Helper.getString("alias",jDept));
-            deptList.add(dept);
-        }
-        return  deptList;
+        return parseDeptList(jsonObj);
     }
 
     //创建部门
@@ -390,6 +377,7 @@ public class OrgClient {
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
         UserInfo user = new UserInfo();
+//        user.setGid(Helper.getLong("gid",jsonObj));
         user.setUserId(Helper.getString("userId",jsonObj));
         user.setName(Helper.getString("name",jsonObj));
         user.setGender(Helper.getInt("gender",jsonObj));
@@ -419,6 +407,66 @@ public class OrgClient {
         return user;
     }
 
+    //获取批量用户信息，参数为gid，最多为1000个
+    public UserInfo[] getUserInfoListByYdGid(long[] ydGids)throws ParamParserException, HttpRequestException, AESCryptoException {
+    	if (ydGids.length == 0) {
+    		return null;
+    	}
+    	
+    	String gids = "";
+    	for (long gid : ydGids) {
+    		gids += String.valueOf(gid) + ",";
+    	}
+    	gids = gids.substring(0, gids.length()-1);
+
+    	JsonObject jsonRsp = Helper.getUrlV2(this.uriGetUserBatch(gids));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        
+        JsonArray userArray = jsonObj.get("userList").getAsJsonArray();
+        UserInfo users[] = new UserInfo[userArray.size()];
+        for (int i = 0; i < userArray.size(); i++) {
+              JsonObject userObj = userArray.get(i).getAsJsonObject();
+        	  UserInfo user = new UserInfo();
+        	  user.setGid(Helper.getLong("gid", userObj));
+              user.setUserId(Helper.getString("userId", userObj));
+              user.setName(Helper.getString("name", userObj));
+              user.setGender(Helper.getInt("gender", userObj));
+              user.setMobile(Helper.getString("mobile", userObj));
+              user.setPhone(Helper.getString("phone", userObj));
+              user.setEmail(Helper.getString("email", userObj));
+
+              if (userObj.has("dept") && userObj.get("dept").isJsonArray()) {
+                  JsonArray deptArray = userObj.get("dept").getAsJsonArray();
+                  int dept[] = new int[deptArray.size()];
+                  for (int j = 0; j < deptArray.size(); j++) {
+                      dept[j] = deptArray.get(j).getAsInt();
+                  }
+                  user.setDept(dept);
+              }
+
+            if (userObj.has("deptDetail") && userObj.get("deptDetail").isJsonArray()) {
+                JsonArray deptUserInfoArrary = userObj.get("deptDetail").getAsJsonArray();
+                UserDeptPosition deptPositions[] = new UserDeptPosition[deptUserInfoArrary.size()];
+                for (int j = 0; j < deptUserInfoArrary.size(); j ++) {
+                    JsonObject deptPositonObj = deptUserInfoArrary.get(j).getAsJsonObject();
+                    UserDeptPosition position = new UserDeptPosition();
+                    position.setDeptId(Helper.getInt("deptId",deptPositonObj));
+                    position.setPosition(Helper.getString("position",deptPositonObj));
+                    position.setWeight(Helper.getInt("weight",deptPositonObj));
+                    position.setSortId(Helper.getInt("sortId",deptPositonObj));
+                    deptPositions[j] = position;
+                }
+                user.setDeptDetail(deptPositions);
+            }
+
+            users[i] = user;
+        }   
+
+        return users;
+    }
+
     //获取部门用户详细信息
     public UserInfo[] listDeptUserSimple(int deptId) throws AESCryptoException, ParamParserException, HttpRequestException {
         JsonObject jsonRsp = Helper.getUrlV2(this.uriGetDeptUser(deptId)) ;
@@ -432,6 +480,7 @@ public class OrgClient {
         for (int i = 0; i < userArray.size(); i++) {
             JsonObject userObj = userArray.get(i).getAsJsonObject();
             UserInfo user = new UserInfo();
+            user.setGid(Helper.getLong("gid",userObj));
             user.setUserId(Helper.getString("userId",userObj));
             user.setName(Helper.getString("name",userObj));
             user.setGender(Helper.getInt("gender",userObj));
@@ -453,7 +502,6 @@ public class OrgClient {
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
-
         JsonArray userListArray = jsonObj.get("userList").getAsJsonArray();
         UserDetail userDetails[] = new UserDetail[userListArray.size()];
         for (int i = 0; i < userListArray.size(); i++) {
@@ -461,19 +509,20 @@ public class OrgClient {
 
             UserInfo user = new UserInfo();
             JsonObject userObj = userListArray.get(i).getAsJsonObject();
+            user.setGid(userObj.get("gid").getAsLong());
             user.setUserId(userObj.get("userId").getAsString());
             user.setName(userObj.get("name").getAsString());
             user.setGender(userObj.get("gender").getAsInt());
             user.setMobile(userObj.get("mobile").getAsString());
             user.setPhone(userObj.get("phone").getAsString());
             user.setEmail(userObj.get("email").getAsString());
+
             JsonArray deptArray = userObj.get("dept").getAsJsonArray();
             int dept[] = new int[deptArray.size()];
             for (int j = 0; j < deptArray.size(); j++) {
                 dept[j] = deptArray.get(j).getAsInt();
             }
             user.setDept(dept);
-
             detail.setUser(user);
 
             JsonArray deptDetailArray = userObj.get("deptDetail").getAsJsonArray();
@@ -488,6 +537,56 @@ public class OrgClient {
                 deptUserInfos[j] = deptUser;
             }
             detail.setDeptUserInfo(deptUserInfos);
+            userDetails[i] = detail;
+        }
+        return userDetails;
+    }
+
+    //获取部门下所有用户详细信息,返回包含gid
+    public UserDetail[] listDeptAllUserDetail(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriGetDeptAllUserDetail(deptId));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        JsonArray userListArray = jsonObj.get("userList").getAsJsonArray();
+        UserDetail userDetails[] = new UserDetail[userListArray.size()];
+        for (int i = 0; i < userListArray.size(); i++) {
+            UserDetail detail = new UserDetail();
+
+            UserInfo user = new UserInfo();
+            JsonObject userObj = userListArray.get(i).getAsJsonObject();
+            user.setGid(userObj.get("gid").getAsLong());
+            user.setUserId(userObj.get("userId").getAsString());
+            user.setName(userObj.get("name").getAsString());
+            user.setGender(userObj.get("gender").getAsInt());
+            user.setMobile(userObj.get("mobile").getAsString());
+            user.setPhone(userObj.get("phone").getAsString());
+            user.setEmail(userObj.get("email").getAsString());
+
+            if(userObj.has("dept") && userObj.get("dept").isJsonArray()) {
+                JsonArray deptArray = userObj.get("dept").getAsJsonArray();
+                int dept[] = new int[deptArray.size()];
+                for (int j = 0; j < deptArray.size(); j++) {
+                    dept[j] = deptArray.get(j).getAsInt();
+                }
+                user.setDept(dept);
+            }
+            detail.setUser(user);
+
+            if(userObj.has("deptDetail") && userObj.get("deptDetail").isJsonArray()) {
+                JsonArray deptDetailArray = userObj.get("deptDetail").getAsJsonArray();
+                DeptUserInfo deptUserInfos[] = new DeptUserInfo[deptDetailArray.size()];
+                for (int j = 0; j < deptDetailArray.size(); j++) {
+                    DeptUserInfo deptUser = new DeptUserInfo();
+                    JsonObject obj = deptDetailArray.get(j).getAsJsonObject();
+                    deptUser.setDeptId(obj.get("deptId").getAsInt());
+                    deptUser.setPosition(obj.get("position").getAsString());
+                    deptUser.setWeight(obj.get("weight").getAsInt());
+
+                    deptUserInfos[j] = deptUser;
+                }
+                detail.setDeptUserInfo(deptUserInfos);
+            }
             userDetails[i] = detail;
         }
         return userDetails;
@@ -744,6 +843,10 @@ public class OrgClient {
 
     private String uriGetUser(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_USER_GET,this.tokenClient.getToken(),userId);
+    } 
+    
+    private String uriGetUserBatch(String gids) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&gids=%s", YdApi.SCHEME,this.host,YdApi.API_USER_GET_BATCH,this.tokenClient.getToken(),gids);
     }
 
     private String uriGetDeptUser(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
@@ -752,6 +855,10 @@ public class OrgClient {
 
     private String uriGetDeptUserDetail(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&deptId=%d", YdApi.SCHEME,this.host,YdApi.API_USER_GET_DEPT_DETAIL,this.tokenClient.getToken(),deptId);
+    }
+
+    private String uriGetDeptAllUserDetail(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&deptId=%d", YdApi.SCHEME,this.host,YdApi.API_USER_ALL_GET_DEPT_DETAIL,this.tokenClient.getToken(),deptId);
     }
 
     private String uriSetUserAuth() throws ParamParserException, HttpRequestException, AESCryptoException {

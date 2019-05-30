@@ -141,9 +141,10 @@ public class AESCrypto {
         int length = recoverNetworkBytesOrder(networkOrder);
 
         byte[] backAppId = Arrays.copyOfRange(bytes, 20 + length, bytes.length);
-        if (! appId.equals(new String(backAppId))) {
-            throw new AESCryptoException("AppId不匹配", null);
-        }
+        String backAppIdStr = new String(backAppId);
+//        if (! appId.equals(backAppIdStr)) {
+//            throw new AESCryptoException("AppId不匹配", null);
+//        }
         return Arrays.copyOfRange(bytes, 20, 20 + length);
     }
 
@@ -178,4 +179,40 @@ public class AESCrypto {
     public byte[] decrypt(String postData) throws AESCryptoException {
         return decryptData(postData, this.appId, this.aesKey);
     }
+
+    public byte[] decryptV2(String postData) throws AESCryptoException {
+        return decryptDataV2(postData, this.appId, this.aesKey);
+    }
+
+    private static byte[] decryptDataV2(String text, String appId, byte[] aesKey) throws AESCryptoException {
+        byte[] original;
+        try {
+            // 设置解密模式为AES的CBC模式
+            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
+            SecretKeySpec key_spec = new SecretKeySpec(aesKey, "AES");
+            IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
+            cipher.init(Cipher.DECRYPT_MODE, key_spec, iv);
+
+            // 使用BASE64对密文进行解码
+            byte[] encrypted = java.util.Base64.getUrlDecoder().decode(text);
+
+            // 解密
+            original = cipher.doFinal(encrypted);
+        } catch (GeneralSecurityException e) {
+            throw new AESCryptoException(e.getMessage(), e);
+        }
+
+        // 去除补位字符
+        byte[] bytes = PKCS7Encoder.decode(original);
+
+        // 分离16位随机字符串,网络字节序和appId
+        byte[] networkOrder = Arrays.copyOfRange(bytes, 16, 20);
+
+        int length = recoverNetworkBytesOrder(networkOrder);
+
+        byte[] backAppId = Arrays.copyOfRange(bytes, 20 + length, bytes.length);
+        String backAppIdStr = new String(backAppId);
+        return Arrays.copyOfRange(bytes, 20, 20 + length);
+    }
+
 }
