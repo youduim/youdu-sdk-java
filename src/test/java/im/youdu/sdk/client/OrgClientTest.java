@@ -145,10 +145,17 @@ public class OrgClientTest extends TestCase {
         UserInfo user = orgClient.getUserInfo("test1");
         System.out.println("get userInfo ok:"+user);
     }
+    
+  //获取用户信息
+    public void testGetUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
+    	long gidList[] = new long[] {331536};
+        UserInfo[] users = orgClient.getUserInfoListByYdGid(gidList);
+        System.out.println("get userInfo ok:" + users);
+    }
 
     //获取部门用户简单信息
     public void testListDeptUserSimple() throws ParamParserException, HttpRequestException, AESCryptoException {
-        UserInfo[] users = orgClient.listDeptUserSimple(0);
+        UserInfo[] users = orgClient.listDeptUserSimple(64);
         for(UserInfo user : users){
             System.out.println("get dept user simple ok:"+user);
         }
@@ -157,6 +164,14 @@ public class OrgClientTest extends TestCase {
     //获取部门用户详细信息
     public void testListDeptUserDetail() throws ParamParserException, HttpRequestException, AESCryptoException{
         UserDetail[] users = orgClient.listDeptUserDetail(0);
+        for(UserDetail user : users){
+            System.out.println("get dept user simple ok:"+user);
+        }
+    }
+
+    //获取部门下所有用户详细信息
+    public void testListDeptAllUserDetail() throws ParamParserException, HttpRequestException, AESCryptoException{
+        UserDetail[] users = orgClient.listDeptAllUserDetail(69);
         for(UserDetail user : users){
             System.out.println("get dept user simple ok:"+user);
         }
