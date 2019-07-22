@@ -44,11 +44,11 @@ public class ReceiveMessage {
         this.sessionId = Helper.getString("sessionId", jObj);
         this.msgType = this.parseMsgType(this.sessionId,this.receiver,_msgType);
 
-        if (this.msgType.equals(Const.Message_App_Type_Text) || this.msgType.equals(Const.Message_Session_Type_Text) ) { //文本消息
+        if (this.msgType.equals(Const.Message_Session_Type_Text) ) { //文本消息
             this.msgBody = new TextBody();
-        } else if (this.msgType.equals(Const.Message_App_Type_Image) || this.msgType.equals(Const.Message_Session_Type_Image)) { //图片消息
+        } else if (this.msgType.equals(Const.Message_Session_Type_Image)) { //图片消息
             this.msgBody = new ImageBody();
-        } else if (this.msgType.equals(Const.Message_App_Type_File) || this.msgType.equals(Const.Message_Session_Type_File)) { //文件消息
+        } else if (this.msgType.equals(Const.Message_Session_Type_File)) { //文件消息
             this.msgBody = new FileBody();
         } else if (this.msgType.equals(Const.Message_App_Type_Sms)) { //短信消息
             this.msgBody = new SmsBody();
@@ -64,6 +64,8 @@ public class ReceiveMessage {
             this.msgBody = new SessionCreateBody();
         } else if (this.msgType.equals(Const.Message_Session_Update)){
             this.msgBody = new SessionUpdateBody();
+        } else if (this.msgType.equals(Const.Message_App_Type_Event)) {
+            this.msgBody = new EventBody();
         } else {
             throw new ParamParserException(String.format("无法识别的消息类型 %s", this.msgType), null);
         }
@@ -119,7 +121,7 @@ public class ReceiveMessage {
 
     //文本消息
     public String getAsTextMsg() throws GeneralEntAppException {
-        if(!this.msgType.equals(Const.Message_App_Type_Text) && this.msgType.equals(Const.Message_Session_Type_Text)){
+        if(!this.msgType.equals(Const.Message_Session_Type_Text)){
             throw new GeneralEntAppException("this is not a text msg",null);
         }
         TextBody body = this.msgBody.getAsTextBody();
@@ -128,7 +130,7 @@ public class ReceiveMessage {
 
     //图片消息
     public ImageBody getAsImageMsg() throws GeneralEntAppException {
-        if(!this.msgType.equals(Const.Message_App_Type_Image) && !this.msgType.equals(Const.Message_Session_Type_Image)){
+        if(!this.msgType.equals(Const.Message_Session_Type_Image)){
             throw new GeneralEntAppException("this is not a image msg",null);
         }
         ImageBody body = this.msgBody.getAsImageBody();
@@ -137,7 +139,7 @@ public class ReceiveMessage {
 
     //文件消息
     public FileBody getAsFileMsg() throws GeneralEntAppException{
-        if(!this.msgType.equals(Const.Message_App_Type_File) && !this.msgType.equals(Const.Message_Session_Type_File)){
+        if(!this.msgType.equals(Const.Message_Session_Type_File)){
             throw new GeneralEntAppException("this is not a file msg",null);
         }
         FileBody body = this.msgBody.getAsFileBody();
@@ -207,6 +209,15 @@ public class ReceiveMessage {
         return body;
     }
 
+    //打开应用会话事件
+    public EventBody getAsEvent() throws GeneralEntAppException{
+        if(!this.msgType.equals(Const.Message_App_Type_Event)){
+            throw new GeneralEntAppException("this is not a event msg",null);
+        }
+        EventBody body = this.msgBody.getAsEventBody();
+        return body;
+    }
+
     //视频消息
 //    public VideoBody getAsVideoMsg() throws GeneralEntAppException {
 //        if(!this.msgType.equals(Const.Message_Session_Type_Video)){
@@ -251,37 +262,14 @@ public class ReceiveMessage {
     }
 
     private String parseMsgType(String sessionId, String receiver, String msgType ){
-        boolean hasSession = (null != sessionId && !"".equals(sessionId));
-        boolean hasRecv = (null != receiver && !"".equals(receiver));
-        boolean isSession = (hasSession || hasRecv);
-        for(;;){
-            if(msgType == MessageTypeText){
-                if(isSession){
-                    msgType = Const.Message_Session_Type_Text;
-                }else{
-                    msgType = Const.Message_App_Type_Text;
-                }
-                break;
-            }
-
-            if(msgType == MessageTypeFile) {
-                if (isSession) {
-                    msgType = Const.Message_Session_Type_File;
-                } else {
-                    msgType = Const.Message_App_Type_File;
-                }
-                break;
-            }
-            if(msgType == MessageTypeImage) {
-                if (isSession) {
-                    msgType = Const.Message_Session_Type_Image;
-                } else {
-                    msgType = Const.Message_App_Type_Image;
-                }
-                break;
-            }
-            break;
+        if(msgType == MessageTypeText) {
+            msgType = Const.Message_Session_Type_Text;
+        } else if(msgType == MessageTypeFile) {
+            msgType = Const.Message_Session_Type_File;
+        } else if(msgType == MessageTypeImage) {
+            msgType = Const.Message_Session_Type_Image;
         }
+
         return msgType;
     }
 }

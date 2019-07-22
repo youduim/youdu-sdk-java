@@ -3,16 +3,14 @@ package im.youdu.sdk.entity;
 public class Const {
 
 
-    public static final String Message_App_Type_Text = "app_text";    //应用文本消息
-    public static final String Message_App_Type_File = "app_file";    //应用文件消息
-    public static final String Message_App_Type_Image = "app_image";  //图片消息
+    public static final String Message_App_Type_Event = "event";    //客户端打开应用会话事件
     public static final String Message_App_Type_Sms = "sms";        //短信消息
 
     public static final String Message_Session_Create = "session_create";    //创建会话
     public static final String Message_Session_Update = "session_update";    //修改会话
-    public static final String Message_Session_Type_Text = "session_text";    //会话文本消息
-    public static final String Message_Session_Type_Image = "session_image";  //图片消息
-    public static final String Message_Session_Type_File = "session_file";    //会话文件消息
+    public static final String Message_Session_Type_Text = "text";    //会话文本消息
+    public static final String Message_Session_Type_Image = "image";  //图片消息
+    public static final String Message_Session_Type_File = "file";    //会话文件消息
     public static final String Message_Session_Type_Link = "link";    //隐式链接消息
     public static final String Message_Session_Type_Audio = "audio";//语音消息
     public static final String Message_Session_Type_System = "system";//系统消息（新版本）

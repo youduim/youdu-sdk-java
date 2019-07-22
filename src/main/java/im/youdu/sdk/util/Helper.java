@@ -314,8 +314,8 @@ public final class Helper {
                 continue;
             }
             if (jObj.has("url")) { //隐式链接
-                String url = Helper.getString("url",jObj);
-                String title = Helper.getString("title",jObj);
+                String url = Helper.getString("url", jObj);
+                String title = Helper.getString("title", jObj);
                 LinkBody body = new LinkBody(url, title, 0);
                 Map m = new HashMap();
                 m.put(Const.Message_Session_Type_Link, body);
@@ -323,10 +323,10 @@ public final class Helper {
                 continue;
             }
             if (jObj.has("image_id")) { //图片消息
-                long size = Helper.getLong("size",jObj);
-                String name = Helper.getString("name",jObj);
-                String mediaId = Helper.getString("media_id",jObj);
-                ImageBody body = new ImageBody(name,mediaId,size);
+                long size = Helper.getLong("size", jObj);
+                String name = Helper.getString("name", jObj);
+                String mediaId = Helper.getString("image_id", jObj);
+                ImageBody body = new ImageBody(name,mediaId, size);
                 Map m = new HashMap();
                 m.put(Const.Message_Session_Type_Image, body);
                 list.add(m);
