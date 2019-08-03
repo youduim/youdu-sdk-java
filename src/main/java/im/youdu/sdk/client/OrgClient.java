@@ -16,7 +16,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -24,7 +23,6 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OrgClient {
@@ -407,6 +405,19 @@ public class OrgClient {
         return user;
     }
 
+    /*
+    * 用于组织架构人员关键字搜索，搜索账号和姓名，最多只返回200个用户
+     */
+    public UserInfo[] searchUserInfoList(String keyword) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if (keyword == null || keyword.isEmpty()) {
+            return null;
+        }
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriSearchUser(keyword));
+        UserInfo[] userList;
+        userList = this.parseUserInfoList(jsonRsp);
+        return userList;
+    }
+
     //获取批量用户信息，参数为gid，最多为1000个
     public UserInfo[] getUserInfoListByYdGid(long[] ydGids)throws ParamParserException, HttpRequestException, AESCryptoException {
     	if (ydGids.length == 0) {
@@ -418,52 +429,60 @@ public class OrgClient {
     		gids += String.valueOf(gid) + ",";
     	}
     	gids = gids.substring(0, gids.length()-1);
-
     	JsonObject jsonRsp = Helper.getUrlV2(this.uriGetUserBatch(gids));
+        UserInfo[] userList;
+        userList = this.parseUserInfoList(jsonRsp);
+        return userList;
+    }
+
+    private UserInfo[] parseUserInfoList(JsonObject jsonRsp) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if (!jsonRsp.has("encrypt")) {
+            return null;
+        }
+
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
-        
+
         JsonArray userArray = jsonObj.get("userList").getAsJsonArray();
         UserInfo users[] = new UserInfo[userArray.size()];
         for (int i = 0; i < userArray.size(); i++) {
-              JsonObject userObj = userArray.get(i).getAsJsonObject();
-        	  UserInfo user = new UserInfo();
-        	  user.setGid(Helper.getLong("gid", userObj));
-              user.setUserId(Helper.getString("userId", userObj));
-              user.setName(Helper.getString("name", userObj));
-              user.setGender(Helper.getInt("gender", userObj));
-              user.setMobile(Helper.getString("mobile", userObj));
-              user.setPhone(Helper.getString("phone", userObj));
-              user.setEmail(Helper.getString("email", userObj));
+          JsonObject userObj = userArray.get(i).getAsJsonObject();
+          UserInfo user = new UserInfo();
+          user.setGid(Helper.getLong("gid", userObj));
+          user.setUserId(Helper.getString("userId", userObj));
+          user.setName(Helper.getString("name", userObj));
+          user.setGender(Helper.getInt("gender", userObj));
+          user.setMobile(Helper.getString("mobile", userObj));
+          user.setPhone(Helper.getString("phone", userObj));
+          user.setEmail(Helper.getString("email", userObj));
 
-              if (userObj.has("dept") && userObj.get("dept").isJsonArray()) {
-                  JsonArray deptArray = userObj.get("dept").getAsJsonArray();
-                  int dept[] = new int[deptArray.size()];
-                  for (int j = 0; j < deptArray.size(); j++) {
-                      dept[j] = deptArray.get(j).getAsInt();
-                  }
-                  user.setDept(dept);
-              }
-
-            if (userObj.has("deptDetail") && userObj.get("deptDetail").isJsonArray()) {
-                JsonArray deptUserInfoArrary = userObj.get("deptDetail").getAsJsonArray();
-                UserDeptPosition deptPositions[] = new UserDeptPosition[deptUserInfoArrary.size()];
-                for (int j = 0; j < deptUserInfoArrary.size(); j ++) {
-                    JsonObject deptPositonObj = deptUserInfoArrary.get(j).getAsJsonObject();
-                    UserDeptPosition position = new UserDeptPosition();
-                    position.setDeptId(Helper.getInt("deptId",deptPositonObj));
-                    position.setPosition(Helper.getString("position",deptPositonObj));
-                    position.setWeight(Helper.getInt("weight",deptPositonObj));
-                    position.setSortId(Helper.getInt("sortId",deptPositonObj));
-                    deptPositions[j] = position;
-                }
-                user.setDeptDetail(deptPositions);
+          if (userObj.has("dept") && userObj.get("dept").isJsonArray()) {
+            JsonArray deptArray = userObj.get("dept").getAsJsonArray();
+            int dept[] = new int[deptArray.size()];
+            for (int j = 0; j < deptArray.size(); j++) {
+              dept[j] = deptArray.get(j).getAsInt();
             }
+            user.setDept(dept);
+          }
 
-            users[i] = user;
-        }   
+          if (userObj.has("deptDetail") && userObj.get("deptDetail").isJsonArray()) {
+            JsonArray deptUserInfoArrary = userObj.get("deptDetail").getAsJsonArray();
+            UserDeptPosition deptPositions[] = new UserDeptPosition[deptUserInfoArrary.size()];
+            for (int j = 0; j < deptUserInfoArrary.size(); j++) {
+              JsonObject deptPositonObj = deptUserInfoArrary.get(j).getAsJsonObject();
+              UserDeptPosition position = new UserDeptPosition();
+              position.setDeptId(Helper.getInt("deptId", deptPositonObj));
+              position.setPosition(Helper.getString("position", deptPositonObj));
+              position.setWeight(Helper.getInt("weight", deptPositonObj));
+              position.setSortId(Helper.getInt("sortId", deptPositonObj));
+              deptPositions[j] = position;
+            }
+            user.setDeptDetail(deptPositions);
+          }
 
+          users[i] = user;
+        }
         return users;
     }
 
@@ -847,6 +866,10 @@ public class OrgClient {
     
     private String uriGetUserBatch(String gids) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&gids=%s", YdApi.SCHEME,this.host,YdApi.API_USER_GET_BATCH,this.tokenClient.getToken(),gids);
+    }
+
+    private String uriSearchUser(String keyword) throws ParamParserException, HttpRequestException, AESCryptoException{
+        return String.format("%s%s%s?accessToken=%s&keyword=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_SEARCH,this.tokenClient.getToken(),keyword);
     }
 
     private String uriGetDeptUser(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {

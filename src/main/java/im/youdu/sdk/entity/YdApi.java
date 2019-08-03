@@ -50,6 +50,7 @@ public class YdApi {
 	public static final String API_USER_GET_DEPT_DETAIL = "/cgi/user/list";
 	public static final String API_USER_ALL_GET_DEPT_DETAIL = "/cgi/dept/user/listall";
 	public static final String API_USER_SET_AUTH = "/cgi/user/setauth";
+	public static final String API_USER_SET_SEARCH = "/cgi/user/search";
 
 	public static final String API_ORT_REPLACEALL = "/cgi/org/replaceall";
 	public static final String API_ORT_XMLSYNC = "/cgi/org/xmlsync";

@@ -16,7 +16,7 @@ public class OrgClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "n76ut0qxPWozXbMxGMt8s9pgxUZKUxu/GJ5R5dz+u4g="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "eZh/ncwOkhbfv6NVBm0fzOu2wn9mHdDcpu3QEf1x7Eo="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
@@ -148,9 +148,25 @@ public class OrgClientTest extends TestCase {
     
   //获取用户信息
     public void testGetUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
-    	long gidList[] = new long[] {331536};
+    	long gidList[] = new long[] {100484};
         UserInfo[] users = orgClient.getUserInfoListByYdGid(gidList);
-        System.out.println("get userInfo ok:" + users);
+        if (users != null) {
+            System.out.println("get userInfo ok:");
+            for (UserInfo user : users) {
+                System.out.println(user.toString());
+            }
+        }
+    }
+
+    //搜索账号和姓名
+    public void testSearchUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
+        UserInfo[] users = orgClient.searchUserInfoList("test1");
+        if (users != null) {
+            System.out.println("get userInfo ok:");
+            for (UserInfo user : users) {
+                System.out.println(user.toString());
+            }
+        }
     }
 
     //获取部门用户简单信息
@@ -171,9 +187,9 @@ public class OrgClientTest extends TestCase {
 
     //获取部门下所有用户详细信息
     public void testListDeptAllUserDetail() throws ParamParserException, HttpRequestException, AESCryptoException{
-        UserDetail[] users = orgClient.listDeptAllUserDetail(69);
+        UserDetail[] users = orgClient.listDeptAllUserDetail(71);
         for(UserDetail user : users){
-            System.out.println("get dept user simple ok:"+user);
+            System.out.println(user.getUser().getUserId());
         }
     }
 
