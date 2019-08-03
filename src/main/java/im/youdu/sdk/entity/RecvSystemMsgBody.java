@@ -57,7 +57,7 @@ public class RecvSystemMsgBody extends MessageBody {
         }
 
         //解析消息体
-        JsonArray jContentArray =  Helper.getArray("content", obj);
+        JsonArray jContentArray =  Helper.getArray("complex", obj);
         this.msg = Helper.parseComplexMsgBody(jContentArray);
         return this;
     }

@@ -30,7 +30,7 @@ public class ComplexBody extends MessageBody {
 
     @Override
     public MessageBody fromJsonElement(JsonElement json) throws ParamParserException {
-        if (!json.isJsonObject()) {
+        if (!json.isJsonObject() && !json.isJsonArray()) {
             throw new ParamParserException("Json字段类型不匹配", null);
         }
         JsonArray jContentArray =  json.getAsJsonArray();

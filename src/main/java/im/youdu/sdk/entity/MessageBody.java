@@ -118,4 +118,11 @@ public abstract class MessageBody {
         }
         return null;
     }
+
+    public EventBody getAsEventBody(){
+        if (this instanceof EventBody) {
+            return (EventBody)this;
+        }
+        return null;
+    }
 }
