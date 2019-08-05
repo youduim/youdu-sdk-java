@@ -15,6 +15,12 @@ public class ExlinkBodyCell extends MessageBody {
 
     private String mediaId;
 
+    private int linkType;
+
+    private String subTitle;
+
+    private String linkDesc;
+
     /**
      * @param title 标题
      * @param url 链接
@@ -46,10 +52,13 @@ public class ExlinkBodyCell extends MessageBody {
     @Override
     public JsonElement toJsonElement() {
         JsonObject json = new JsonObject();
-        json.addProperty("title", this.title);
-        json.addProperty("url", this.url);
-        json.addProperty("digest", this.digest);
-        json.addProperty("media_id", this.mediaId);
+        json.addProperty("title", this.title != null ? this.title : "");
+        json.addProperty("url", this.url != null ? this.url : "");
+        json.addProperty("digest", this.digest != null ? this.digest : "");
+        json.addProperty("media_id", this.mediaId != null ? this.mediaId : "");
+        json.addProperty("link_type", this.linkType);
+        json.addProperty("subtitle", this.subTitle != null ? this.subTitle : "");
+        json.addProperty("link_desc", this.linkDesc != null ? this.linkDesc : "");
         return json;
     }
 
@@ -78,4 +87,45 @@ public class ExlinkBodyCell extends MessageBody {
     public String getMediaId() {
         return mediaId;
     }
+
+    public int getLinkType() {
+        return linkType;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setDigest(String digest) {
+        this.digest = digest;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public void setLinkType(int linkType) {
+        this.linkType = linkType;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    public String getLinkDesc() {
+        return linkDesc;
+    }
+
+    public void setLinkDesc(String linkDesc) {
+        this.linkDesc = linkDesc;
+    }
+
 }
