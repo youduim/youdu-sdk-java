@@ -10,11 +10,11 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 
 public class AppClientTest extends TestCase {
-    private static final int BUIN = 707168; // 请填写企业总机号码
+    private static final int BUIN = 36363636; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_NAME = "A应用"; //应用名称
-    private static final String APP_ID = "yd2349FE666AF4447F8E5A3B773C160203"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "\tjF1MnRF3RmKHiXIDDj8GB7+U2QFlqxeJXAfF2yHZaJs="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_ID = "yd1696C4567A0B4B3C9EA54BA935BEF986"; // 请填写企业应用AppId
+    private static final String APP_AESKEY = "9NdlYC88tf0rQ66a3Q+6+QYqp31OxkJeqsDtXyViKk8="; // 请填写企业应用的EncodingaesKey
 
     private AppClient appClient;
 
@@ -167,5 +167,10 @@ public class AppClientTest extends TestCase {
 //        win.setPopMode(1); //使用浏览器打开
         win.setPopMode(2); //使用窗口打开
         appClient.popWindow(win);
+    }
+
+    public void testGetFaceConf() throws ParamParserException, HttpRequestException, AESCryptoException{
+        FaceConf conf = appClient.getFaceConfig();
+        System.out.println(String.format("key %s, secret: %s", conf.getKey(), conf.getSecret()));
     }
 }

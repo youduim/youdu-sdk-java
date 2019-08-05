@@ -542,6 +542,25 @@ public class AppClient {
         Helper.postJson(uriPopWindow(), param.toString());
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * 获取人脸识别的key，secret
+     * @throws ParamParserException
+     * @throws AESCryptoException
+     * @throws HttpRequestException
+     */
+    public FaceConf getFaceConfig() throws ParamParserException, AESCryptoException, HttpRequestException {
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriGetFaceConf());
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        FaceConf conf = new FaceConf();
+        conf.setKey(Helper.getString("key", jsonObj));
+        conf.setSecret(Helper.getString("secret", jsonObj));
+        return conf;
+    }
+
     //----------------------------------------------------------------------------------------------------------------------
     private String uriUploadMedia() throws ParamParserException, HttpRequestException, AESCryptoException {
         this.checkToken();
@@ -576,6 +595,11 @@ public class AppClient {
             return;
         }
         freshToken();
+    }
+
+    private String uriGetFaceConf() throws ParamParserException, HttpRequestException, AESCryptoException {
+        this.checkToken();
+        return String.format("%s%s%s?accessToken=%s",YdApi.SCHEME,this.host,YdApi.API_FACE_CONF_GET,this.token) ;
     }
 
     private void freshToken() throws AESCryptoException, ParamParserException, HttpRequestException {

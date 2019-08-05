@@ -73,4 +73,7 @@ public class YdApi {
 	public static final String API_GROUP_ADDMEMBER = "/cgi/group/addmember";
 	public static final String API_GROUP_DELMEMBER = "/cgi/group/delmember";
 	public static final String API_GROUP_ISMEMBER = "/cgi/group/ismember";
+
+	/***** API FOR FACE CONFIG ******/
+	public static final String API_FACE_CONF_GET = "/cgi/face/conf.get";
 }
