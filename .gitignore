@@ -6,3 +6,5 @@
 /.settings
 /.classpath
 .idea/*
+target
+/.idea/modules.xml
