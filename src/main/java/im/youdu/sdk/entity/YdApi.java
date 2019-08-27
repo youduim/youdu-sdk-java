@@ -37,6 +37,7 @@ public class YdApi {
 	public static final String API_DEPT_LISTCHILDREN = "/cgi/dept/listchildren";
 	public static final String API_DEPT_LISTSELFANDCHILDREN = "/cgi/dept/list";
 	public static final String API_DEPT_GETID = "/cgi/dept/getid";
+	public static final String API_DEPT_EXPAND_INVISIBLE = "/cgi/dept/expand/invisible";
 
 	/***** API FOR USER *****/
 	public static final String API_USER_CREATE = "/cgi/user/create";
@@ -55,6 +56,8 @@ public class YdApi {
 	public static final String API_ORT_REPLACEALL = "/cgi/org/replaceall";
 	public static final String API_ORT_XMLSYNC = "/cgi/org/xmlsync";
 	public static final String API_JOB_RESULT = "/cgi/getjobresult";
+	public static final String API_ORGFILE_QUERY = "/cgi/org/sqlitefile/query";
+	public static final String API_ORGFILE_DOWNLOAD = "/cgi/org/sqlitefile/download";
 
 	/***** API FOR SESSION *****/
 	public static final String API_SESSION_GET = "/cgi/session/get";

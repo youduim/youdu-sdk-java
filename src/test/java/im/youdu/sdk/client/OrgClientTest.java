@@ -240,7 +240,7 @@ public class OrgClientTest extends TestCase {
     public void testDownloadSmallAvatar() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
         String userId = "test1";
         String avatarDir = "D:\\pics\\avatars\\";
-        String path = orgClient.DownloadUserAvatarAndSave(userId, Const.Avatar_Small, avatarDir);
+        String path = orgClient.downloadUserAvatarAndSave(userId, Const.Avatar_Small, avatarDir);
         System.out.println("download avatar small ok: "+path);
     }
 
@@ -248,7 +248,7 @@ public class OrgClientTest extends TestCase {
     public void testDownloadLargeAvatar() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
         String userId = "test1";
         String avatarDir = "D:\\pics\\avatars\\";
-        String path = orgClient.DownloadUserAvatarAndSave(userId, Const.Avatar_Large, avatarDir);
+        String path = orgClient.downloadUserAvatarAndSave(userId, Const.Avatar_Large, avatarDir);
         System.out.println("download avatar large ok: "+path);
     }
 
@@ -336,4 +336,52 @@ public class OrgClientTest extends TestCase {
             System.out.println("任务执行失败："+result.getDesc());
         }
     }
+
+    public void testDeptExpandInVisible(){
+        String userId = "test1";
+        int deptId = 0;
+        try {
+            DeptExpandInfo info = orgClient.deptExpandInVisible(userId, deptId);
+            System.out.println(info);
+        } catch (ParamParserException e) {
+            e.printStackTrace();
+        } catch (HttpRequestException e) {
+            e.printStackTrace();
+        } catch (AESCryptoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testOrgSqliteFileQuery(){
+        String userId = "test1";
+        long version = 164584984;
+        try {
+            OrgSqliteFileQueryInfo info = orgClient.queryOrgSqliteFileInfo(userId, version);
+            System.out.println("get org file info:"+info);
+        } catch (ParamParserException e) {
+            e.printStackTrace();
+        } catch (HttpRequestException e) {
+            e.printStackTrace();
+        } catch (AESCryptoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testOrgSqliteFileDownload(){
+        String fileId = "3d2452bca9d1c87b806d9c89bf74f934-6587";
+        String saveDir = "D:\\youdu\\orgdb";
+        try {
+                String filePath = orgClient.downloadOrgSqliteFile(fileId, saveDir, "");
+                System.out.println("download file ok: "+filePath);
+        } catch (ParamParserException e) {
+            e.printStackTrace();
+        } catch (HttpRequestException e) {
+            e.printStackTrace();
+        } catch (AESCryptoException e) {
+            e.printStackTrace();
+        } catch (FileIOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

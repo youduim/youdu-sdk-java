@@ -362,6 +362,10 @@ public final class Helper {
 
     public static String saveFile(FileInfo info, String dir) throws FileIOException {
         FileOutputStream outfile = null;
+        File file = new File(dir);
+        if(!file.exists()){
+            file.mkdirs();
+        }
         String finalPath = dir + File.separator + info.getName();
         try {
             outfile = new FileOutputStream(finalPath);
