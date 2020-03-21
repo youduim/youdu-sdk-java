@@ -59,5 +59,15 @@ public class Const {
 
     public static final String Mail_Msg_New = "new";
     public static final String Mail_Msg_Unread = "unread";
+
+    public static final String Event_Type_Popwindow = "popWindow";
+
+    public static final String Event_Content_Type_Url = "url";
+    public static final String Event_Content_Type_Text = "text";
+    public static final String Event_Content_Type_Html = "html";
+
+    public static final int Window_Pop_Mode_Browser = 1;
+    public static final int Window_Pop_Mode_YDCefBrowser = 2;
+    public static final int Window_Pop_Mode_YDQTBrowser = 3;
 }
 

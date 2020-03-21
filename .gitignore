@@ -1,8 +1,8 @@
 *.class
-/out/
-/.idea/artifacts/
+out/
 /bin/
 /*.project
 /.settings
 /.classpath
-.idea/*
+.idea
+output

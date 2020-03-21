@@ -7,14 +7,12 @@ import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
-
 public class AppClientTest extends TestCase {
-    private static final int BUIN = 36363636; // 请填写企业总机号码
+    private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
-    private static final String APP_NAME = "A应用"; //应用名称
-    private static final String APP_ID = "yd1696C4567A0B4B3C9EA54BA935BEF986"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "9NdlYC88tf0rQ66a3Q+6+QYqp31OxkJeqsDtXyViKk8="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_NAME = "音视频应用"; //应用名称
+    private static final String APP_ID = "ydA7139AD03524491BAF899D14CBF6B6F3"; // 请填写企业应用AppId
+    private static final String APP_AESKEY = "ZrWkHDXfFjzF0fdTAxGgzZUpr7EnndTFuSfklHpMKZ8="; // 请填写企业应用的EncodingaesKey
 
     private AppClient appClient;
 
@@ -172,5 +170,37 @@ public class AppClientTest extends TestCase {
     public void testGetFaceConf() throws ParamParserException, HttpRequestException, AESCryptoException{
         FaceConf conf = appClient.getFaceConfig();
         System.out.println(String.format("key %s, secret: %s", conf.getKey(), conf.getSecret()));
+    }
+
+    public void testPublishAudioVideoEvent(){
+        String toGid = "100448|100397|100462|100422";
+        String toUser = "cs1|cs2|cs3|cs4|cs5";
+        String toDept = "1|2|3";
+        String title = "测试音视频震铃弹窗";
+        String content = "http://10.0.0.168:8080/notice_pc.html?token=$Token$";
+
+        PopWindow window = new PopWindow();
+        window.setContentType(Const.Event_Content_Type_Url);
+        window.setContent(content);
+        window.setTitle(title);
+        window.setPopMode(Const.Window_Pop_Mode_YDCefBrowser);
+        window.setPopSessionId(APP_ID);
+        window.setStayDuration(60);
+        window.setWidth(300);
+        window.setHeight(230);
+
+        AudioVideoEvent event = new AudioVideoEvent();
+        event.setEventType(Const.Event_Type_Popwindow);
+        event.setToGid(toGid);
+        event.setToDept(toDept);
+        event.setToUser(toUser);
+        event.setPopWindow(window);
+        try {
+            appClient.publishAudioVideoEvent(event);
+            System.out.println("test Event ok");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("test Event faild: "+e);
+        }
     }
 }

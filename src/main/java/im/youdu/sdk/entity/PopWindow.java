@@ -2,40 +2,42 @@ package im.youdu.sdk.entity;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import im.youdu.sdk.exception.ParamParserException;
 
-public class PopWindow extends MessageBody{
-    private String url;
-    private Integer duration;
-    private Integer position;
+public class PopWindow{
+    private String title;
     private Integer width;
     private Integer height;
-    private String noticeId;
+    private String content;
+    private Integer popMode;
+    private Integer position;
+    private String contentType;
+    private String popSessionId;
+    private Integer stayDuration;
 
-
-
-    public String getUrl() {
-        return url;
+    public String toJsonString() {
+        return this.toJsonElement().toString();
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public JsonElement toJsonElement() {
+        JsonObject json = new JsonObject();
+        json.addProperty("title", this.title);
+        json.addProperty("width", this.width);
+        json.addProperty("height", this.height);
+        json.addProperty("content", this.content);
+        json.addProperty("popMode", this.popMode);
+        json.addProperty("position", this.position);
+        json.addProperty("contentType", this.contentType);
+        json.addProperty("stayDuration", this.stayDuration);
+        json.addProperty("popSessionId", this.popSessionId);
+        return json;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getWidth() {
@@ -54,38 +56,51 @@ public class PopWindow extends MessageBody{
         this.height = height;
     }
 
-    public String getNoticeId() {
-        return noticeId;
+    public String getContent() {
+        return content;
     }
 
-    public void setNoticeId(String noticeId) {
-        this.noticeId = noticeId;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    @Override
-    public String toJsonString() {
-        return this.toJsonElement().toString();
+    public Integer getPopMode() {
+        return popMode;
     }
 
-    @Override
-    public JsonElement toJsonElement() {
-        JsonObject json = new JsonObject();
-        json.addProperty("url", this.url);
-        json.addProperty("duration", this.duration);
-        json.addProperty("position", this.position);
-        json.addProperty("width", this.width);
-        json.addProperty("height", this.height);
-        json.addProperty("notice_id", this.noticeId);
-        return json;
+    public void setPopMode(Integer popMode) {
+        this.popMode = popMode;
     }
 
-    @Override
-    public MessageBody fromJsonString(String json) throws ParamParserException {
-        return null;
+    public Integer getPosition() {
+        return position;
     }
 
-    @Override
-    public MessageBody fromJsonElement(JsonElement json) throws ParamParserException {
-        return null;
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getPopSessionId() {
+        return popSessionId;
+    }
+
+    public void setPopSessionId(String popSessionId) {
+        this.popSessionId = popSessionId;
+    }
+
+    public Integer getStayDuration() {
+        return stayDuration;
+    }
+
+    public void setStayDuration(Integer stayDuration) {
+        this.stayDuration = stayDuration;
     }
 }

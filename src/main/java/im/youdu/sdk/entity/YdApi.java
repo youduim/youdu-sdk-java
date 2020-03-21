@@ -79,4 +79,7 @@ public class YdApi {
 
 	/***** API FOR FACE CONFIG ******/
 	public static final String API_FACE_CONF_GET = "/cgi/face/conf.get";
+
+	/***** API FOR EVENT ******/
+	public static final String API_EVENT_PUBLISH = "/cgi/event/publish";
 }

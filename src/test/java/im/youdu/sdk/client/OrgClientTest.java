@@ -16,7 +16,7 @@ public class OrgClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "eZh/ncwOkhbfv6NVBm0fzOu2wn9mHdDcpu3QEf1x7Eo="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "RAAgTbtiOjvzyTwglI4Kj6pxmFTRy+/o75lBJS52RwU="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
@@ -143,10 +143,11 @@ public class OrgClientTest extends TestCase {
     //获取用户信息
     public void testGetUserInfo() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserInfo user = orgClient.getUserInfo("test1");
-        System.out.println("get userInfo ok:"+user);
+        System.out.println("get userInfo ok:");
+        System.out.println(user);
     }
     
-  //获取用户信息
+    //获取用户信息
     public void testGetUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
     	long gidList[] = new long[] {100484};
         UserInfo[] users = orgClient.getUserInfoListByYdGid(gidList);

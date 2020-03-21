@@ -370,7 +370,11 @@ public class OrgClient {
         Helper.postJson(this.uriBatchDeleteUser(), param.toString());
     }
 
-    //获取用户信息
+    /**
+     * 根据账号获取用户信息
+     * @param userId
+     *          用户账号
+     */
     public UserInfo getUserInfo(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject jsonRsp = Helper.getUrlV2(this.uriGetUser(userId));
 
@@ -378,7 +382,7 @@ public class OrgClient {
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
         UserInfo user = new UserInfo();
-//        user.setGid(Helper.getLong("gid",jsonObj));
+        user.setGid(Helper.getLong("gid",jsonObj));
         user.setUserId(Helper.getString("userId",jsonObj));
         user.setName(Helper.getString("name",jsonObj));
         user.setGender(Helper.getInt("gender",jsonObj));

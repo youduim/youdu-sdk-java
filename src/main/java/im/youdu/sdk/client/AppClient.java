@@ -561,6 +561,15 @@ public class AppClient {
         return conf;
     }
 
+    public void publishAudioVideoEvent(AudioVideoEvent event) throws ParamParserException, AESCryptoException, HttpRequestException {
+        String cipherText = this.crypto.encrypt(Helper.utf8Bytes(event.toJsonString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherText);
+        Helper.postJson(uriPublishEvent(), param.toString());
+    }
+
     //----------------------------------------------------------------------------------------------------------------------
     private String uriUploadMedia() throws ParamParserException, HttpRequestException, AESCryptoException {
         this.checkToken();
@@ -587,6 +596,11 @@ public class AppClient {
 
     private String uriPopWindow(){
         return String.format("%s%s%s",YdApi.SCHEME , this.host, YdApi.API_POPWINDOW);
+    }
+
+    private String uriPublishEvent() throws ParamParserException, HttpRequestException, AESCryptoException {
+        this.checkToken();
+        return String.format("%s%s%s?accessToken=%s",YdApi.SCHEME , this.host, YdApi.API_EVENT_PUBLISH, this.token);
     }
 
     private void checkToken() throws AESCryptoException, ParamParserException, HttpRequestException {
@@ -628,6 +642,7 @@ public class AppClient {
     }
 
 //----------------------------------------------------------------------------------------------------------------------
+
     public ReceiveMessage receive(InputStream in) throws GeneralEntAppException, IOException {
         byte[]  contentBuffer = Helper.readInputStream(in);
         Helper.close(in);
