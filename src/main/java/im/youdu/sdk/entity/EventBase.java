@@ -1,6 +1,7 @@
 package im.youdu.sdk.entity;
 
 public class EventBase {
+    private Long eventId;
     private String eventType;
     private String toGid;
     private String toUser;
@@ -36,5 +37,13 @@ public class EventBase {
 
     public void setToGid(String toGid) {
         this.toGid = toGid;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 }

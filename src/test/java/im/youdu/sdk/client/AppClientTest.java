@@ -23,7 +23,7 @@ public class AppClientTest extends TestCase {
 
     //发送文本消息
     public void testSendTxtMsg() throws Exception {
-        String receiveUsers = "test1|test2";
+        String receiveUsers = "cs1|cs2";
         String receiveDepts = "1|2|3";
         String text = "Hello, YD!!";
         appClient.sendTextMsg(receiveUsers,receiveDepts,text);
@@ -179,24 +179,29 @@ public class AppClientTest extends TestCase {
         String title = "测试音视频震铃弹窗";
         String content = "http://10.0.0.168:8080/notice_pc.html?token=$Token$";
 
-        PopWindow window = new PopWindow();
-        window.setContentType(Const.Event_Content_Type_Url);
-        window.setContent(content);
-        window.setTitle(title);
-        window.setPopMode(Const.Window_Pop_Mode_YDCefBrowser);
-        window.setPopSessionId(APP_ID);
-        window.setStayDuration(60);
-        window.setWidth(300);
-        window.setHeight(230);
+        PopWindow popWindow = new PopWindow();
+        popWindow.setTitle(title);
+        popWindow.setPopMode(Const.Window_Pop_Mode_YDCefBrowser);
+        popWindow.setPopSessionId(APP_ID);
+        popWindow.setStayDuration(60);
+        popWindow.setWidth(300);
+        popWindow.setHeight(230);
 
-        AudioVideoEvent event = new AudioVideoEvent();
+        PopWindowEventDetail window = new PopWindowEventDetail();
+        window.setWindowType(Const.Event_Content_Type_Url);
+        window.setAction(Const.Window_Pop_Action_Start);
+        window.setTips("test tips");
+        window.setTimeStamp(System.currentTimeMillis());
+        window.setPopWindow(popWindow);
+
+        PopWindowEvent event = new PopWindowEvent();
         event.setEventType(Const.Event_Type_Popwindow);
         event.setToGid(toGid);
         event.setToDept(toDept);
         event.setToUser(toUser);
-        event.setPopWindow(window);
+        event.setEventDetail(window);
         try {
-            appClient.publishAudioVideoEvent(event);
+            appClient.publishPopWindowEvent(event);
             System.out.println("test Event ok");
         } catch (Exception e) {
             e.printStackTrace();

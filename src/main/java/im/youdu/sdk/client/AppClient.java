@@ -561,8 +561,9 @@ public class AppClient {
         return conf;
     }
 
-    public void publishAudioVideoEvent(AudioVideoEvent event) throws ParamParserException, AESCryptoException, HttpRequestException {
-        String cipherText = this.crypto.encrypt(Helper.utf8Bytes(event.toJsonString()));
+    public void publishPopWindowEvent(PopWindowEvent event) throws ParamParserException, AESCryptoException, HttpRequestException {
+        String jsonStr = event.toJsonString();
+        String cipherText = this.crypto.encrypt(Helper.utf8Bytes(jsonStr));
         JsonObject param = new JsonObject();
         param.addProperty("buin", this.buin);
         param.addProperty("appId", this.appId);

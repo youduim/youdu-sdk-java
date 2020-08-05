@@ -45,7 +45,9 @@ public class OrgClient {
         this.crypto = new AESCrypto(appId, appAeskey);
         this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
     }
-//----------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
+
     private List<Dept> parseDeptList(JsonObject jsonObj) {
         JsonArray jDeptArray =  Helper.getArray("deptList", jsonObj);
         List<Dept> deptList = new ArrayList<Dept>();
@@ -983,5 +985,15 @@ public class OrgClient {
 
     private String uriDownloadOrgSqliteFile(String fileId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&fileId=%s", YdApi.SCHEME, this.host, YdApi.API_ORGFILE_DOWNLOAD, this.tokenClient.getToken(), fileId);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    public AppTokenClient getTokenClient() {
+        return tokenClient;
+    }
+
+    public void setTokenClient(AppTokenClient tokenClient) {
+        this.tokenClient = tokenClient;
     }
 }

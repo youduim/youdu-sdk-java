@@ -69,5 +69,10 @@ public class Const {
     public static final int Window_Pop_Mode_Browser = 1;
     public static final int Window_Pop_Mode_YDCefBrowser = 2;
     public static final int Window_Pop_Mode_YDQTBrowser = 3;
+
+    public static final int Window_Pop_Action_Start = 1;
+    public static final int Window_Pop_Action_Cancel = 2;
+
+    public static final String Window_Pop_Event_Type_Voip = "voip";
 }
 

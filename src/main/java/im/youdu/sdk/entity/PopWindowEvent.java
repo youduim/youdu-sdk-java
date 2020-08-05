@@ -2,15 +2,15 @@ package im.youdu.sdk.entity;
 
 import com.google.gson.JsonObject;
 
-public class AudioVideoEvent extends EventBase {
-    private PopWindow popWindow;
+public class PopWindowEvent extends EventBase {
+    private PopWindowEventDetail eventDetail;
 
-    public PopWindow getPopWindow() {
-        return popWindow;
+    public PopWindowEventDetail getEventDetail() {
+        return eventDetail;
     }
 
-    public void setPopWindow(PopWindow popWindow) {
-        this.popWindow = popWindow;
+    public void setEventDetail(PopWindowEventDetail eventDetail) {
+        this.eventDetail = eventDetail;
     }
 
     public String toJsonString() {
@@ -19,11 +19,12 @@ public class AudioVideoEvent extends EventBase {
 
     public JsonObject toJsonElement() {
         JsonObject json = new JsonObject();
+        json.addProperty("eventId", this.getEventId());
         json.addProperty("eventType", this.getEventType());
         json.addProperty("toGid", this.getToGid());
         json.addProperty("toUser", this.getToUser());
         json.addProperty("toDept", this.getToDept());
-        json.add(this.getEventType(), this.popWindow.toJsonElement());
+        json.add(this.getEventType(), this.eventDetail.toJsonElement());
         return json;
     }
 }
