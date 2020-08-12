@@ -11,6 +11,7 @@ SDK类介绍
 | SysMsgClient   | 系统消息发送
 | IdentifyClient | 单点登录身份认证
 | SessionClient  | 会话管理及会话消息发送
+| ChatMsgMenuClient | 自定义会话菜单
 
 ***
 ## 目录
@@ -21,6 +22,7 @@ SDK类介绍
 * [SysMsgClient](#SysMsgClient)
 * [IdentifyClient](#IdentifyClient)
 * [SessionClient](#SessionClient)
+* [ChatMsgMenuClient](#ChatMsgMenuClient)
 ***
 
 ### YDApp 有度应用对象
@@ -440,3 +442,14 @@ SDK类介绍
     fromUser: 消息发送人账号
     toUser: 消息接收者账号
     videoData: 视频文件二进制数据
+
+### ChatMsgMenuClient
+--------------------
+#### downloadChatMsgZipFile  获取文件的byte[]内容
+    appClient.downloadChatMsgZipFile(String forwardId)
+    forwardId:  转发业务ID
+
+#### downloadChatMsgZipFileAndSave  下载并保存文件
+    chatMsgMenuClient.downloadChatMsgZipFileAndSave(String forwardId, String dir)
+    mediaId:  转发业务ID
+    dir:  需要保存的文件夹路径
