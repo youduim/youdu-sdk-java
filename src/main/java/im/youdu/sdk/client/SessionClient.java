@@ -339,8 +339,8 @@ public class SessionClient {
      * @throws AESCryptoException
      * @throws ParamParserException
      */
-    public FileInfo downloadChatMsgZipFileAndSave(String forwardId, String dir) throws IOException, HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        byte[] bytes = this.downloadChatMsgZipFile(forwardId);
+    public FileInfo downloadMsgZipFileAndSave(String forwardId, String dir) throws IOException, HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        byte[] bytes = this.downloadMsgZipFile(forwardId);
 
         FileInfo fileInfo = new FileInfo();
         fileInfo.setData(bytes);
@@ -361,7 +361,7 @@ public class SessionClient {
      * @throws AESCryptoException
      * @throws ParamParserException
      */
-    public byte[] downloadChatMsgZipFile(String forwardId) throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+    public byte[] downloadMsgZipFile(String forwardId) throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
 
         JsonObject mediaIdJson = new JsonObject();
         mediaIdJson.addProperty("forward_id", forwardId);
