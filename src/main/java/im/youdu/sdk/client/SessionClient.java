@@ -375,7 +375,7 @@ public class SessionClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse httpRsp = null;
 
-        String url = String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_DOWNLOAD_COMPLEX_MSG_ZIP, this.tokenClient.getToken());
+        String url = String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_SESSION_MSG_DOWNLOAD_ZIP, this.tokenClient.getToken());
 
         try {
             HttpPost httpPost = new HttpPost(url);

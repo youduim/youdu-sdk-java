@@ -67,6 +67,9 @@ public class YdApi {
 	/***** API FOR SESSION MSG *****/
 	public static final String API_SESSION_SEND_MSG = "/cgi/session/send";
 
+    /***** API FOR DOWNLOADING SESSION DATA *****/
+    public static final String API_SESSION_MSG_DOWNLOAD_ZIP = "/v3/api/jgapp/session/msg/download.zip";
+
 	/***** API FOR GROUP *****/
 	public static final String API_GROUP_CREATE = "/cgi/group/create";
 	public static final String API_GROUP_DELETE = "/cgi/group/delete";
@@ -80,6 +83,4 @@ public class YdApi {
 	/***** API FOR FACE CONFIG ******/
 	public static final String API_FACE_CONF_GET = "/cgi/face/conf.get";
 
-	/***** API FOR CUSTOM MENU ******/
-	public static final String API_DOWNLOAD_COMPLEX_MSG_ZIP = "/cgi/menu/download.complex.zip";
 }
