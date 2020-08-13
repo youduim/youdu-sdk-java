@@ -441,11 +441,11 @@ SDK类介绍
     toUser: 消息接收者账号
     videoData: 视频文件二进制数据
 
-#### downloadChatMsgZipFile  获取文件的byte[]内容
+#### downloadMsgZipFile  获取文件的byte[]内容
     appClient.downloadChatMsgZipFile(String forwardId)
     forwardId:  转发业务ID
 
-#### downloadChatMsgZipFileAndSave  下载并保存文件
+#### downloadMsgZipFileAndSave  下载并保存文件
     chatMsgMenuClient.downloadChatMsgZipFileAndSave(String forwardId, String dir)
     mediaId:  转发业务ID
     dir:  需要保存的文件夹路径
