@@ -20,7 +20,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ChatMsgMenuClient {
+public class CustomMenuClient {
 
     private int buin;
     private String host;
@@ -30,7 +30,7 @@ public class ChatMsgMenuClient {
     private AESCrypto crypto;
     private AppTokenClient tokenClient;
 
-    public ChatMsgMenuClient(YDApp app) {
+    public CustomMenuClient(YDApp app) {
         this.buin = app.getBuin();
         this.host = app.getHost();
         this.appId = app.getAppId();

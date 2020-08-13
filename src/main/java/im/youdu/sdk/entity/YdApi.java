@@ -81,5 +81,5 @@ public class YdApi {
 	public static final String API_FACE_CONF_GET = "/cgi/face/conf.get";
 
 	/***** API FOR CUSTOM MENU ******/
-	public static final String API_DOWNLOAD_COMPLEX_MSG_ZIP = "/cgi/export/download.complex.zip";
+	public static final String API_DOWNLOAD_COMPLEX_MSG_ZIP = "/cgi/menu/download.complex.zip";
 }
