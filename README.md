@@ -11,7 +11,6 @@ SDK类介绍
 | SysMsgClient   | 系统消息发送
 | IdentifyClient | 单点登录身份认证
 | SessionClient  | 会话管理及会话消息发送
-| CustomMenuClient | 自定义菜单
 
 ***
 ## 目录
@@ -22,7 +21,6 @@ SDK类介绍
 * [SysMsgClient](#SysMsgClient)
 * [IdentifyClient](#IdentifyClient)
 * [SessionClient](#SessionClient)
-* [CustomMenuClient](#CustomMenuClient)
 ***
 
 ### YDApp 有度应用对象
@@ -307,8 +305,8 @@ SDK类介绍
     userId: 用户账号
 ***
 	
-	
-### SessionClient 会话管理
+
+### SessionClient
 --------------------
 #### 构建SessionClient对象
     import im.youdu.sdk.client;
@@ -443,8 +441,6 @@ SDK类介绍
     toUser: 消息接收者账号
     videoData: 视频文件二进制数据
 
-### CustomMenuClient
---------------------
 #### downloadChatMsgZipFile  获取文件的byte[]内容
     appClient.downloadChatMsgZipFile(String forwardId)
     forwardId:  转发业务ID
