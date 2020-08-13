@@ -218,10 +218,10 @@ public class SessionClientTest extends TestCase {
 
     // 测试下载会话
     public void testDownloadZipFile() throws ParamParserException, HttpRequestException, AESCryptoException, IOException, FileIOException {
-        String forwardId = "100028_0f27042568b8bf0b469f0033e5c63a5f-1008372_2020-08-13";
+        String fileId = "100028_e752e3724f02b38e733a87611db9cb39-1008372_2020-08-13";
         String dir = "D:\\Test\\jsdk\\";
 
-        FileInfo fileInfo = this.sessionClient.downloadMsgZipFileAndSave(forwardId, dir);
+        FileInfo fileInfo = this.sessionClient.downloadMsgZipFileAndSave(fileId, dir);
         System.out.println("save file to" + fileInfo.getPath());
     }
 }

@@ -330,7 +330,7 @@ public class SessionClient {
 
     /**
      * 下载会话消息的zip文件并保存到dir目录
-     * @param forwardId 转发id
+     * @param fileId zip文件id
      * @param dir 保存目录
      * @return
      * @throws IOException
@@ -339,32 +339,31 @@ public class SessionClient {
      * @throws AESCryptoException
      * @throws ParamParserException
      */
-    public FileInfo downloadMsgZipFileAndSave(String forwardId, String dir) throws IOException, HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
-        byte[] bytes = this.downloadMsgZipFile(forwardId);
+    public FileInfo downloadMsgZipFileAndSave(String fileId, String dir) throws IOException, HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+        byte[] bytes = this.downloadMsgZipFile(fileId);
 
         FileInfo fileInfo = new FileInfo();
         fileInfo.setData(bytes);
-        fileInfo.setName(forwardId + ".zip");
-        fileInfo.setMediaId(forwardId);
+        fileInfo.setName(fileId + ".zip");
+        fileInfo.setMediaId(fileId);
         fileInfo.setPath(Helper.saveFile(fileInfo, dir));
-
         return fileInfo;
     }
 
     /**
      * 下载会话消息的zip文件
      *
-     * @param forwardId 转发Id
+     * @param fileId zip文件Id
      * @return
      * @throws HttpRequestException
      * @throws FileIOException
      * @throws AESCryptoException
      * @throws ParamParserException
      */
-    public byte[] downloadMsgZipFile(String forwardId) throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
+    public byte[] downloadMsgZipFile(String fileId) throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
 
         JsonObject mediaIdJson = new JsonObject();
-        mediaIdJson.addProperty("forward_id", forwardId);
+        mediaIdJson.addProperty("file_id", fileId);
         String cipherId = this.crypto.encrypt(Helper.utf8Bytes(mediaIdJson.toString()));
 
         JsonObject param = new JsonObject();
