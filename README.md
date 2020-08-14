@@ -442,10 +442,10 @@ SDK类介绍
     videoData: 视频文件二进制数据
 
 #### downloadMsgZipFile  获取会话消息zip文件的byte[]内容
-    appClient.downloadChatMsgZipFile(String forwardId)
-    forwardId:  转发业务ID
+    appClient.downloadChatMsgZipFile(String fileId)
+    fileId:  zip文件id
 
 #### downloadMsgZipFileAndSave  下载会话消息的zip文件并保存到dir目录
-    chatMsgMenuClient.downloadChatMsgZipFileAndSave(String forwardId, String dir)
-    mediaId:  转发业务ID
+    chatMsgMenuClient.downloadChatMsgZipFileAndSave(String fileId, String dir)
+    fileId: zip文件id
     dir:  需要保存的文件夹路径
