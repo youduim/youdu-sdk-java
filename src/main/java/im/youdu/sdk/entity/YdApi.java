@@ -35,6 +35,7 @@ public class YdApi {
 	public static final String API_DEPT_DELETE = "/cgi/dept/delete";
 	public static final String API_DEPT_GET = "/cgi/dept/get";
 	public static final String API_DEPT_LISTCHILDREN = "/cgi/dept/listchildren";
+	public static final String API_DEPT_LISTALLCHILDREN = "/cgi/dept/alllistchildren";
 	public static final String API_DEPT_LISTSELFANDCHILDREN = "/cgi/dept/list";
 	public static final String API_DEPT_GETID = "/cgi/dept/getid";
 	public static final String API_DEPT_EXPAND_INVISIBLE = "/cgi/dept/expand/invisible";

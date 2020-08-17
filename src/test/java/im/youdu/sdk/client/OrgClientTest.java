@@ -79,6 +79,19 @@ public class OrgClientTest extends TestCase {
         }
     }
 
+    //测试获取所有子部门
+    public void testListDeptAllChildren() throws ParamParserException, HttpRequestException, AESCryptoException {
+        int deptId = 0;
+        List<Dept> depts = orgClient.listDeptAllChildren(deptId);
+        if(depts.size()==0){
+            System.out.println("list dept children ok, found no children: "+deptId);
+            return;
+        }
+        for(Dept dept : depts) {
+            System.out.println("get dept: "+dept);
+        }
+    }
+
     //测试通过别名获取部门ID
     public void testGetDeptIdsByAlias() throws ParamParserException, HttpRequestException, AESCryptoException {
         String alias = "alias_test";
