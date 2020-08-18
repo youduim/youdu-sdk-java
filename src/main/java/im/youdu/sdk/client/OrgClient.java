@@ -174,7 +174,7 @@ public class OrgClient {
 
     // 删除部门
     public void deleteDept(int deptId) throws HttpRequestException, ParamParserException, AESCryptoException {
-        Helper.getUrlV1(this.uriDeleteDept(deptId));
+        Helper.getUrlV2(this.uriDeleteDept(deptId));
     }
 
     // 根据别名获取部门ID
