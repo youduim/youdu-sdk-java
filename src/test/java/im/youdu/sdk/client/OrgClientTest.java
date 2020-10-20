@@ -16,7 +16,7 @@ public class OrgClientTest extends TestCase {
     private static final int BUIN = 707168; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "RAAgTbtiOjvzyTwglI4Kj6pxmFTRy+/o75lBJS52RwU="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "RBfz5uumYozISWMSSccMSBikH/9RwKbZIvYZDLY46gM="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
@@ -76,6 +76,19 @@ public class OrgClientTest extends TestCase {
         }
         for(Dept dept : depts){
             System.out.println("get dept children: "+dept);
+        }
+    }
+
+    //测试获取所有子部门
+    public void testListDeptAllChildren() throws ParamParserException, HttpRequestException, AESCryptoException {
+        int deptId = 0;
+        List<Dept> depts = orgClient.listDeptAllChildren(deptId);
+        if(depts.size()==0){
+            System.out.println("list dept children ok, found no children: "+deptId);
+            return;
+        }
+        for(Dept dept : depts) {
+            System.out.println("get dept: "+dept);
         }
     }
 
@@ -284,6 +297,7 @@ public class OrgClientTest extends TestCase {
         user2.setName("测试2");
         user2.setGender(Const.Gender_Female);
         user2.setDept(depts2);
+        user2.setMobile("");
 
         List<UserSyncInfo> users = new ArrayList<>();
         users.add(user1);

@@ -76,6 +76,15 @@ public class OrgClient {
         return parseDeptList(jsonObj);
     }
 
+    // 获取部门下所有子部门，传0获取所有部门
+    public List<Dept> listDeptAllChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptAllChildren(deptId));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        return parseDeptList(jsonObj);
+    }
+
     //获取部门及直属子部门列表
     public List<Dept> listDeptSelfAndChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptSelfAndChildren(deptId));
@@ -167,7 +176,7 @@ public class OrgClient {
 
     // 删除部门
     public void deleteDept(int deptId) throws HttpRequestException, ParamParserException, AESCryptoException {
-        Helper.getUrlV1(this.uriDeleteDept(deptId));
+        Helper.getUrlV2(this.uriDeleteDept(deptId));
     }
 
     // 根据别名获取部门ID
@@ -220,6 +229,10 @@ public class OrgClient {
 
     private String uriListDeptChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&id=%d",YdApi.SCHEME,this.host,YdApi.API_DEPT_LISTCHILDREN,this.tokenClient.getToken(),deptId) ;
+    }
+
+    private String uriListDeptAllChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&id=%d",YdApi.SCHEME,this.host,YdApi.API_DEPT_LISTALLCHILDREN,this.tokenClient.getToken(),deptId) ;
     }
 
     private String uriListDeptSelfAndChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {

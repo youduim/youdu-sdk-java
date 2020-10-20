@@ -2,11 +2,11 @@ package im.youdu.sdk.entity;
 
 public class UserInfo {
 	private Long gid = 0L;
-    private String userId = "";
-    private String name = "";
-    private String mobile = "";
-    private String phone = "";
-    private String email = "";
+    private String userId;
+    private String name;
+    private String mobile;
+    private String phone;
+    private String email;
     private Integer gender = 0;
     private int[] dept;
     private UserDeptPosition[] deptDetail;

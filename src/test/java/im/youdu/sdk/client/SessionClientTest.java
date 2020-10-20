@@ -1,9 +1,6 @@
 package im.youdu.sdk.client;
 
-import im.youdu.sdk.entity.SessionCreateBody;
-import im.youdu.sdk.entity.SessionInfo;
-import im.youdu.sdk.entity.SessionUpdateBody;
-import im.youdu.sdk.entity.YDApp;
+import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
 import im.youdu.sdk.exception.FileIOException;
 import im.youdu.sdk.exception.HttpRequestException;
@@ -11,15 +8,16 @@ import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.util.Helper;
 import junit.framework.TestCase;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SessionClientTest extends TestCase {
-    private static final int BUIN = 707168; // 请填写企业总机号码
+    private static final int BUIN = 14797363; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
-    private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "n76ut0qxPWozXbMxGMt8s9pgxUZKUxu/GJ5R5dz+u4g="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_ID = "yd901B3FD68E2048D8822238A3D5888878"; // 请填写企业应用AppId
+    private static final String APP_AESKEY = "lZ/BHIk167HMScKEAWMIwPR4ivqJltn+YgMGvyf8BMc="; // 请填写企业应用的EncodingaesKey
 
     private SessionClient sessionClient;
 
@@ -216,6 +214,15 @@ public class SessionClientTest extends TestCase {
         String sessionId = "{8AD595F3-73B3-4B56-90AF-F336F9222FC5}";
         byte[] data = Helper.readFile(videoPath);
         sessionClient.sendSessionVideoMsg(sender,sessionId,data);
+    }
+
+    // 测试下载会话
+    public void testDownloadZipFile() throws ParamParserException, HttpRequestException, AESCryptoException, IOException, FileIOException {
+        String fileId = "100028_e752e3724f02b38e733a87611db9cb39-1008372_2020-08-13";
+        String dir = "D:\\Test\\jsdk\\";
+
+        FileInfo fileInfo = this.sessionClient.downloadMsgZipFileAndSave(fileId, dir);
+        System.out.println("save file to" + fileInfo.getPath());
     }
 }
 
