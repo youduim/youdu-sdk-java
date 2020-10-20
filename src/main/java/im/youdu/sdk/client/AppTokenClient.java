@@ -29,10 +29,15 @@ public class AppTokenClient {
     }
 
     public String getToken() throws AESCryptoException, ParamParserException, HttpRequestException {
-        long now = new Date().getTime() / 1000;
-        if (this.token != null && this.tokenExpireTime > now+5) { //预留5秒的时间
+        long now = System.currentTimeMillis()/1000;
+        if (this.token != null && this.tokenExpireTime > now+5) {
             return this.token;
         }
+        this.freshToken();
+        return  this.token;
+    }
+
+    public String forceFreshToken() throws ParamParserException, HttpRequestException, AESCryptoException {
         this.freshToken();
         return  this.token;
     }

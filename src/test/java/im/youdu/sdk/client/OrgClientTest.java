@@ -156,10 +156,11 @@ public class OrgClientTest extends TestCase {
     //获取用户信息
     public void testGetUserInfo() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserInfo user = orgClient.getUserInfo("test1");
-        System.out.println("get userInfo ok:"+user);
+        System.out.println("get userInfo ok:");
+        System.out.println(user);
     }
     
-  //获取用户信息
+    //获取用户信息
     public void testGetUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
     	long gidList[] = new long[] {100484};
         UserInfo[] users = orgClient.getUserInfoListByYdGid(gidList);
