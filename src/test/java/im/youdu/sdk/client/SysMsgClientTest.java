@@ -11,7 +11,7 @@ public class SysMsgClientTest extends TestCase {
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_NAME = "系统消息"; //应用名称
     private static final String APP_ID = "sysMsgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "nHff0+CrZRd0jg/o+b2BpLVVI0XzgOkasRaz50k80KE="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "6S/WPoc9dpmufZqgVxzPkxKruhhIWzybV3+gXaWiwho="; // 请填写企业应用的EncodingaesKey
 
     private SysMsgClient msgClient;
 
@@ -23,6 +23,7 @@ public class SysMsgClientTest extends TestCase {
     //发送系统消息
     public void testSendSysMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
         SysMsgBody sysMsg = new SysMsgBody();
+        sysMsg.setSource("来自OA");
         sysMsg.setTitle("有度即时通");
         sysMsg.addTextBody("欢迎使用有度即时通：");
         sysMsg.addLinkBody("https://www.youdu.im","有度官网",0);

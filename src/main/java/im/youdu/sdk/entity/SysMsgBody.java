@@ -11,6 +11,7 @@ import java.util.*;
 // 文件消息体
 public class SysMsgBody extends MessageBody {
     private String title;
+    private String source = "";
     private Integer popDuration;
     private List<Map<String,MessageBody>> msg;
 
@@ -18,7 +19,7 @@ public class SysMsgBody extends MessageBody {
     private final static String MESSAGE_LINK = "link";
 
     public SysMsgBody() {
-        this.msg = new ArrayList<Map<String,MessageBody>>();
+        this.msg = new ArrayList<>();
     }
 
     /**
@@ -26,13 +27,13 @@ public class SysMsgBody extends MessageBody {
      */
     public SysMsgBody(String title) {
         this.title = title != null ? title : "";
-        this.msg = new ArrayList<Map<String,MessageBody>>();
+        this.msg = new ArrayList<>();
     }
 
     public SysMsgBody(String title,ArrayList<Map<String,MessageBody>>  msg) {
         this.title = title != null ? title : "";
         if (msg == null){
-            msg = new ArrayList<Map<String,MessageBody>>();
+            msg = new ArrayList<>();
         }
         this.msg = msg;
     }
@@ -69,6 +70,7 @@ public class SysMsgBody extends MessageBody {
     public JsonElement toJsonElement() {
         JsonObject json = new JsonObject();
         json.addProperty("title", this.title);
+        json.addProperty("source", this.source);
         if(null != this.popDuration){
             json.addProperty("popDuration", this.popDuration);
         }
@@ -97,7 +99,9 @@ public class SysMsgBody extends MessageBody {
         if (!json.isJsonObject()) {
             throw new ParamParserException("Json字段类型不匹配", null);
         }
-        this.title = Helper.getString("title", json.getAsJsonObject());
+        JsonObject jsonObject = json.getAsJsonObject();
+        this.title = Helper.getString("title", jsonObject);
+        this.source = Helper.getString("source", jsonObject);
         return this;
     }
 
@@ -126,4 +130,13 @@ public class SysMsgBody extends MessageBody {
         }
         this.popDuration = popDuration;
     }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 }
+
