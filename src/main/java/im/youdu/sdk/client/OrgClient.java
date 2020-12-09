@@ -3,7 +3,6 @@ package im.youdu.sdk.client;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sun.deploy.util.StringUtils;
 import im.youdu.sdk.encrypt.AESCrypto;
 import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
@@ -270,6 +269,7 @@ public class OrgClient {
         obj.addProperty("userId", user.getUserId());
         obj.addProperty("name", user.getName());
         obj.addProperty("gender", user.getGender());
+        obj.addProperty("enableState", user.getEnableState());
         JsonArray array = new JsonArray();
         int depts[] = user.getDept();
         for (int i = 0; i < depts.length; i++) {
@@ -773,6 +773,22 @@ public class OrgClient {
         return name;
     }
 
+    public void setEnableState(String userId, int enableState) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is null",null);
+        }
+        JsonObject obj = new JsonObject();
+        obj.addProperty("userId", userId);
+        obj.addProperty("enableState", enableState);
+        String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherReq);
+        JsonObject jsonObject = Helper.postJson(this.uriSetEnableState(), param.toString());
+        System.out.println(jsonObject.toString());
+    }
+
     //------------------------------------------------------------------------------------------------------------------
     //全同步
     public String orgReplaceAll(List<Dept> depts, List<UserSyncInfo> users) throws ParamParserException, AESCryptoException, HttpRequestException {
@@ -974,6 +990,10 @@ public class OrgClient {
 
     private String uriSetUserAuth() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_AUTH,this.tokenClient.getToken());
+    }
+
+    private String uriSetEnableState() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_ENABLE_STATE,this.tokenClient.getToken());
     }
 
     private String uriReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {

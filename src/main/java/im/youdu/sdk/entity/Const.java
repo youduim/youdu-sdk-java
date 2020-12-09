@@ -74,5 +74,9 @@ public class Const {
     public static final int Window_Pop_Action_Cancel = 2;
 
     public static final String Window_Pop_Event_Type_Voip = "voip";
+
+    public static final Integer EnableState_default = 0; // 未激活
+    public static final Integer EnableState_Authorized = 1; // 已授权
+    public static final Integer EnableState_Disabled = -1; // 已禁用
 }
 
