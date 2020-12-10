@@ -10,6 +10,7 @@ import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static im.youdu.sdk.entity.Const.*;
@@ -272,8 +273,8 @@ public class OrgClientTest extends TestCase {
     //设置用户启用状态
     public void testSetEnableState() throws HttpRequestException, AESCryptoException, ParamParserException {
         String userId = "test1";
-        int enableState = EnableState_Disabled;
-        orgClient.setEnableState(userId, enableState);
+        int enableState = EnableState_default;
+        orgClient.setEnableState(Arrays.asList("cs1", "cs3", "test1"), enableState);
     }
 
     //------------------------------------------------------------------------------------------------------------------

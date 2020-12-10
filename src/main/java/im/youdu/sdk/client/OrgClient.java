@@ -773,12 +773,16 @@ public class OrgClient {
         return name;
     }
 
-    public void setEnableState(String userId, int enableState) throws ParamParserException, AESCryptoException, HttpRequestException {
-        if(Helper.isEmpty(userId)){
-            throw new ParamParserException("userId is null",null);
+    public void setEnableState(List<String> userIdList, int enableState) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(userIdList == null || userIdList.isEmpty()){
+            throw new ParamParserException("userIdList is null",null);
+        }
+        JsonArray array = new JsonArray();
+        for (String userId : userIdList) {
+            array.add(userId);
         }
         JsonObject obj = new JsonObject();
-        obj.addProperty("userId", userId);
+        obj.add("userIdList", array);
         obj.addProperty("enableState", enableState);
         String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
         JsonObject param = new JsonObject();
