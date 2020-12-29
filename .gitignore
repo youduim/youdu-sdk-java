@@ -6,3 +6,4 @@
 /.settings
 /.classpath
 .idea/*
+/target/
