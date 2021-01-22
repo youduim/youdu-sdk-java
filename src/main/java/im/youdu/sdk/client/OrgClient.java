@@ -395,7 +395,7 @@ public class OrgClient {
 
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
-        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        JsonObject jsonObj = Helper.parseJson(Helper.utf8String(decryptRsp));
         UserInfo user = new UserInfo();
         user.setGid(Helper.getLong("gid",jsonObj));
         user.setUserId(Helper.getString("userId",jsonObj));
