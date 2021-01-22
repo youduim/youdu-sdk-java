@@ -792,6 +792,16 @@ public class OrgClient {
         JsonObject jsonObject = Helper.postJson(this.uriSetEnableState(), param.toString());
         System.out.println(jsonObject.toString());
     }
+    public int getEnableState(String userId) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if (Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is null", null);
+        }
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriGetEnableState(userId));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        return jsonObj.get("enableState").getAsInt();
+    }
 
     //------------------------------------------------------------------------------------------------------------------
     //全同步
@@ -998,6 +1008,9 @@ public class OrgClient {
 
     private String uriSetEnableState() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_ENABLE_STATE,this.tokenClient.getToken());
+    }
+    private String uriGetEnableState(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_USER_GET_ENABLE_STATE,this.tokenClient.getToken(), userId);
     }
 
     private String uriReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {

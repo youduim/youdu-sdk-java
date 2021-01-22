@@ -19,7 +19,7 @@ public class OrgClientTest extends TestCase {
     private static final int BUIN = 14797363; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "qbxKEgW8lMl2nS/F6qdZ9ZIRQtX023wrUCvAoqVjPl8="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "2EvoXA9WGCbvrHJ/pcq2I/DAqdkw14buu9+Pzdh3ZIw="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
@@ -275,6 +275,12 @@ public class OrgClientTest extends TestCase {
         String userId = "test1";
         int enableState = EnableState_default;
         orgClient.setEnableState(Arrays.asList("cs1", "cs3", "test1"), enableState);
+    }
+
+    public void testGetEnableState() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String userId = "test";
+        int state = orgClient.getEnableState(userId);
+        System.out.println("state: " + state);
     }
 
     //------------------------------------------------------------------------------------------------------------------
