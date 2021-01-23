@@ -2,12 +2,13 @@ package im.youdu.sdk.entity;
 
 public class UserInfo {
 	private Long gid = 0L;
-    private String userId = "";
-    private String name = "";
-    private String mobile = "";
-    private String phone = "";
-    private String email = "";
+    private String userId;
+    private String name;
+    private String mobile;
+    private String phone;
+    private String email;
     private Integer gender = 0;
+    private Integer enableState = 0;
     private int[] dept;
     private UserDeptPosition[] deptDetail;
 
@@ -68,6 +69,14 @@ public class UserInfo {
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public Integer getEnableState() {
+        return enableState;
+    }
+
+    public void setEnableState(Integer enableState) {
+        this.enableState = enableState;
     }
 
     public int[] getDept() {

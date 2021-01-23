@@ -305,8 +305,8 @@ SDK类介绍
     userId: 用户账号
 ***
 	
-	
-### SessionClient 会话管理
+
+### SessionClient
 --------------------
 #### 构建SessionClient对象
     import im.youdu.sdk.client;
@@ -440,3 +440,12 @@ SDK类介绍
     fromUser: 消息发送人账号
     toUser: 消息接收者账号
     videoData: 视频文件二进制数据
+
+#### downloadMsgZipFile  获取会话消息zip文件的byte[]内容
+    sessionClient.downloadMsgZipFile(String fileId)
+    fileId:  zip文件id
+
+#### downloadMsgZipFileAndSave  下载会话消息的zip文件并保存到dir目录
+    sessionClient.downloadMsgZipFileAndSave(String fileId, String dir)
+    fileId: zip文件id
+    dir:  需要保存的文件夹路径

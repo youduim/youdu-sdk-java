@@ -10,6 +10,8 @@ import im.youdu.sdk.exception.FileIOException;
 import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.util.Helper;
+import im.youdu.sdk.util.JsonUtil;
+import im.youdu.sdk.util.ZipUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -42,7 +44,9 @@ public class OrgClient {
         this.crypto = new AESCrypto(appId, appAeskey);
         this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
     }
-//----------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
+
     private List<Dept> parseDeptList(JsonObject jsonObj) {
         JsonArray jDeptArray =  Helper.getArray("deptList", jsonObj);
         List<Dept> deptList = new ArrayList<Dept>();
@@ -65,6 +69,15 @@ public class OrgClient {
     // 获取部门直属子部门列表
     public List<Dept> listDeptChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptChildren(deptId));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        return parseDeptList(jsonObj);
+    }
+
+    // 获取部门下所有子部门，传0获取所有部门
+    public List<Dept> listDeptAllChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriListDeptAllChildren(deptId));
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
@@ -162,7 +175,7 @@ public class OrgClient {
 
     // 删除部门
     public void deleteDept(int deptId) throws HttpRequestException, ParamParserException, AESCryptoException {
-        Helper.getUrlV1(this.uriDeleteDept(deptId));
+        Helper.getUrlV2(this.uriDeleteDept(deptId));
     }
 
     // 根据别名获取部门ID
@@ -217,6 +230,10 @@ public class OrgClient {
         return String.format("%s%s%s?accessToken=%s&id=%d",YdApi.SCHEME,this.host,YdApi.API_DEPT_LISTCHILDREN,this.tokenClient.getToken(),deptId) ;
     }
 
+    private String uriListDeptAllChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&id=%d",YdApi.SCHEME,this.host,YdApi.API_DEPT_LISTALLCHILDREN,this.tokenClient.getToken(),deptId) ;
+    }
+
     private String uriListDeptSelfAndChildren(int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&id=%d",YdApi.SCHEME,this.host,YdApi.API_DEPT_LISTSELFANDCHILDREN,this.tokenClient.getToken(),deptId) ;
     }
@@ -252,6 +269,7 @@ public class OrgClient {
         obj.addProperty("userId", user.getUserId());
         obj.addProperty("name", user.getName());
         obj.addProperty("gender", user.getGender());
+        obj.addProperty("enableState", user.getEnableState());
         JsonArray array = new JsonArray();
         int depts[] = user.getDept();
         for (int i = 0; i < depts.length; i++) {
@@ -367,15 +385,19 @@ public class OrgClient {
         Helper.postJson(this.uriBatchDeleteUser(), param.toString());
     }
 
-    //获取用户信息
+    /**
+     * 根据账号获取用户信息
+     * @param userId
+     *          用户账号
+     */
     public UserInfo getUserInfo(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
         JsonObject jsonRsp = Helper.getUrlV2(this.uriGetUser(userId));
 
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
-        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        JsonObject jsonObj = Helper.parseJson(Helper.utf8String(decryptRsp));
         UserInfo user = new UserInfo();
-//        user.setGid(Helper.getLong("gid",jsonObj));
+        user.setGid(Helper.getLong("gid",jsonObj));
         user.setUserId(Helper.getString("userId",jsonObj));
         user.setName(Helper.getString("name",jsonObj));
         user.setGender(Helper.getInt("gender",jsonObj));
@@ -689,7 +711,7 @@ public class OrgClient {
     }
 
     //下载用户头像
-    public String DownloadUserAvatarAndSave(String userId, int avatarType, String dir) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
+    public String downloadUserAvatarAndSave(String userId, int avatarType, String dir) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse httpRsp = null;
         try {
@@ -751,7 +773,37 @@ public class OrgClient {
         return name;
     }
 
-    //----------------------------------------------------------------------------------------------------------------------
+    public void setEnableState(List<String> userIdList, int enableState) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(userIdList == null || userIdList.isEmpty()){
+            throw new ParamParserException("userIdList is null",null);
+        }
+        JsonArray array = new JsonArray();
+        for (String userId : userIdList) {
+            array.add(userId);
+        }
+        JsonObject obj = new JsonObject();
+        obj.add("userIdList", array);
+        obj.addProperty("enableState", enableState);
+        String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherReq);
+        JsonObject jsonObject = Helper.postJson(this.uriSetEnableState(), param.toString());
+        System.out.println(jsonObject.toString());
+    }
+    public int getEnableState(String userId) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if (Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is null", null);
+        }
+        JsonObject jsonRsp = Helper.getUrlV2(this.uriGetEnableState(userId));
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        return jsonObj.get("enableState").getAsInt();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
     //全同步
     public String orgReplaceAll(List<Dept> depts, List<UserSyncInfo> users) throws ParamParserException, AESCryptoException, HttpRequestException {
         if(null == users || users.size()==0){
@@ -831,7 +883,73 @@ public class OrgClient {
         jr.setResult(result);
         return jr;
     }
-    //----------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    //展开部门, 返回结果是在可见性规则范围内
+    public DeptExpandInfo deptExpandInVisible(String userId, int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is empty", null);
+        }
+        String url = this.uriDeptExpanInVisible(userId, deptId);
+        JsonObject jsonObj = doGetV2(url);
+        DeptExpandInfo info = JsonUtil.parseDeptExpandJson(jsonObj);
+        return info;
+    }
+
+    //查询sqlite版组织架构文件
+    public OrgSqliteFileQueryInfo queryOrgSqliteFileInfo(String userId, long version) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is empty", null);
+        }
+        String url = this.uriQueryOrgSqliteFile(userId, version);
+        JsonObject jsonObj = doGetV2(url);
+        OrgSqliteFileQueryInfo info = JsonUtil.parseOrgSqliteFileQueryJson(jsonObj);
+        return info;
+    }
+
+    //下载sqlite版组织架构文件
+    public String downloadOrgSqliteFile(String fileId, String saveDir, String saveName) throws ParamParserException, HttpRequestException, AESCryptoException, FileIOException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse httpRsp = null;
+        try {
+            String url = this.uriDownloadOrgSqliteFile(fileId);
+            HttpGet httpGet = new HttpGet(url);
+            httpRsp = httpClient.execute(httpGet);
+            Header header = httpRsp.getLastHeader("fileId");
+            if (header == null) {
+                Helper.parseApiStatus(Helper.readHttpResponse(httpRsp));
+                throw new ParamParserException("Header找不到fileId", null);
+            }
+
+            byte[] data = this.decryptFileData(httpRsp.getEntity());
+            data = ZipUtil.gzipUncompressionOrgFile(data);
+            if(Helper.isEmpty(saveName)){
+                saveName = fileId+".db";
+            }
+            FileInfo info = new FileInfo();
+            info.setData(data);
+            info.setName(saveName);
+            String finalPath = Helper.saveFile(info, saveDir);
+            return finalPath;
+        } catch (IOException e) {
+            throw new HttpRequestException(0, e.getMessage(), e);
+        } finally {
+            Helper.close(httpRsp);
+            Helper.close(httpClient);
+        }
+    }
+
+    private JsonObject doGetV2(String url) throws AESCryptoException, ParamParserException, HttpRequestException {
+        JsonObject jsonRsp = Helper.getUrlV2(url);
+        String cipherRsp = jsonRsp.get("encrypt").getAsString();
+        byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
+        JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
+        return jsonObj;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
     private String uriSetUserAvatar(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_USER_AVATAR_SET,this.tokenClient.getToken(),userId);
     }
@@ -888,6 +1006,13 @@ public class OrgClient {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_AUTH,this.tokenClient.getToken());
     }
 
+    private String uriSetEnableState() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_SET_ENABLE_STATE,this.tokenClient.getToken());
+    }
+    private String uriGetEnableState(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_USER_GET_ENABLE_STATE,this.tokenClient.getToken(), userId);
+    }
+
     private String uriReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_ORT_REPLACEALL,this.tokenClient.getToken());
     }
@@ -900,4 +1025,25 @@ public class OrgClient {
         return String.format("%s%s%s?accessToken=%s&jobId=%s", YdApi.SCHEME,this.host,YdApi.API_JOB_RESULT,this.tokenClient.getToken(),jobId);
     }
 
+    private String uriDeptExpanInVisible(String userId, int deptId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&userId=%s&deptId=%d", YdApi.SCHEME, this.host, YdApi.API_DEPT_EXPAND_INVISIBLE, this.tokenClient.getToken(), userId, deptId);
+    }
+
+    private String uriQueryOrgSqliteFile(String userId, long orgVersion) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&userId=%s&version=%d", YdApi.SCHEME, this.host, YdApi.API_ORGFILE_QUERY, this.tokenClient.getToken(), userId, orgVersion);
+    }
+
+    private String uriDownloadOrgSqliteFile(String fileId) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s&fileId=%s", YdApi.SCHEME, this.host, YdApi.API_ORGFILE_DOWNLOAD, this.tokenClient.getToken(), fileId);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    public AppTokenClient getTokenClient() {
+        return tokenClient;
+    }
+
+    public void setTokenClient(AppTokenClient tokenClient) {
+        this.tokenClient = tokenClient;
+    }
 }

@@ -10,13 +10,16 @@ import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static im.youdu.sdk.entity.Const.*;
+
 public class OrgClientTest extends TestCase {
-    private static final int BUIN = 707168; // 请填写企业总机号码
+    private static final int BUIN = 14797363; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "eZh/ncwOkhbfv6NVBm0fzOu2wn9mHdDcpu3QEf1x7Eo="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "2EvoXA9WGCbvrHJ/pcq2I/DAqdkw14buu9+Pzdh3ZIw="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
@@ -79,6 +82,19 @@ public class OrgClientTest extends TestCase {
         }
     }
 
+    //测试获取所有子部门
+    public void testListDeptAllChildren() throws ParamParserException, HttpRequestException, AESCryptoException {
+        int deptId = 0;
+        List<Dept> depts = orgClient.listDeptAllChildren(deptId);
+        if(depts.size()==0){
+            System.out.println("list dept children ok, found no children: "+deptId);
+            return;
+        }
+        for(Dept dept : depts) {
+            System.out.println("get dept: "+dept);
+        }
+    }
+
     //测试通过别名获取部门ID
     public void testGetDeptIdsByAlias() throws ParamParserException, HttpRequestException, AESCryptoException {
         String alias = "alias_test";
@@ -113,6 +129,7 @@ public class OrgClientTest extends TestCase {
         user.setGender(Const.Gender_Male);
         user.setName("张三");
         user.setDept(new int[]{0});
+        user.setEnableState(EnableState_Authorized);
         orgClient.createUser(user);
         System.out.println("create user ok: test1 张三");
     }
@@ -143,10 +160,11 @@ public class OrgClientTest extends TestCase {
     //获取用户信息
     public void testGetUserInfo() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserInfo user = orgClient.getUserInfo("test1");
-        System.out.println("get userInfo ok:"+user);
+        System.out.println("get userInfo ok:");
+        System.out.println(user);
     }
     
-  //获取用户信息
+    //获取用户信息
     public void testGetUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
     	long gidList[] = new long[] {100484};
         UserInfo[] users = orgClient.getUserInfoListByYdGid(gidList);
@@ -240,7 +258,7 @@ public class OrgClientTest extends TestCase {
     public void testDownloadSmallAvatar() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
         String userId = "test1";
         String avatarDir = "D:\\pics\\avatars\\";
-        String path = orgClient.DownloadUserAvatarAndSave(userId, Const.Avatar_Small, avatarDir);
+        String path = orgClient.downloadUserAvatarAndSave(userId, Const.Avatar_Small, avatarDir);
         System.out.println("download avatar small ok: "+path);
     }
 
@@ -248,8 +266,21 @@ public class OrgClientTest extends TestCase {
     public void testDownloadLargeAvatar() throws HttpRequestException, FileIOException, AESCryptoException, ParamParserException {
         String userId = "test1";
         String avatarDir = "D:\\pics\\avatars\\";
-        String path = orgClient.DownloadUserAvatarAndSave(userId, Const.Avatar_Large, avatarDir);
+        String path = orgClient.downloadUserAvatarAndSave(userId, Const.Avatar_Large, avatarDir);
         System.out.println("download avatar large ok: "+path);
+    }
+
+    //设置用户启用状态
+    public void testSetEnableState() throws HttpRequestException, AESCryptoException, ParamParserException {
+        String userId = "test1";
+        int enableState = EnableState_default;
+        orgClient.setEnableState(Arrays.asList("cs1", "cs3", "test1"), enableState);
+    }
+
+    public void testGetEnableState() throws ParamParserException, HttpRequestException, AESCryptoException {
+        String userId = "test";
+        int state = orgClient.getEnableState(userId);
+        System.out.println("state: " + state);
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -273,20 +304,31 @@ public class OrgClientTest extends TestCase {
         int[] depts2 = {2};
 
         UserSyncInfo user1 = new UserSyncInfo();
-        user1.setUserId("test1");
-        user1.setName("测试1");
+        user1.setUserId("test2");
+        user1.setName("测试2");
         user1.setGender(Const.Gender_Male);
         user1.setDept(depts1);
+        user1.setEnableState(EnableState_Disabled);
 
         UserSyncInfo user2 = new UserSyncInfo();
-        user2.setUserId("test2");
-        user2.setName("测试2");
+        user2.setUserId("test3");
+        user2.setName("测试3");
         user2.setGender(Const.Gender_Female);
         user2.setDept(depts2);
+        user2.setMobile("");
+        user2.setEnableState(EnableState_Authorized);
+
+        UserSyncInfo user3 = new UserSyncInfo();
+        user3.setUserId("test4");
+        user3.setName("测试4");
+        user3.setGender(Const.Gender_Female);
+        user3.setDept(depts2);
+        user3.setMobile("");
 
         List<UserSyncInfo> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
+        users.add(user3);
         String jobId = orgClient.orgReplaceAll(depts,users);
         System.out.println("send org replace all ok, get jobId:"+jobId);
     }
@@ -307,11 +349,15 @@ public class OrgClientTest extends TestCase {
                 "        <dept path=\"研发部/IT部门2\"/>\n" +
                 "    </deptList>\n" +
                 "    <userList>\n" +
-                "        <user id=\"cs1\" name=\"测试1\" gender=\"0\" mobile=\"\" email=\"abc@163.com\" phone=\"0756-12345678\" authtype=\"0\" password=\"1a7434b0243d345b4fdb5b3d434c9aba\">\n" +
+                "        <user id=\"cs1\" name=\"测试1\" gender=\"0\" mobile=\"\" email=\"abc@163.com\" phone=\"0756-12345678\" authtype=\"0\" password=\"1a7434b0243d345b4fdb5b3d434c9aba\" enableState=\"1\">\n" +
                 "            <posInfo deptPath=\"研发部/IT部门\" position=\"测试部主管\" sortId=\"2\"/>\n" +
                 "            <posInfo deptPath=\"总经办\"/>\n" +
                 "        </user>\n" +
-                "        <user id=\"cs2\" name=\"测试2\" gender=\"0\" authType=\"2\">\n" +
+                "        <user id=\"cs2\" name=\"测试2\" gender=\"0\" authType=\"2\" enableState=\"-1\">\n" +
+                "            <posInfo deptPath=\"研发部/IT部门\" position=\"测试部工程师\"/>\n" +
+                "            <posInfo deptPath=\"1\" position=\"测试部工程师2\"/>\n" +
+                "        </user>\n" +
+                "        <user id=\"cs3\" name=\"测试3\" gender=\"0\" authType=\"2\">\n" +
                 "            <posInfo deptPath=\"研发部/IT部门\" position=\"测试部工程师\"/>\n" +
                 "            <posInfo deptPath=\"1\" position=\"测试部工程师2\"/>\n" +
                 "        </user>\n" +
@@ -322,7 +368,7 @@ public class OrgClientTest extends TestCase {
 
     //测试获取全同步任务结果
     public void testGetReplaceAllResult() throws ParamParserException, HttpRequestException, AESCryptoException {
-        String jobId = "97eb60788ad0b4dfcf79fd3a12d4600f";
+        String jobId = "e21556ac894a219b7750f7c37046209d";
         JobResult result  = orgClient.getJobResult(jobId);
         System.out.print("get org replace all result:");
         int resultCode = result.getResult();
@@ -336,4 +382,52 @@ public class OrgClientTest extends TestCase {
             System.out.println("任务执行失败："+result.getDesc());
         }
     }
+
+    public void testDeptExpandInVisible(){
+        String userId = "test1";
+        int deptId = 0;
+        try {
+            DeptExpandInfo info = orgClient.deptExpandInVisible(userId, deptId);
+            System.out.println(info);
+        } catch (ParamParserException e) {
+            e.printStackTrace();
+        } catch (HttpRequestException e) {
+            e.printStackTrace();
+        } catch (AESCryptoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testOrgSqliteFileQuery(){
+        String userId = "test1";
+        long version = 164584984;
+        try {
+            OrgSqliteFileQueryInfo info = orgClient.queryOrgSqliteFileInfo(userId, version);
+            System.out.println("get org file info:"+info);
+        } catch (ParamParserException e) {
+            e.printStackTrace();
+        } catch (HttpRequestException e) {
+            e.printStackTrace();
+        } catch (AESCryptoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testOrgSqliteFileDownload(){
+        String fileId = "3d2452bca9d1c87b806d9c89bf74f934-6587";
+        String saveDir = "D:\\youdu\\orgdb";
+        try {
+                String filePath = orgClient.downloadOrgSqliteFile(fileId, saveDir, "");
+                System.out.println("download file ok: "+filePath);
+        } catch (ParamParserException e) {
+            e.printStackTrace();
+        } catch (HttpRequestException e) {
+            e.printStackTrace();
+        } catch (AESCryptoException e) {
+            e.printStackTrace();
+        } catch (FileIOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

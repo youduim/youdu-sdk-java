@@ -28,7 +28,7 @@ public class UserSyncInfo extends UserInfo {
     public String check(){
         String str = "";
         for(;;){
-            if(Helper.isEmpty(getUserId())){
+            if(Helper.isEmpty(this.getUserId())){
                 str = "userId is null";
                 break;
             }
@@ -57,20 +57,21 @@ public class UserSyncInfo extends UserInfo {
         json.addProperty("userId", this.getUserId());
         json.addProperty("name", this.getName());
         json.addProperty("gender", this.getGender());
+        json.addProperty("enableState", this.getEnableState());
 
-        if(!Helper.isEmpty(this.getMobile())){
+        if(null != this.getMobile()){
             json.addProperty("mobile", this.getMobile());
         }
-        if(!Helper.isEmpty(this.getPhone())){
+        if(null != this.getPhone()){
             json.addProperty("phone", this.getPhone());
         }
-        if(!Helper.isEmpty(this.getEmail())){
+        if(null != this.getEmail()){
             json.addProperty("email", this.getEmail());
         }
         if(null != this.getAuthType()){
             json.addProperty("authType", this.getAuthType());
         }
-        if(!Helper.isEmpty(this.getPassword())){
+        if(null != this.getPassword()){
             json.addProperty("passwd", this.getPassword());
         }
 

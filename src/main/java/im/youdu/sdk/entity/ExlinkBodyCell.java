@@ -21,6 +21,12 @@ public class ExlinkBodyCell extends MessageBody {
 
     private String linkDesc;
 
+    private int dateHide;
+
+    private int tailHide;
+
+    public ExlinkBodyCell(){}
+
     /**
      * @param title 标题
      * @param url 链接
@@ -59,6 +65,8 @@ public class ExlinkBodyCell extends MessageBody {
         json.addProperty("link_type", this.linkType);
         json.addProperty("subtitle", this.subTitle != null ? this.subTitle : "");
         json.addProperty("link_desc", this.linkDesc != null ? this.linkDesc : "");
+        json.addProperty("date_hide", this.dateHide);
+        json.addProperty("tail_hide", this.tailHide);
         return json;
     }
 
@@ -128,4 +136,19 @@ public class ExlinkBodyCell extends MessageBody {
         this.linkDesc = linkDesc;
     }
 
+    public int getDateHide() {
+        return dateHide;
+    }
+
+    public void setDateHide(int dateHide) {
+        this.dateHide = dateHide;
+    }
+
+    public int getTailHide() {
+        return tailHide;
+    }
+
+    public void setTailHide(int tailHide) {
+        this.tailHide = tailHide;
+    }
 }
