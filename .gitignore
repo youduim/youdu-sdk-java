@@ -4,5 +4,8 @@ out/
 /*.project
 /.settings
 /.classpath
+.idea/*
+/target/
+output
 .idea
 output
