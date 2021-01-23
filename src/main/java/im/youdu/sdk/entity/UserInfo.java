@@ -8,6 +8,7 @@ public class UserInfo {
     private String phone;
     private String email;
     private Integer gender = 0;
+    private Integer enableState = 0;
     private int[] dept;
     private UserDeptPosition[] deptDetail;
 
@@ -68,6 +69,14 @@ public class UserInfo {
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public Integer getEnableState() {
+        return enableState;
+    }
+
+    public void setEnableState(Integer enableState) {
+        this.enableState = enableState;
     }
 
     public int[] getDept() {
