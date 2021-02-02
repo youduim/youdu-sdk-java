@@ -652,6 +652,27 @@ public class OrgClient {
         Helper.postJson(this.uriSetUserAuth(), param.toString());
     }
 
+    //设置下次登录需要修改密码开关
+    public void setChangePwdSwitch(String userId, String value) throws ParamParserException, AESCryptoException, HttpRequestException {
+        if(Helper.isEmpty(userId)){
+            throw new ParamParserException("userId is null",null);
+        }
+        if(Helper.isEmpty(value)){
+            throw new ParamParserException("password is null",null);
+        }
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("userId", userId);
+        obj.addProperty("value", value);
+        obj.addProperty("key", "needchangepwd");
+        String cipherReq = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherReq);
+        Helper.postJson(this.uriUpdateChangePwdSwitch(), param.toString());
+    }
+
     //设置用户登录认证方式
     public void setUserLoginAuthType(String userId, int authType) throws ParamParserException, AESCryptoException, HttpRequestException {
         if(Helper.isEmpty(userId)){
@@ -1012,9 +1033,12 @@ public class OrgClient {
     private String uriGetEnableState(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_USER_GET_ENABLE_STATE,this.tokenClient.getToken(), userId);
     }
-
     private String uriReplaceAll() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_ORT_REPLACEALL,this.tokenClient.getToken());
+    }
+	
+	private String uriUpdateChangePwdSwitch() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_USER_CHANGE_PASSWORD_SWITCH_UPDATE,this.tokenClient.getToken());
     }
 
     private String uriXmlSync() throws  ParamParserException, HttpRequestException, AESCryptoException {
