@@ -217,6 +217,12 @@ public class OrgClientTest extends TestCase {
         System.out.println("set user auth ok");
     }
 
+    //设置下次登录修改密码开关
+    public void testSetChangePwdSwitch() throws ParamParserException, HttpRequestException, AESCryptoException, NoSuchAlgorithmException {
+        orgClient.setChangePwdSwitch("test1","1");
+        System.out.println("update change password switch ok");
+    }
+
     //设置用户登录认证方式
     public void testSetUserLoginAuthType() throws ParamParserException, HttpRequestException, AESCryptoException, NoSuchAlgorithmException {
         orgClient.setUserLoginAuthType("test1",Const.AuthType_Youdu); //设置为有度认证
