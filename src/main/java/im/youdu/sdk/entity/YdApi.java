@@ -57,6 +57,12 @@ public class YdApi {
 	public static final String API_USER_GET_ENABLE_STATE = "/cgi/user/enable/state";
 	public static final String API_USER_CHANGE_PASSWORD_SWITCH_UPDATE = "/cgi/user/extend/update";
 
+	//new add api 2023
+	public static final String API_USER_QUIT = "/cgi/user/quit";
+	public static final String API_USER_RESTORE = "/cgi/user/restore";
+	public static final String API_USER_QUIT_SEARCH = "/cgi/user/quit/search";
+    //new add api 2023
+
 	public static final String API_ORT_REPLACEALL = "/cgi/org/replaceall";
 	public static final String API_ORT_XMLSYNC = "/cgi/org/xmlsync";
 	public static final String API_JOB_RESULT = "/cgi/getjobresult";

@@ -1,8 +1,6 @@
 package im.youdu.sdk.client;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import im.youdu.sdk.encrypt.AESCrypto;
 import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
@@ -1060,6 +1058,181 @@ public class OrgClient {
     private String uriDownloadOrgSqliteFile(String fileId) throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s&fileId=%s", YdApi.SCHEME, this.host, YdApi.API_ORGFILE_DOWNLOAD, this.tokenClient.getToken(), fileId);
     }
+
+    /**
+     * 用户离职恢复
+     * account gid 二选一即可
+     * 默认 account 优先
+     * @param account  账号
+     * @param gid  用户GID
+     * @return string url
+     * @throws ParamParserException
+     * @throws HttpRequestException
+     * @throws AESCryptoException
+     */
+    public String userRestore(String account,int gid) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(account==null || account.trim().length() == 0 ) {
+            account = "";
+            if(gid== 0) {
+                throw new ParamParserException("用户离职恢复 param gid is 0",null);
+            }
+        }
+        //encrypt 内容
+        JsonObject obj = new JsonObject();
+        obj.addProperty("account",account);
+        obj.addProperty("buin", this.buin);
+        obj.addProperty("gid", gid);
+        String encrypt = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        //body 内容
+        JsonObject body = new JsonObject();
+        body.addProperty("buin", this.buin);
+        body.addProperty("appId", this.appId);
+        body.addProperty("encrypt", encrypt);
+
+        //请求
+        JsonObject request = Helper.postJson(this.uriUserRestore(), body.toString());
+        //响应
+        String response = Helper.getString("encrypt", request);
+        if (response.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(response);
+        String rsp = Helper.utf8String(rspBuffer);
+        if (rsp.equals("null") ){
+            return null;
+        }
+        if (rsp == null){
+            return null;
+        }
+        return "success";
+    }
+
+
+    /**
+     * 离职人员查询
+     * @param account 为空查询全部
+     * @return  success=成功  null=失败
+     * @throws ParamParserException
+     * @throws HttpRequestException
+     * @throws AESCryptoException
+     */
+    public UserInfo[] userQuitSearch(String account) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(account==null || account.trim().length() == 0) {
+            account = "";
+        }
+
+        //encrypt 内容
+        JsonObject obj = new JsonObject();
+        obj.addProperty("account", account);
+        obj.addProperty("buin", this.buin);
+        String encrypt = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+
+        //body 内容
+        JsonObject body = new JsonObject();
+        body.addProperty("buin", this.buin);
+        body.addProperty("appId", this.appId);
+        body.addProperty("encrypt", encrypt);
+
+        //请求
+        JsonObject request = Helper.postJson(this.uriUserQuitSearch(), body.toString());
+        //响应
+        String response = Helper.getString("encrypt", request);
+        if (response.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(response);
+        String rsp = Helper.utf8String(rspBuffer);
+        if (rsp.equals("null") ){
+            return null;
+        }
+        JsonArray ja =  new JsonParser().parse(rsp).getAsJsonArray();
+        if (ja == null || ja.size() ==0 ){
+            return null;
+        }
+        UserInfo users[] = new UserInfo[ja.size()];
+        JsonObject userObj= null;
+        UserInfo user = null;
+        for (int i = 0; i < ja.size(); i++) {
+            userObj = ja.get(i).getAsJsonObject();
+            user = new UserInfo();
+            user.setGid(Helper.getLong("gid", userObj));
+            user.setUserId(Helper.getString("account", userObj));
+            //userid == account
+            user.setName(Helper.getString("chsName", userObj));
+            user.setGender(Helper.getInt("gender", userObj));
+            user.setMobile(Helper.getString("mobile", userObj));
+            user.setPhone(Helper.getString("phone", userObj));
+            user.setEmail(Helper.getString("email", userObj));
+            users[i] = user;
+        }
+        return users;
+    }
+
+    //用户离职
+    public String  userQuit(String[] accList) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(accList==null || accList.length == 0) {
+            throw new ParamParserException("没有要离职的用户信息 param accList is null",null);
+        }
+
+        JsonArray userArray = new JsonArray();
+        for (int i = 0; i < accList.length; i++) {
+            userArray.add(accList[i]);
+        }
+        //encrypt 内容
+        JsonObject obj = new JsonObject();
+        obj.add("accList",userArray);
+        obj.addProperty("buin", this.buin);
+        String encrypt = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+
+        //body 内容
+        JsonObject body = new JsonObject();
+        body.addProperty("buin", this.buin);
+        body.addProperty("appId", this.appId);
+        body.addProperty("encrypt", encrypt);
+
+        //请求
+        JsonObject request = Helper.postJson(this.uriUserQuit(), body.toString());
+        //响应
+        String response = Helper.getString("encrypt", request);
+        if (response.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(response);
+        String rsp = Helper.utf8String(rspBuffer);
+        if (rsp.equals("null") ){
+            return null;
+        }
+        if (rsp == null){
+            return null;
+        }
+        return "success";
+
+    }
+
+    private String uriUserQuitSearch() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s",
+                YdApi.SCHEME,
+                this.host,
+                YdApi.API_USER_QUIT_SEARCH,
+                this.tokenClient.getToken());
+    }
+
+    private String uriUserQuit() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s",
+                YdApi.SCHEME,
+                this.host,
+                YdApi.API_USER_QUIT,
+                this.tokenClient.getToken());
+    }
+
+    private String uriUserRestore() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s",
+                YdApi.SCHEME,
+                this.host,
+                YdApi.API_USER_RESTORE,
+                this.tokenClient.getToken());
+    }
+
 
     //------------------------------------------------------------------------------------------------------------------
 

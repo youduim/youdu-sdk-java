@@ -1,5 +1,7 @@
 package im.youdu.sdk.client;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
 import im.youdu.sdk.exception.FileIOException;
@@ -22,6 +24,29 @@ public class OrgClientTest extends TestCase {
     private static final String APP_AESKEY = "2EvoXA9WGCbvrHJ/pcq2I/DAqdkw14buu9+Pzdh3ZIw="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
+
+    //用户离职恢复
+    public void testUserRestore() throws ParamParserException, HttpRequestException, AESCryptoException {
+        System.out.println(orgClient.userRestore("xiexiaoqian",0));
+    }
+
+    //离职人员查询
+    public void testUserQuitSearch() throws ParamParserException, HttpRequestException, AESCryptoException {
+        UserInfo[] users  = orgClient.userQuitSearch("dinghongyu");
+        Gson gson = new Gson();
+        if (users != null) {
+            for (int i = 0; i < users.length; i++) {
+                System.out.println(gson.toJson(users[i]));
+            }
+        }else{
+            System.out.println("select is null");
+        }
+    }
+
+    //人员离职
+    public void testUserQuit() throws ParamParserException, HttpRequestException, AESCryptoException {
+        System.out.println(orgClient.userQuit(new String[] {"xiexiaoqian"}));
+    }
 
     public OrgClientTest() throws Exception {
         YDApp app = new YDApp(BUIN, YDSERVER_HOST, "", APP_ID, "", APP_AESKEY);
@@ -98,8 +123,8 @@ public class OrgClientTest extends TestCase {
     //测试通过别名获取部门ID
     public void testGetDeptIdsByAlias() throws ParamParserException, HttpRequestException, AESCryptoException {
         String alias = "alias_test";
-       int deptId = orgClient.getDeptIdByAlias(alias);
-       System.out.println(String.format("get deptId by alias ok: %s,%d",alias,deptId) );
+        int deptId = orgClient.getDeptIdByAlias(alias);
+        System.out.println(String.format("get deptId by alias ok: %s,%d",alias,deptId) );
     }
 
     //测试获取所有有别名的部门ID列表
@@ -163,10 +188,10 @@ public class OrgClientTest extends TestCase {
         System.out.println("get userInfo ok:");
         System.out.println(user);
     }
-    
+
     //获取用户信息
     public void testGetUserInfoList() throws ParamParserException, HttpRequestException, AESCryptoException {
-    	long gidList[] = new long[] {100484};
+        long gidList[] = new long[] {100484};
         UserInfo[] users = orgClient.getUserInfoListByYdGid(gidList);
         if (users != null) {
             System.out.println("get userInfo ok:");
@@ -423,8 +448,8 @@ public class OrgClientTest extends TestCase {
         String fileId = "3d2452bca9d1c87b806d9c89bf74f934-6587";
         String saveDir = "D:\\youdu\\orgdb";
         try {
-                String filePath = orgClient.downloadOrgSqliteFile(fileId, saveDir, "");
-                System.out.println("download file ok: "+filePath);
+            String filePath = orgClient.downloadOrgSqliteFile(fileId, saveDir, "");
+            System.out.println("download file ok: "+filePath);
         } catch (ParamParserException e) {
             e.printStackTrace();
         } catch (HttpRequestException e) {
