@@ -10,6 +10,7 @@ import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.util.Helper;
 import im.youdu.sdk.util.JsonUtil;
 import im.youdu.sdk.util.ZipUtil;
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -1093,7 +1094,7 @@ public class OrgClient {
     }
 
     /**
-     * 用户离职恢复
+     * 用户离职恢复 仅支持v2023.2.5及以上版本
      * account gid 二选一即可
      * 默认 account 优先
      * @param account  账号
@@ -1142,9 +1143,9 @@ public class OrgClient {
 
 
     /**
-     * 离职人员查询
-     * @param account 为空查询全部
-     * @return  success=成功  null=失败
+     * 离职人员查询 仅支持v2023.2.5及以上版本
+     * @param account 账号 为空查询全部
+     * @return success=成功  null=失败
      * @throws ParamParserException
      * @throws HttpRequestException
      * @throws AESCryptoException
@@ -1201,10 +1202,17 @@ public class OrgClient {
         return users;
     }
 
-    //用户离职
+    /**
+     * 用户离职 仅支持v2023.2.5及以上版本
+     * @param accList 账号列表
+     * @return success=成功  null=失败
+     * @throws ParamParserException
+     * @throws HttpRequestException
+     * @throws AESCryptoException
+     */
     public String  userQuit(String[] accList) throws ParamParserException, HttpRequestException, AESCryptoException {
         if(accList==null || accList.length == 0) {
-            throw new ParamParserException("没有要离职的用户信息 param accList is null",null);
+            throw new ParamParserException("没有要离职的用户信息 param accList is null" ,null);
         }
 
         JsonArray userArray = new JsonArray();
@@ -1232,14 +1240,10 @@ public class OrgClient {
         }
         byte[] rspBuffer = this.crypto.decrypt(response);
         String rsp = Helper.utf8String(rspBuffer);
-        if (rsp.equals("null") ){
-            return null;
-        }
-        if (rsp == null){
+        if ("null".equals(rsp)){
             return null;
         }
         return "success";
-
     }
 
     private String uriUserQuitSearch() throws ParamParserException, HttpRequestException, AESCryptoException {
