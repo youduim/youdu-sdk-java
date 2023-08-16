@@ -83,7 +83,7 @@ public class AppClientTest extends TestCase {
     public void testSendLinkMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
         String receiveUsers = "test1|test2";
         String receiveDepts = "1|2|3";
-        LinkBody body = new LinkBody("https://youdu.im", "你好，有度！！",0);
+        LinkBody body = new LinkBody("https://youdu.cn", "你好，有度！！",0);
         appClient.sendLinkMsg(receiveUsers,receiveDepts,body);
     }
 
@@ -99,9 +99,9 @@ public class AppClientTest extends TestCase {
         String mediaId1 = appClient.uploadImage(imgName1,imgPath1);
         String mediaId2 = appClient.uploadImage(imgName2,imgPath2);
 
-        ExlinkBodyCell cell1 = new ExlinkBodyCell("有度","https://youdu.im","有度官网", mediaId1);
-        ExlinkBodyCell cell2 = new ExlinkBodyCell("有度下载","https://youdu.im/download.html","有度下载", mediaId2);
-        ExlinkBodyCell cell3 = new ExlinkBodyCell("有度帮助","https://youdu.im/docs.html","有度帮助", "");
+        ExlinkBodyCell cell1 = new ExlinkBodyCell("有度","https://youdu.cn","有度官网", mediaId1);
+        ExlinkBodyCell cell2 = new ExlinkBodyCell("有度下载","https://youdu.cn/download.html","有度下载", mediaId2);
+        ExlinkBodyCell cell3 = new ExlinkBodyCell("有度帮助","https://youdu.cn/docs.html","有度帮助", "");
         ExlinkBody body = new ExlinkBody();
         body.addCell(cell1);
         body.addCell(cell2);
@@ -153,7 +153,7 @@ public class AppClientTest extends TestCase {
         PopWindowInfo win = new PopWindowInfo();
         win.setToUser(receiveUsers);
         win.setToDept(receiveDepts);
-        win.setUrl("https://youdu.im"); //访问URL
+        win.setUrl("https://youdu.cn"); //访问URL
 //        win.setTip("欢迎登录有度即时通"); //弹提示框
         win.setTitle("有度即时通");//弹窗标题
         win.setWidth(500);

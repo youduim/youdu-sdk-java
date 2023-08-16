@@ -130,8 +130,8 @@ SDK类介绍
     digest：外链摘要
     mediaId: 外链需要显示的图片，可为空
     例如：
-    ExlinkBodyCell cell1 = new ExlinkBodyCell("有度","https://youdu.im","有度官网", "");
-    ExlinkBodyCell cell2 = new ExlinkBodyCell("有度下载","https://youdu.im/download.html","有度下载", "");
+    ExlinkBodyCell cell1 = new ExlinkBodyCell("有度","https://youdu.cn","有度官网", "");
+    ExlinkBodyCell cell2 = new ExlinkBodyCell("有度下载","https://youdu.cn/download.html","有度下载", "");
     ExlinkBody body = new ExlinkBody();
     body.addCell(cell1);
     body.addCell(cell2);
@@ -224,7 +224,7 @@ SDK类介绍
     SysMsgBody sysMsg = new SysMsgBody();
     sysMsg.setTitle("有度即时通"); //设置系统消息标题
     sysMsg.addTextBody("欢迎使用有度即时通："); //添加文字内容
-    sysMsg.addLinkBody("https://youdu.im","有度官网",0);//添加隐式链接
+    sysMsg.addLinkBody("https://youdu.cn","有度官网",0);//添加隐式链接
 ***
 
 ### IdentifyClient

@@ -25,7 +25,7 @@ public class SysMsgClientTest extends TestCase {
         SysMsgBody sysMsg = new SysMsgBody();
         sysMsg.setTitle("有度即时通");
         sysMsg.addTextBody("欢迎使用有度即时通：");
-        sysMsg.addLinkBody("https://www.youdu.im","有度官网",0);
+        sysMsg.addLinkBody("https://www.youdu.cn","有度官网",0);
         String receiveUsers = "test1|test2";
         String receiveDepts = "1|2|3";
         msgClient.sendSysMsg(receiveUsers,receiveDepts,sysMsg);
