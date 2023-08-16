@@ -211,6 +211,34 @@ public class OrgClient {
         return  list;
     }
 
+    /**
+     * 部门排序 仅支持v2023.3.1及以上版本
+     * @param behindDeptId  排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
+     * @param sourceDeptID 需要排序部门ID
+     * @return
+     * @throws AESCryptoException
+     * @throws ParamParserException
+     * @throws HttpRequestException
+     */
+    public String sortDept(int behindDeptId,int sourceDeptID) throws AESCryptoException, ParamParserException, HttpRequestException {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("id",sourceDeptID);
+        obj.addProperty("behindDeptId", behindDeptId);
+        String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
+        JsonObject param = new JsonObject();
+        param.addProperty("buin", this.buin);
+        param.addProperty("appId", this.appId);
+        param.addProperty("encrypt", cipherStr);
+        JsonObject jsonRsp = Helper.postJson(this.uriSortDept(), param.toString());
+        String encrypt = Helper.getString("encrypt", jsonRsp);
+        if (encrypt.isEmpty()) {
+            throw new ParamParserException("找不到返回结果的加密字段", null);
+        }
+        byte[] rspBuffer = this.crypto.decrypt(encrypt);
+        JsonObject jsonResult = Helper.parseJson(Helper.utf8String(rspBuffer));
+        return jsonResult.toString();
+    }
+
     //------------------------------------------------
     private String uriCreateDept() throws ParamParserException, HttpRequestException, AESCryptoException {
         return String.format("%s%s%s?accessToken=%s",YdApi.SCHEME,this.host,YdApi.API_DEPT_CREATE,this.tokenClient.getToken()) ;
@@ -247,6 +275,11 @@ public class OrgClient {
             return String.format("%s%s%s?accessToken=%s",YdApi.SCHEME,this.host,YdApi.API_DEPT_GETID,this.tokenClient.getToken()) ;
         }
     }
+
+    private String uriSortDept() throws ParamParserException, HttpRequestException, AESCryptoException {
+        return String.format("%s%s%s?accessToken=%s",YdApi.SCHEME,this.host,YdApi.API_DEPT_SORT,this.tokenClient.getToken()) ;
+    }
+
 
     //----------------------------------------------------------------------------------------------------------------------
     //创建用户

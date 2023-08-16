@@ -1,7 +1,6 @@
 package im.youdu.sdk.client;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
 import im.youdu.sdk.exception.FileIOException;
@@ -144,6 +143,15 @@ public class OrgClientTest extends TestCase {
         int deptId = 1;
         orgClient.deleteDept(deptId);
         System.out.println("delete dept with id "+deptId+" ok.");
+    }
+
+    //测试部门排序
+    public void testGroupSort() throws ParamParserException, HttpRequestException, AESCryptoException {
+        //排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
+        //behindDeptId  排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
+        //sourceDeptID 需要排序部门ID
+        String  msg =  orgClient.sortDept(10,12);
+        System.out.println("Sort group: "+msg);
     }
 
     //------------------------------------------------------------------------------------------------------------------
