@@ -10,11 +10,20 @@ public class UserInfo {
     private Integer gender = 0;
     private Integer enableState = 0;
     private int[] dept;
+    private String shortCode;
     private UserDeptPosition[] deptDetail;
 
     public UserInfo() {
     }
-    
+
+    public String getShortCode() {
+        return shortCode;
+    }
+
+    public void setShortCode(String shortCode) {
+        this.shortCode = shortCode;
+    }
+
     public Long getGid() {
     	return gid;
     }
@@ -97,6 +106,7 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return String.format("gid: %d;\nuserId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\n", this.gid, this.userId, this.gender, this.name, this.mobile, this.phone, this.email);
+        return String.format("gid: %d;\nuserId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\nshortCode: %s;\n",
+                this.gid, this.userId, this.gender, this.name, this.mobile, this.phone, this.email,this.shortCode);
     }
 }

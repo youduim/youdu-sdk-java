@@ -17,35 +17,14 @@ import java.util.List;
 import static im.youdu.sdk.entity.Const.*;
 
 public class OrgClientTest extends TestCase {
-    private static final int BUIN = 14797363; // 请填写企业总机号码
+    private static final int BUIN = 14710059; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "2EvoXA9WGCbvrHJ/pcq2I/DAqdkw14buu9+Pzdh3ZIw="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "Pz/D4PTT0kFm4tAsOXq8m2Y6MeiJBGQzH2wujfkrFP8="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
-    //用户离职恢复
-    public void testUserRestore() throws ParamParserException, HttpRequestException, AESCryptoException {
-        System.out.println(orgClient.userRestore("xiexiaoqian",0));
-    }
 
-    //离职人员查询
-    public void testUserQuitSearch() throws ParamParserException, HttpRequestException, AESCryptoException {
-        UserInfo[] users  = orgClient.userQuitSearch("dinghongyu");
-        Gson gson = new Gson();
-        if (users != null) {
-            for (int i = 0; i < users.length; i++) {
-                System.out.println(gson.toJson(users[i]));
-            }
-        }else{
-            System.out.println("select is null");
-        }
-    }
-
-    //人员离职
-    public void testUserQuit() throws ParamParserException, HttpRequestException, AESCryptoException {
-        System.out.println(orgClient.userQuit(new String[] {"xiexiaoqian"}));
-    }
 
     public OrgClientTest() throws Exception {
         YDApp app = new YDApp(BUIN, YDSERVER_HOST, "", APP_ID, "", APP_AESKEY);
@@ -71,6 +50,15 @@ public class OrgClientTest extends TestCase {
         dept.setAlias("abcd");
         orgClient.updateDept(dept);
         System.out.println("update dept with id "+deptId+" ok.");
+    }
+
+    //测试部门排序
+    public void testGroupSort() throws ParamParserException, HttpRequestException, AESCryptoException {
+        //排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
+        //behindDeptId  排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
+        //sourceDeptID 需要排序部门ID
+        String  msg =  orgClient.sortDept(3,1);
+        System.out.println("Sort group: "+msg);
     }
 
     //测试获取部门
@@ -145,15 +133,6 @@ public class OrgClientTest extends TestCase {
         System.out.println("delete dept with id "+deptId+" ok.");
     }
 
-    //测试部门排序
-    public void testGroupSort() throws ParamParserException, HttpRequestException, AESCryptoException {
-        //排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
-        //behindDeptId  排在那个部门的后面、传入这个部门的ID即可、0代表系统默认在目录结构的第一位
-        //sourceDeptID 需要排序部门ID
-        String  msg =  orgClient.sortDept(10,12);
-        System.out.println("Sort group: "+msg);
-    }
-
     //------------------------------------------------------------------------------------------------------------------
     //创建用户
     public void testCreateUser() throws ParamParserException, HttpRequestException, AESCryptoException {
@@ -163,6 +142,7 @@ public class OrgClientTest extends TestCase {
         user.setName("张三");
         user.setDept(new int[]{0});
         user.setEnableState(EnableState_Authorized);
+        user.setShortCode("66666");
         orgClient.createUser(user);
         System.out.println("create user ok: test1 张三");
     }
@@ -174,22 +154,60 @@ public class OrgClientTest extends TestCase {
         user.setGender(Const.Gender_Male);
         user.setName("李四");
         user.setPhone("13112345678");
+        user.setShortCode("7777");
         orgClient.updateUser(user);
         System.out.println("update user ok: test1 李四");
     }
 
-    //修改用户在某个部门下的职务信息
+    //修改用户在某个部门下的职务信息 - 更新用户部门职位信息
     public void testUpdateUserPosition() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserDeptPosition position = new UserDeptPosition();
         position.setUserId("test1");
         position.setDeptId(0);
         position.setPosition("工程师");
         position.setWeight(0);
-        position.setSortId(10);
+        position.setSortId(1);
         orgClient.updateUserPosition(position);
         System.out.println("update user dept position ok: test1 工程师");
     }
 
+    //修改用户在某个部门下的职务信息 - 删除职位
+    public void testUpdateDelUserPosition() throws ParamParserException, HttpRequestException, AESCryptoException {
+        UserDeptPosition position = new UserDeptPosition();
+        position.setUserId("test1");
+        position.setDeptId(0);
+        position.setPosition("");
+        orgClient.updateUserPosition(position);
+        System.out.println("del user dept position ok: test1 ");
+    }
+
+    //用户离职恢复 基于GID
+    public void testUserRestore() throws ParamParserException, HttpRequestException, AESCryptoException {
+        System.out.println(orgClient.userRestore(100356));
+    }
+
+    //用户离职恢复 基于用户ID account/userid
+    public void testUserRestoreForUserid() throws ParamParserException, HttpRequestException, AESCryptoException {
+        System.out.println(orgClient.userRestoreForUserid("test1"));
+    }
+
+    //离职人员查询 account 为空查询全部
+    public void testUserQuitSearch() throws ParamParserException, HttpRequestException, AESCryptoException {
+        UserInfo[] users  =    orgClient.userQuitSearch("");
+        Gson gson = new Gson();
+        if (users != null) {
+            for (int i = 0; i < users.length; i++) {
+                System.out.println(gson.toJson(users[i]));
+            }
+        }else{
+            System.out.println("select is null");
+        }
+    }
+
+    //人员离职
+    public void testUserQuit() throws ParamParserException, HttpRequestException, AESCryptoException {
+        System.out.println(orgClient.userQuit(new String[] {"xiexiaoqian"}));
+    }
     //获取用户信息
     public void testGetUserInfo() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserInfo user = orgClient.getUserInfo("test1");

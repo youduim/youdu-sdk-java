@@ -10,7 +10,6 @@ import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.util.Helper;
 import im.youdu.sdk.util.JsonUtil;
 import im.youdu.sdk.util.ZipUtil;
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -317,6 +316,10 @@ public class OrgClient {
         if(null != user.getEmail()){
             obj.addProperty("email", user.getEmail());
         }
+        if(null != user.getShortCode()) {
+            obj.addProperty("shortCode", user.getShortCode());
+        }
+
         String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
 
         JsonObject param = new JsonObject();
@@ -355,6 +358,10 @@ public class OrgClient {
         }
         if(null != user.getEmail()){
             obj.addProperty("email", user.getEmail());
+        }
+
+        if(null != user.getShortCode()) {
+            obj.addProperty("shortCode", user.getShortCode());
         }
         String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
 
@@ -1094,18 +1101,42 @@ public class OrgClient {
     }
 
     /**
-     * 用户离职恢复 仅支持v2023.2.5及以上版本
-     * account gid 二选一即可
-     * 默认 account 优先
-     * @param account  账号
+     * 用户离职恢复byUserId 仅支持v2023.3.1及以上版本
+     * @param userId  用户ID
+     * @return string url
+     * @throws ParamParserException
+     * @throws HttpRequestException
+     * @throws AESCryptoException
+     */
+    public String userRestoreForUserid(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
+         return this.userRestoreSub(userId, 0);
+    }
+
+    /**
+     * 用户离职恢复byGID 仅支持v2023.2.5及以上版本
      * @param gid  用户GID
      * @return string url
      * @throws ParamParserException
      * @throws HttpRequestException
      * @throws AESCryptoException
      */
-    public String userRestore(String account,int gid) throws ParamParserException, HttpRequestException, AESCryptoException {
-        if(account==null || account.trim().length() == 0 ) {
+    public String userRestore(int gid) throws ParamParserException, HttpRequestException, AESCryptoException {
+        return this.userRestoreSub(null, gid);
+    }
+
+    /**
+     * 用户离职/恢复 仅支持v2023.2.5及以上版本
+     * account gid 二选一即可
+     * 默认 account 优先
+     * @param account  账号 仅支持v2023.3.1及以上版本
+     * @param gid  用户GID
+     * @return string url
+     * @throws ParamParserException
+     * @throws HttpRequestException
+     * @throws AESCryptoException
+     */
+    protected String userRestoreSub(String account,int gid) throws ParamParserException, HttpRequestException, AESCryptoException {
+        if(account == null || account.trim().length() == 0 ) {
             account = "";
             if(gid== 0) {
                 throw new ParamParserException("用户离职恢复 param gid is 0",null);
@@ -1132,15 +1163,11 @@ public class OrgClient {
         }
         byte[] rspBuffer = this.crypto.decrypt(response);
         String rsp = Helper.utf8String(rspBuffer);
-        if (rsp.equals("null") ){
-            return null;
-        }
-        if (rsp == null){
+        if ("null".equals(rsp)){
             return null;
         }
         return "success";
     }
-
 
     /**
      * 离职人员查询 仅支持v2023.2.5及以上版本
@@ -1169,21 +1196,30 @@ public class OrgClient {
 
         //请求
         JsonObject request = Helper.postJson(this.uriUserQuitSearch(), body.toString());
-        //响应
-        String response = Helper.getString("encrypt", request);
-        if (response.isEmpty()) {
-            throw new ParamParserException("找不到返回结果的加密字段", null);
+
+        JsonArray ja = null;
+        if(Helper.getString("userList", request).isEmpty()) {
+            //响应
+            String response = Helper.getString("encrypt", request);
+
+            if (response.isEmpty()) {
+                throw new ParamParserException("找不到返回结果的加密字段", null);
+            }
+            byte[] rspBuffer = this.crypto.decrypt(response);
+            String rsp = Helper.utf8String(rspBuffer);
+            if (rsp.equals("null") ){
+                return null;
+            }
+            ja =  new JsonParser().parse(rsp).getAsJsonArray();
+        }else{
+            //兼容2023.1.5
+            ja = request.getAsJsonArray("userList");
         }
-        byte[] rspBuffer = this.crypto.decrypt(response);
-        String rsp = Helper.utf8String(rspBuffer);
-        if (rsp.equals("null") ){
-            return null;
-        }
-        JsonArray ja =  new JsonParser().parse(rsp).getAsJsonArray();
+
         if (ja == null || ja.size() ==0 ){
             return null;
         }
-        UserInfo users[] = new UserInfo[ja.size()];
+        UserInfo[] users = new UserInfo[ja.size()];
         JsonObject userObj= null;
         UserInfo user = null;
         for (int i = 0; i < ja.size(); i++) {
