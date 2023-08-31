@@ -30,13 +30,14 @@ public class GroupClient {
         this.appId = app.getAppId();
         this.appAeskey = app.getAppAesKey();
         this.crypto = new AESCrypto(appId, appAeskey);
-        this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
+        this.tokenClient = new AppTokenClient(buin, host, appId, appAeskey);
     }
-//----------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------------------------------
     //创建群
     public String createGroup(String groupName) throws ParamParserException, AESCryptoException, HttpRequestException {
-        if(null == groupName || "".equals(groupName.trim())){
-            throw new ParamParserException("groupName is null",null);
+        if (null == groupName || "".equals(groupName.trim())) {
+            throw new ParamParserException("groupName is null", null);
         }
 
         JsonObject obj = new JsonObject();
@@ -54,25 +55,22 @@ public class GroupClient {
         }
         byte[] rspBuffer = this.crypto.decrypt(encrypt);
         JsonObject jsonResult = Helper.parseJson(Helper.utf8String(rspBuffer));
-        String groupId = Helper.getString("id", jsonResult);
-        return groupId;
+        return Helper.getString("id", jsonResult);
     }
 
     //列出所有群
     public List<GroupBase> listAllGroups() throws ParamParserException, HttpRequestException, AESCryptoException {
         String url = this.uriListGroup("");
-        List<GroupBase> groups = doGroupList(url);
-        return  groups;
+        return doGroupList(url);
     }
 
     //列出用户所在的群
     public List<GroupBase> listUserGroups(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
-        if(null == userId || "".equals(userId.trim())){
-            throw new ParamParserException("userId is null",null);
+        if (null == userId || "".equals(userId.trim())) {
+            throw new ParamParserException("userId is null", null);
         }
         String url = this.uriListGroup(userId);
-        List<GroupBase> groups = doGroupList(url);
-        return  groups;
+        return doGroupList(url);
     }
 
     private List<GroupBase> doGroupList(String url) throws ParamParserException, HttpRequestException, AESCryptoException {
@@ -81,25 +79,25 @@ public class GroupClient {
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
 
-        JsonArray jGroupArray =  Helper.getArray("groupList", jsonObj);
+        JsonArray jGroupArray = Helper.getArray("groupList", jsonObj);
         List<GroupBase> groups = new ArrayList<GroupBase>();
-        for(JsonElement e : jGroupArray){
-            if(!e.isJsonObject()){
+        for (JsonElement e : jGroupArray) {
+            if (!e.isJsonObject()) {
                 continue;
             }
             JsonObject jGroup = e.getAsJsonObject();
             GroupBase group = new GroupBase();
-            group.setId(Helper.getString("id",jGroup));
-            group.setName(Helper.getString("name",jGroup));
+            group.setId(Helper.getString("id", jGroup));
+            group.setName(Helper.getString("name", jGroup));
             groups.add(group);
         }
-        return  groups;
+        return groups;
     }
 
     //删除群
     public void deleteGroup(String groupId) throws ParamParserException, AESCryptoException, HttpRequestException, UnsupportedEncodingException {
-        if(null == groupId || "".equals(groupId.trim())){
-            throw new ParamParserException("groupId is null",null);
+        if (null == groupId || "".equals(groupId.trim())) {
+            throw new ParamParserException("groupId is null", null);
         }
         String url = uriDeleteGroup(groupId);
         Helper.getUrlV1(url);
@@ -107,11 +105,11 @@ public class GroupClient {
 
     //修改群名称
     public void updateGroupName(String groupId, String groupName) throws ParamParserException, AESCryptoException, HttpRequestException {
-        if(null == groupId || "".equals(groupId.trim())){
-            throw new ParamParserException("groupId is null",null);
+        if (null == groupId || "".equals(groupId.trim())) {
+            throw new ParamParserException("groupId is null", null);
         }
-        if(null == groupName || "".equals(groupName.trim())){
-            throw new ParamParserException("groupName is null",null);
+        if (null == groupName || "".equals(groupName.trim())) {
+            throw new ParamParserException("groupName is null", null);
         }
 
         JsonObject obj = new JsonObject();
@@ -128,44 +126,44 @@ public class GroupClient {
 
     //获取群信息
     public Group groupInfo(String groupId) throws ParamParserException, HttpRequestException, AESCryptoException, UnsupportedEncodingException {
-        if(null == groupId || "".equals(groupId.trim())){
-            throw new ParamParserException("groupId is null",null);
+        if (null == groupId || "".equals(groupId.trim())) {
+            throw new ParamParserException("groupId is null", null);
         }
 
         String url = uriGroupInfo(groupId);
-        JsonObject jsonRsp =  Helper.getUrlV2(url);
+        JsonObject jsonRsp = Helper.getUrlV2(url);
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
         Group group = new Group();
-        group.setId(Helper.getString("id",jsonObj));
-        group.setName(Helper.getString("name",jsonObj));
-        group.setAdmin(Helper.getString("admin",jsonObj));
-        JsonArray jMemberArray =  Helper.getArray("members", jsonObj);
-        if(null == jMemberArray || jMemberArray.size()==0){
-            return  group;
+        group.setId(Helper.getString("id", jsonObj));
+        group.setName(Helper.getString("name", jsonObj));
+        group.setAdmin(Helper.getString("admin", jsonObj));
+        JsonArray jMemberArray = Helper.getArray("members", jsonObj);
+        if (null == jMemberArray || jMemberArray.size() == 0) {
+            return group;
         }
 
         List<GroupMember> mems = new ArrayList<GroupMember>();
-        for(JsonElement e : jMemberArray){
-            if(!e.isJsonObject()){
+        for (JsonElement e : jMemberArray) {
+            if (!e.isJsonObject()) {
                 continue;
             }
             JsonObject jMem = e.getAsJsonObject();
             GroupMember mem = new GroupMember();
-            mem.setAccount(Helper.getString("account",jMem));
-            mem.setName(Helper.getString("name",jMem));
-            mem.setMobile(Helper.getString("mobile",jMem));
+            mem.setAccount(Helper.getString("account", jMem));
+            mem.setName(Helper.getString("name", jMem));
+            mem.setMobile(Helper.getString("mobile", jMem));
             mems.add(mem);
         }
         group.setMembers(mems);
-        return  group;
+        return group;
     }
 
     //添加群成员
     public void addGroupMember(String groupId, String[] addUserList) throws ParamParserException, AESCryptoException, HttpRequestException {
-        if(null == addUserList || addUserList.length == 0){
-            throw new ParamParserException("addUserList is null",null);
+        if (null == addUserList || addUserList.length == 0) {
+            throw new ParamParserException("addUserList is null", null);
         }
 
         JsonArray array = new JsonArray();
@@ -186,8 +184,8 @@ public class GroupClient {
 
     //删除群成员
     public void delGroupMember(String groupId, String[] delUserList) throws ParamParserException, AESCryptoException, HttpRequestException {
-        if(null == delUserList || delUserList.length == 0){
-            throw new ParamParserException("delUserList is null",null);
+        if (null == delUserList || delUserList.length == 0) {
+            throw new ParamParserException("delUserList is null", null);
         }
 
         JsonArray array = new JsonArray();
@@ -208,56 +206,55 @@ public class GroupClient {
 
     //是否群成员
     public boolean isGroupMember(String groupId, String userId) throws ParamParserException, UnsupportedEncodingException, HttpRequestException, AESCryptoException {
-        if(null == groupId || "".equals(groupId.trim())){
-            throw new ParamParserException("groupId is null",null);
+        if (null == groupId || "".equals(groupId.trim())) {
+            throw new ParamParserException("groupId is null", null);
         }
-        if(null == userId || "".equals(userId.trim())){
-            throw new ParamParserException("userId is null",null);
+        if (null == userId || "".equals(userId.trim())) {
+            throw new ParamParserException("userId is null", null);
         }
 
-        String url = uriIsGroupMember(groupId,userId);
-        JsonObject jsonRsp =  Helper.getUrlV2(url);
+        String url = uriIsGroupMember(groupId, userId);
+        JsonObject jsonRsp = Helper.getUrlV2(url);
         String cipherRsp = jsonRsp.get("encrypt").getAsString();
         byte[] decryptRsp = this.crypto.decrypt(cipherRsp);
         JsonObject jsonObj = Helper.parseJson(new String(decryptRsp));
-        boolean belong = jsonObj.get("belong").getAsBoolean();
-        return belong;
+        return jsonObj.get("belong").getAsBoolean();
     }
 
-//----------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------
     private String uriCreateGroup() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_CREATE,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_CREATE, this.tokenClient.getToken());
     }
 
     private String uriDeleteGroup(String groupId) throws ParamParserException, HttpRequestException, AESCryptoException, UnsupportedEncodingException {
-        return String.format("%s%s%s?accessToken=%s&id=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_DELETE,this.tokenClient.getToken(), URLEncoder.encode(groupId,"utf-8")) ;
+        return String.format("%s%s%s?accessToken=%s&id=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_DELETE, this.tokenClient.getToken(), URLEncoder.encode(groupId, "utf-8"));
     }
 
     private String uriUpdateGroup() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_UPDATE,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_UPDATE, this.tokenClient.getToken());
     }
 
     private String uriGroupInfo(String groupId) throws ParamParserException, HttpRequestException, AESCryptoException, UnsupportedEncodingException {
-        return String.format("%s%s%s?accessToken=%s&id=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_INFO,this.tokenClient.getToken(), URLEncoder.encode(groupId,"utf-8")) ;
+        return String.format("%s%s%s?accessToken=%s&id=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_INFO, this.tokenClient.getToken(), URLEncoder.encode(groupId, "utf-8"));
     }
 
     private String uriListGroup(String userId) throws ParamParserException, HttpRequestException, AESCryptoException {
-        if(null == userId || "".equals(userId)){
-            return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_LIST,this.tokenClient.getToken()) ;
+        if (null == userId || "".equals(userId)) {
+            return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_LIST, this.tokenClient.getToken());
         }
-        return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_LIST,this.tokenClient.getToken(),userId) ;
+        return String.format("%s%s%s?accessToken=%s&userId=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_LIST, this.tokenClient.getToken(), userId);
     }
 
     private String uriAddGroupMember() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_ADDMEMBER,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_ADDMEMBER, this.tokenClient.getToken());
     }
 
     private String uriDelGroupMember() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_DELMEMBER,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_DELMEMBER, this.tokenClient.getToken());
     }
 
     private String uriIsGroupMember(String groupId, String userId) throws ParamParserException, HttpRequestException, AESCryptoException, UnsupportedEncodingException {
-        groupId = URLEncoder.encode(groupId,"utf-8");
-        return String.format("%s%s%s?accessToken=%s&id=%s&userId=%s", YdApi.SCHEME,this.host,YdApi.API_GROUP_ISMEMBER,this.tokenClient.getToken(),groupId,userId) ;
+        groupId = URLEncoder.encode(groupId, "utf-8");
+        return String.format("%s%s%s?accessToken=%s&id=%s&userId=%s", YdApi.SCHEME, this.host, YdApi.API_GROUP_ISMEMBER, this.tokenClient.getToken(), groupId, userId);
     }
 }

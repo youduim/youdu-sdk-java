@@ -48,7 +48,7 @@ public class SessionClient {
         this.appId = app.getAppId();
         this.appAeskey = app.getAppAesKey();
         this.crypto = new AESCrypto(appId, appAeskey);
-        this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
+        this.tokenClient = new AppTokenClient(buin, host, appId, appAeskey);
     }
 
     //创建会话
@@ -67,8 +67,8 @@ public class SessionClient {
 
     //获取会话
     public SessionInfo getSession(String sessionId) throws HttpRequestException, UnsupportedEncodingException, AESCryptoException, ParamParserException {
-        if(null == sessionId || "".equals(sessionId.trim())){
-            throw new ParamParserException("sessionId is null",null);
+        if (null == sessionId || "".equals(sessionId.trim())) {
+            throw new ParamParserException("sessionId is null", null);
         }
 
         JsonObject jsonRsp = Helper.getUrlV2(uriGetSession(sessionId));
@@ -80,14 +80,14 @@ public class SessionClient {
 
     //修改会话标题
     public SessionInfo updateSessionTitle(String sessionId, String opUser, String title) throws ParamParserException, AESCryptoException, HttpRequestException {
-        if(null == sessionId || "".equals(sessionId.trim())){
-            throw new ParamParserException("title is null",null);
+        if (null == sessionId || "".equals(sessionId.trim())) {
+            throw new ParamParserException("title is null", null);
         }
-        if(null == opUser || "".equals(opUser.trim())){
-            throw new ParamParserException("opUser is null",null);
+        if (null == opUser || "".equals(opUser.trim())) {
+            throw new ParamParserException("opUser is null", null);
         }
-        if(null == title || "".equals(title.trim())){
-            throw new ParamParserException("title is null",null);
+        if (null == title || "".equals(title.trim())) {
+            throw new ParamParserException("title is null", null);
         }
         SessionUpdateBody body = new SessionUpdateBody();
         body.setSessionId(sessionId);
@@ -99,31 +99,31 @@ public class SessionClient {
     //修改会话
     public SessionInfo updateSession(SessionUpdateBody body) throws ParamParserException, AESCryptoException, HttpRequestException {
         String msg = body.checkForUpdate();
-        if(!"".equals(msg)){
-            throw new ParamParserException(msg,null);
+        if (!"".equals(msg)) {
+            throw new ParamParserException(msg, null);
         }
 
         JsonObject obj = new JsonObject();
         obj.addProperty("sessionId", body.getSessionId());
         obj.addProperty("opUser", body.getOpUser());
-        if(null != body.getTitle() && !"".equals(body.getTitle().trim())){
+        if (null != body.getTitle() && !"".equals(body.getTitle().trim())) {
             obj.addProperty("title", body.getTitle());
         }
         List<String> addMembers = body.getAddMember();
-        if(null != addMembers && addMembers.size()>0){
+        if (null != addMembers && addMembers.size() > 0) {
             JsonArray array = new JsonArray();
-            for(String mem : addMembers){
+            for (String mem : addMembers) {
                 array.add(mem);
             }
-            obj.add("addMember",array);
+            obj.add("addMember", array);
         }
         List<String> delMembers = body.getDelMember();
-        if(null != delMembers && delMembers.size()>0){
+        if (null != delMembers && delMembers.size() > 0) {
             JsonArray array = new JsonArray();
-            for(String mem : delMembers){
+            for (String mem : delMembers) {
                 array.add(mem);
             }
-            obj.add("delMember",array);
+            obj.add("delMember", array);
         }
         String cipherStr = this.crypto.encrypt(Helper.utf8Bytes(obj.toString()));
 
@@ -138,96 +138,98 @@ public class SessionClient {
         return readSessionFromJson(rspBody);
     }
 
-    private SessionInfo readSessionFromJson(JsonObject rspBody){
+    private SessionInfo readSessionFromJson(JsonObject rspBody) {
         SessionInfo sess = new SessionInfo();
-        sess.setSessionId(Helper.getString("sessionId",rspBody));
-        sess.setTitle(Helper.getString("title",rspBody));
-        sess.setOwner(Helper.getString("owner",rspBody));
-        sess.setVersion(Helper.getLong("version",rspBody));
-        sess.setType(Helper.getString("type",rspBody));
+        sess.setSessionId(Helper.getString("sessionId", rspBody));
+        sess.setTitle(Helper.getString("title", rspBody));
+        sess.setOwner(Helper.getString("owner", rspBody));
+        sess.setVersion(Helper.getLong("version", rspBody));
+        sess.setType(Helper.getString("type", rspBody));
         JsonArray array = Helper.getArray("member", rspBody);
-        if(null == array || array.size()==0){
-            return  sess;
+        if (null == array || array.size() == 0) {
+            return sess;
         }
 
         List<String> mems = new ArrayList<String>();
-        for(JsonElement e:array){
+        for (JsonElement e : array) {
             mems.add(e.getAsString());
         }
         sess.setMember(mems);
-        return  sess;
+        return sess;
     }
-//----------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------------------------------
     private String uriCreateSession() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_SESSION_CREATE,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_SESSION_CREATE, this.tokenClient.getToken());
     }
 
     private String uriGetSession(String sessionId) throws ParamParserException, HttpRequestException, AESCryptoException, UnsupportedEncodingException {
-        return String.format("%s%s%s?accessToken=%s&sessionId=%s", YdApi.SCHEME,this.host,YdApi.API_SESSION_GET,this.tokenClient.getToken(), URLEncoder.encode(sessionId,"utf-8")) ;
+        return String.format("%s%s%s?accessToken=%s&sessionId=%s", YdApi.SCHEME, this.host, YdApi.API_SESSION_GET, this.tokenClient.getToken(), URLEncoder.encode(sessionId, "utf-8"));
     }
 
     private String uriUpdateSession() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_SESSION_UPDATE,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_SESSION_UPDATE, this.tokenClient.getToken());
     }
-//----------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------------------------------
     //发送单人会话文字消息
     public void sendSingleTextMsg(String fromUser, String toUser, String content) throws AESCryptoException, ParamParserException, HttpRequestException {
         TextBody text = new TextBody(content);
-        sendSingleMsg(fromUser,toUser,MessageTypeText,text);
+        sendSingleMsg(fromUser, toUser, MessageTypeText, text);
     }
 
     //发送单人会话图片消息
     public void sendSingleImgMsg(String fromUser, String toUser, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String imgId = appClient.uploadImage("",imgPath);
-        sendSingleImgMsgWithMediaId(fromUser,toUser,imgId);
+        String imgId = appClient.uploadImage("", imgPath);
+        sendSingleImgMsgWithMediaId(fromUser, toUser, imgId);
     }
 
     //发送单人会话图片消息
     public void sendSingleImgMsgWithMediaId(String fromUser, String toUser, String imgId) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         ImageBody img = new ImageBody(imgId);
-        sendSingleMsg(fromUser,toUser,MessageTypeImage,img);
+        sendSingleMsg(fromUser, toUser, MessageTypeImage, img);
     }
 
     //发送单人会话文件消息
     public void sendSingleFileMsg(String fromUser, String toUser, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String fileId = appClient.uploadFile("",filePath);
-        sendSingleFileMsgWithFileId(fromUser,toUser,fileId);
+        String fileId = appClient.uploadFile("", filePath);
+        sendSingleFileMsgWithFileId(fromUser, toUser, fileId);
     }
 
     //发送单人会话文件消息
     public void sendSingleFileMsgWithFileId(String fromUser, String toUser, String fileId) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
         FileBody f = new FileBody(fileId);
-        sendSingleMsg(fromUser,toUser,MessageTypeFile,f);
+        sendSingleMsg(fromUser, toUser, MessageTypeFile, f);
     }
 
     //发送单人会话语音消息
     public void sendSingleVoiceMsg(String fromUser, String toUser, byte[] voiceData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String id = appClient.uploadVoice ("voice.dat",voiceData);
+        String id = appClient.uploadVoice("voice.dat", voiceData);
         AudioBody audio = new AudioBody(id);
-        sendSingleMsg(fromUser,toUser,MessageTypeVoice,audio);
+        sendSingleMsg(fromUser, toUser, MessageTypeVoice, audio);
     }
 
     //发送单人会话视频消息
     public void sendSingleVideoMsg(String fromUser, String toUser, byte[] videoData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String id = appClient.uploadVideo ("video.dat",videoData);
+        String id = appClient.uploadVideo("video.dat", videoData);
         VideoBody video = new VideoBody(id);
-        sendSingleMsg(fromUser,toUser,MessageTypeVideo,video);
+        sendSingleMsg(fromUser, toUser, MessageTypeVideo, video);
     }
 
     private void sendSingleMsg(String fromUser, String toUser, String msgType, MessageBody body) throws ParamParserException, HttpRequestException, AESCryptoException {
@@ -248,65 +250,65 @@ public class SessionClient {
     //发送多人会话图片消息
     public void sendSessionTextMsg(String fromUser, String sessionId, String content) throws ParamParserException, HttpRequestException, AESCryptoException {
         TextBody text = new TextBody(content);
-        sendSessionMsg(fromUser,sessionId,MessageTypeText,text);
+        sendSessionMsg(fromUser, sessionId, MessageTypeText, text);
     }
 
     //发送多人会话图片消息
     public void sendSessionImgMsg(String fromUser, String sessionId, String imgPath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String imgId = appClient.uploadImage("",imgPath);
-        sendSessionImgMsgWithImgId(fromUser,sessionId,imgId);
+        String imgId = appClient.uploadImage("", imgPath);
+        sendSessionImgMsgWithImgId(fromUser, sessionId, imgId);
     }
 
     //发送多人会话图片消息
     public void sendSessionImgMsgWithImgId(String fromUser, String sessionId, String imgId) throws AESCryptoException, ParamParserException, HttpRequestException {
         ImageBody img = new ImageBody(imgId);
-        sendSessionMsg(fromUser,sessionId,MessageTypeImage,img);
+        sendSessionMsg(fromUser, sessionId, MessageTypeImage, img);
     }
 
     //发送多人会话文件消息
     public void sendSessionFileMsg(String fromUser, String sessionId, String filePath) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String fileId = appClient.uploadFile("",filePath);
-        sendSessionFileMsgWithFileId(fromUser,sessionId,fileId);
+        String fileId = appClient.uploadFile("", filePath);
+        sendSessionFileMsgWithFileId(fromUser, sessionId, fileId);
     }
 
     //发送多人会话文件消息
     public void sendSessionFileMsgWithFileId(String fromUser, String sessionId, String fileId) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
         FileBody f = new FileBody(fileId);
-        sendSessionMsg(fromUser,sessionId,MessageTypeFile,f);
+        sendSessionMsg(fromUser, sessionId, MessageTypeFile, f);
     }
 
     //发送多人会话语音消息
     public void sendSessionVoiceMsg(String fromUser, String sessionId, byte[] voiceData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String id = appClient.uploadFileWithBytes ("voice.dat",voiceData);
+        String id = appClient.uploadFileWithBytes("voice.dat", voiceData);
         AudioBody audio = new AudioBody(id);
-        sendSessionMsg(fromUser,sessionId,MessageTypeVoice,audio);
+        sendSessionMsg(fromUser, sessionId, MessageTypeVoice, audio);
     }
 
     //发送多人会话视频消息
     public void sendSessionVideoMsg(String fromUser, String sessionId, byte[] videoData) throws AESCryptoException, ParamParserException, HttpRequestException, FileIOException {
-        if(null == appClient){
+        if (null == appClient) {
             appClient = new AppClient(app);
             appClient.setTokenClient(tokenClient);
         }
-        String id = appClient.uploadFileWithBytes ("video.dat",videoData);
+        String id = appClient.uploadFileWithBytes("video.dat", videoData);
         VideoBody video = new VideoBody(id);
-        sendSessionMsg(fromUser,sessionId,MessageTypeVideo,video);
+        sendSessionMsg(fromUser, sessionId, MessageTypeVideo, video);
     }
 
     private void sendSessionMsg(String fromUser, String sessionId, String msgType, MessageBody body) throws ParamParserException, HttpRequestException, AESCryptoException {
@@ -323,15 +325,18 @@ public class SessionClient {
         Helper.postJson(this.uriSendMsg(), param.toString());
     }
 
-//----------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------
     private String uriSendMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_SESSION_SEND_MSG,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_SESSION_SEND_MSG, this.tokenClient.getToken());
     }
 
     /**
      * 下载会话消息的zip文件并保存到dir目录
-     * @param fileId zip文件id
-     * @param dir 保存目录
+     *
+     * @param fileId
+     *         zip文件id
+     * @param dir
+     *         保存目录
      * @return
      * @throws IOException
      * @throws HttpRequestException
@@ -353,7 +358,8 @@ public class SessionClient {
     /**
      * 下载会话消息的zip文件
      *
-     * @param fileId zip文件Id
+     * @param fileId
+     *         zip文件Id
      * @return
      * @throws HttpRequestException
      * @throws FileIOException

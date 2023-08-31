@@ -265,18 +265,18 @@ public class AppClient {
     }
 
     private byte[] decryptFileData(HttpEntity rspEntity) throws FileIOException, ParamParserException, AESCryptoException {
-            InputStream in = null;
-            try {
-                in = rspEntity.getContent();
-                byte[] encryptBuffer = Helper.readInputStream(in);
-                String encryptContent = Helper.utf8String(encryptBuffer);
-                byte[] fileContent = this.crypto.decrypt(encryptContent);
-                return fileContent;
-            } catch (IOException e) {
-                throw new FileIOException(e.getMessage(), e);
-            } finally {
-                Helper.close(in);
-            }
+        InputStream in = null;
+        try {
+            in = rspEntity.getContent();
+            byte[] encryptBuffer = Helper.readInputStream(in);
+            String encryptContent = Helper.utf8String(encryptBuffer);
+            byte[] fileContent = this.crypto.decrypt(encryptContent);
+            return fileContent;
+        } catch (IOException e) {
+            throw new FileIOException(e.getMessage(), e);
+        } finally {
+            Helper.close(in);
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -681,7 +681,7 @@ public class AppClient {
         return auth;
     }
 
-//----------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------
     public int getBuin() {
         return buin;
     }

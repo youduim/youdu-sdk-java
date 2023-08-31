@@ -26,12 +26,12 @@ public class MailMsgClient {
         this.host = host;
         this.appAeskey = exmailAppAESKey;
         this.crypto = new AESCrypto(appId, appAeskey);
-        this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
+        this.tokenClient = new AppTokenClient(buin, host, appId, appAeskey);
     }
 
 
     public void sendMailMsg(String toUser, String toEmail, EmailBody emailMsg) throws ParamParserException, HttpRequestException, AESCryptoException {
-        Message msg = new Message(toUser, "",toEmail, MessageTypeMail, emailMsg);
+        Message msg = new Message(toUser, "", toEmail, MessageTypeMail, emailMsg);
         String cipherText = this.crypto.encrypt(Helper.utf8Bytes(msg.toJson()));
         JsonObject param = new JsonObject();
         param.addProperty("buin", this.buin);
@@ -45,7 +45,7 @@ public class MailMsgClient {
         emailMsg.setAction(Const.Mail_Msg_Unread);
         emailMsg.setUnreadCount(unreadCount);
         emailMsg.setTimex(timex);
-        Message msg = new Message(toUser, "",toEmail, MessageTypeMail, emailMsg);
+        Message msg = new Message(toUser, "", toEmail, MessageTypeMail, emailMsg);
         String cipherText = this.crypto.encrypt(Helper.utf8Bytes(msg.toJson()));
         JsonObject param = new JsonObject();
         param.addProperty("buin", this.buin);
@@ -55,6 +55,6 @@ public class MailMsgClient {
     }
 
     private String uriSendMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_APP_SEND_MSG, this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_APP_SEND_MSG, this.tokenClient.getToken());
     }
 }

@@ -29,18 +29,24 @@ public class SysMsgClient {
         this.appId = app.getAppId();
         this.appAeskey = app.getAppAesKey();
         this.crypto = new AESCrypto(appId, appAeskey);
-        this.tokenClient = new AppTokenClient(buin,host,appId,appAeskey);
+        this.tokenClient = new AppTokenClient(buin, host, appId, appAeskey);
     }
 
     /**
      * 发送系统消息
      *
-     * @param toUser 接收消息的用户
-     * @param toDept 接收消息的部门
-     * @param sysMsg 系统消息对象
-     * @throws AESCryptoException 加解密失败
-     * @throws ParamParserException 参数解析失败
-     * @throws HttpRequestException http请求失败
+     * @param toUser
+     *         接收消息的用户
+     * @param toDept
+     *         接收消息的部门
+     * @param sysMsg
+     *         系统消息对象
+     * @throws AESCryptoException
+     *         加解密失败
+     * @throws ParamParserException
+     *         参数解析失败
+     * @throws HttpRequestException
+     *         http请求失败
      */
     public void sendSysMsg(String toUser, String toDept, SysMsgBody sysMsg) throws ParamParserException, HttpRequestException, AESCryptoException {
         Message msg = new Message(toUser, toDept, MessageTypeSystem, sysMsg);
@@ -53,6 +59,6 @@ public class SysMsgClient {
     }
 
     private String uriSendMsg() throws ParamParserException, HttpRequestException, AESCryptoException {
-        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME,this.host,YdApi.API_APP_SEND_MSG,this.tokenClient.getToken()) ;
+        return String.format("%s%s%s?accessToken=%s", YdApi.SCHEME, this.host, YdApi.API_APP_SEND_MSG, this.tokenClient.getToken());
     }
 }

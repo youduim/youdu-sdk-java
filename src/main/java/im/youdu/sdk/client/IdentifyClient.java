@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import im.youdu.sdk.entity.UserInfo;
 import im.youdu.sdk.entity.YdApi;
-import im.youdu.sdk.exception.AESCryptoException;
 import im.youdu.sdk.exception.HttpRequestException;
 import im.youdu.sdk.exception.ParamParserException;
 import im.youdu.sdk.exception.ServiceException;
@@ -18,10 +17,9 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
 import im.youdu.sdk.entity.Const;
-import im.youdu.sdk.util.Helper;
 
 public class IdentifyClient {
-    private String host;
+    private final String host;
 
     public IdentifyClient(String host) {
         this.host = host;
@@ -38,18 +36,18 @@ public class IdentifyClient {
             entity.getContent();
             JsonObject getResult = Helper.readHttpResponse(httpRsp);
             JsonElement status = getResult.get("status");
-            if(!status.isJsonObject()){
+            if (!status.isJsonObject()) {
                 throw new ParamParserException(Const.ErrMsg_MissSection_Status, null);
             }
             JsonObject statusObj = status.getAsJsonObject();
             int code = statusObj.get("code").getAsInt();
             this.parseStatusCode(code, statusObj.get("message").getAsString());
 
-            JsonElement jUserElememt = getResult.get("userInfo");
-            if(!jUserElememt.isJsonObject()){
+            JsonElement jUserElement = getResult.get("userInfo");
+            if (!jUserElement.isJsonObject()) {
                 throw new ParamParserException(Const.ErrMsg_MissSection_UserInfo, null);
             }
-            JsonObject jUserObj = jUserElememt.getAsJsonObject();
+            JsonObject jUserObj = jUserElement.getAsJsonObject();
             UserInfo userInfo = new UserInfo();
             userInfo.setGid(jUserObj.get(Const.UserInfo_Gid).getAsLong());
             userInfo.setUserId(jUserObj.get(Const.UserInfo_Account).getAsString());
@@ -61,27 +59,27 @@ public class IdentifyClient {
             return userInfo;
         } catch (IOException e) {
             throw new HttpRequestException(0, e.getMessage(), e);
-        }finally {
+        } finally {
             Helper.close(httpRsp);
             Helper.close(httpClient);
         }
     }
 
     private void parseStatusCode(int code, String msg) throws ServiceException {
-        if(code==0){
+        if (code == 0) {
             return;
         }
-        switch (code){
+        switch (code) {
             case 1:
-                throw new ServiceException("查找不到token对应的用户",null);
+                throw new ServiceException("查找不到token对应的用户", null);
             case 10:
-                throw new ServiceException("身份校验失败：错误的token或者token已过期",null);
-             default:
-                throw new ServiceException("其他错误："+msg,null);
+                throw new ServiceException("身份校验失败：错误的token或者token已过期", null);
+            default:
+                throw new ServiceException("其他错误：" + msg, null);
         }
     }
 
     private String uriIdentify(String token) {
-        return String.format("%s%s%s?token=%s", YdApi.SCHEME, this.host, YdApi.API_IDENTIFY,token);
+        return String.format("%s%s%s?token=%s", YdApi.SCHEME, this.host, YdApi.API_IDENTIFY, token);
     }
 }
