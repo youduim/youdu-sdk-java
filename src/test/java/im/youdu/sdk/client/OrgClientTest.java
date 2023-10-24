@@ -1,6 +1,7 @@
 package im.youdu.sdk.client;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import im.youdu.sdk.entity.*;
 import im.youdu.sdk.exception.AESCryptoException;
 import im.youdu.sdk.exception.FileIOException;
@@ -17,10 +18,10 @@ import java.util.List;
 import static im.youdu.sdk.entity.Const.*;
 
 public class OrgClientTest extends TestCase {
-    private static final int BUIN = 14710059; // 请填写企业总机号码
+    private static final int BUIN = 16106057; // 请填写企业总机号码
     private static final String YDSERVER_HOST = "127.0.0.1:7080"; // 请填写有度服务器地址
     private static final String APP_ID = "sysOrgAssistant"; // 请填写企业应用AppId
-    private static final String APP_AESKEY = "Pz/D4PTT0kFm4tAsOXq8m2Y6MeiJBGQzH2wujfkrFP8="; // 请填写企业应用的EncodingaesKey
+    private static final String APP_AESKEY = "4V5rJxZHYZxoC26mzpayxEXWj81YNx09igTBWfR4a3k="; // 请填写企业应用的EncodingaesKey
 
     private OrgClient orgClient;
 
@@ -143,6 +144,8 @@ public class OrgClientTest extends TestCase {
         user.setDept(new int[]{0});
         user.setEnableState(EnableState_Authorized);
         user.setShortCode("66666");
+        JsonArray attrs = UserAttr.buildArr(UserAttr.build("ttt", "ttt"));
+        user.setAttrs(attrs);
         orgClient.createUser(user);
         System.out.println("create user ok: test1 张三");
     }
@@ -150,13 +153,16 @@ public class OrgClientTest extends TestCase {
     //修改用户基本信息
     public void testUpdateUser() throws ParamParserException, HttpRequestException, AESCryptoException {
         UserInfo user = new UserInfo();
-        user.setUserId("test1");
+        user.setUserId("testyd");
         user.setGender(Const.Gender_Male);
-        user.setName("李四");
-        user.setPhone("13112345678");
-        user.setShortCode("7777");
+        user.setName("testyd");
+        user.setDept(new int[]{0});
+        user.setEnableState(EnableState_Authorized);
+        user.setShortCode("1234");
+        JsonArray attrs = UserAttr.buildArr(UserAttr.build("自定义1", "1234"));
+        user.setAttrs(attrs);
         orgClient.updateUser(user);
-        System.out.println("update user ok: test1 李四");
+        System.out.println("update user ok: testyd testyd");
     }
 
     //修改用户在某个部门下的职务信息 - 更新用户部门职位信息
@@ -210,8 +216,8 @@ public class OrgClientTest extends TestCase {
     }
     //获取用户信息
     public void testGetUserInfo() throws ParamParserException, HttpRequestException, AESCryptoException {
-        UserInfo user = orgClient.getUserInfo("test1");
-        System.out.println("get userInfo ok:");
+        UserInfo user = orgClient.getUserInfo("testyd");
+        System.out.print("get userInfo ok:");
         System.out.println(user);
     }
 

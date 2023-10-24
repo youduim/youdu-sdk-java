@@ -1,5 +1,9 @@
 package im.youdu.sdk.entity;
 
+import com.google.gson.JsonArray;
+
+import java.util.Arrays;
+
 public class UserInfo {
 	private Long gid = 0L;
     private String userId;
@@ -12,6 +16,7 @@ public class UserInfo {
     private int[] dept;
     private String shortCode;
     private UserDeptPosition[] deptDetail;
+    private JsonArray attrs;
 
     public UserInfo() {
     }
@@ -104,9 +109,29 @@ public class UserInfo {
         this.deptDetail = deptDetail;
     }
 
+    public JsonArray getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(JsonArray attrs) {
+        this.attrs = attrs;
+    }
+
     @Override
     public String toString() {
-        return String.format("gid: %d;\nuserId: %s;\ngender: %d;\nchsName: %s;\nmobile: %s;\nphone: %s;\nemail: %s;\nshortCode: %s;\n",
-                this.gid, this.userId, this.gender, this.name, this.mobile, this.phone, this.email,this.shortCode);
+        return "UserInfo{" +
+                "gid=" + gid +
+                ", userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", enableState=" + enableState +
+                ", dept=" + Arrays.toString(dept) +
+                ", shortCode='" + shortCode + '\'' +
+                ", deptDetail=" + Arrays.toString(deptDetail) +
+                ", attrs=" + attrs +
+                '}';
     }
 }

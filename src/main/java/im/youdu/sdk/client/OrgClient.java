@@ -303,6 +303,7 @@ public class OrgClient {
         obj.addProperty("name", user.getName());
         obj.addProperty("gender", user.getGender());
         obj.addProperty("enableState", user.getEnableState());
+        obj.add("attrs", user.getAttrs());
 
         JsonArray array = new JsonArray();
         int[] depts = user.getDept();
@@ -338,6 +339,7 @@ public class OrgClient {
             throw new ParamParserException("userId of user is null", null);
         }
         JsonObject obj = new JsonObject();
+        obj.add("attrs", user.getAttrs());
         obj.addProperty("userId", user.getUserId());
         if (null != user.getName()) {
             obj.addProperty("name", user.getName());
@@ -466,7 +468,8 @@ public class OrgClient {
             deptPositions[i] = position;
         }
         user.setDeptDetail(deptPositions);
-
+        JsonArray attrs = jsonObj.get("attrs").getAsJsonArray();
+        user.setAttrs(attrs);
         return user;
     }
 
